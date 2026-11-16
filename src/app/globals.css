@@ -9445,3 +9445,574 @@ body:has(> #main-content > section:first-of-type:is(.heroCinema, .wpInternalHero
     grid-template-columns: minmax(0, 1fr);
   }
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   BELGRADE ARBOR STYLE OVERRIDE LAYER
+   Premium editorial redesign — warm cream, champagne gold, cinematic hero,
+   serif display type, scroll-reveal animations, full-viewport sections.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── Scroll reveal animation ─────────────────────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity var(--motion-reveal), transform var(--motion-reveal);
+}
+
+.reveal.isVisible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal.revealDelay1 { transition-delay: 120ms; }
+.reveal.revealDelay2 { transition-delay: 240ms; }
+.reveal.revealDelay3 { transition-delay: 360ms; }
+.reveal.revealDelay4 { transition-delay: 480ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+}
+
+/* ── Global typography ───────────────────────────────────────────────────── */
+h1:not(.srOnly),
+h2:not(.srOnly),
+h3:not(.srOnly) {
+  font-family: var(--font-serif) !important;
+  font-weight: 400 !important;
+  letter-spacing: -0.01em !important;
+}
+
+h1:not(.srOnly) {
+  font-size: clamp(48px, 7.5vw, 104px) !important;
+  line-height: 1 !important;
+}
+
+h2:not(.srOnly) {
+  font-size: clamp(32px, 4vw, 56px) !important;
+  line-height: 1.1 !important;
+}
+
+h3:not(.srOnly) {
+  font-size: clamp(22px, 2.4vw, 32px) !important;
+  line-height: 1.2 !important;
+}
+
+/* ── Eyebrow / kicker labels ─────────────────────────────────────────────── */
+.eyebrow,
+.cardEyebrow,
+.visualLabel,
+.heroCinemaKicker {
+  font-family: var(--font-sans) !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.22em !important;
+  text-transform: uppercase !important;
+  color: var(--gold) !important;
+}
+
+/* ── Buttons — pill shape with gold accent ───────────────────────────────── */
+.button {
+  border-radius: 100px !important;
+  font-family: var(--font-sans) !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.12em !important;
+  text-transform: uppercase !important;
+  padding: 16px 36px !important;
+  transition: all 400ms cubic-bezier(0.25, 0.1, 0.25, 1) !important;
+}
+
+.button.primary {
+  background: var(--gold) !important;
+  border-color: var(--gold) !important;
+  color: #fff !important;
+  box-shadow: none !important;
+}
+
+.button.primary:hover {
+  background: var(--brown) !important;
+  border-color: var(--brown) !important;
+}
+
+.button.secondary {
+  background: transparent !important;
+  border-color: rgba(255, 255, 255, 0.5) !important;
+  color: #fff !important;
+  box-shadow: none !important;
+}
+
+.button.secondary:hover {
+  background: rgba(255, 255, 255, 0.1) !important;
+  border-color: #fff !important;
+}
+
+.button.dark {
+  background: var(--ink) !important;
+  border-color: var(--ink) !important;
+  color: var(--cream) !important;
+  box-shadow: none !important;
+}
+
+.button.dark:hover {
+  background: var(--brown) !important;
+  border-color: var(--brown) !important;
+}
+
+/* ── Site header — transparent overlay, Belgrade Arbor style ─────────────── */
+.siteHeader {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  background: transparent !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12) !important;
+  box-shadow: none !important;
+  transition: background 500ms ease, border-color 500ms ease, backdrop-filter 500ms ease !important;
+}
+
+.siteHeader .brandOnLight { display: none; }
+.siteHeader .brandOnDark { display: inline-flex; }
+
+.siteHeader .navLinks a:not(.navCta) {
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+
+.siteHeader .navLinks a:not(.navCta):hover {
+  color: var(--gold-soft) !important;
+}
+
+.siteHeader .headerCall small {
+  color: rgba(255, 255, 255, 0.5) !important;
+}
+
+.siteHeader .headerCall a {
+  color: #fff !important;
+}
+
+.siteHeader .headerCall {
+  border-left-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+.siteHeader .menuToggle {
+  color: #fff !important;
+}
+
+.siteHeader .navCta {
+  background: var(--gold) !important;
+  border-color: var(--gold) !important;
+  color: #fff !important;
+  border-radius: 100px !important;
+}
+
+.siteHeader .navCta:hover {
+  background: var(--gold-soft) !important;
+  border-color: var(--gold-soft) !important;
+}
+
+/* Solid state after scroll */
+.siteHeader.isSolid {
+  background: rgba(250, 247, 242, 0.97) !important;
+  border-bottom-color: var(--line) !important;
+  backdrop-filter: blur(20px) !important;
+}
+
+.siteHeader.isSolid .brandOnLight { display: inline-flex; }
+.siteHeader.isSolid .brandOnDark { display: none; }
+
+.siteHeader.isSolid .navLinks a:not(.navCta) {
+  color: var(--ink) !important;
+}
+
+.siteHeader.isSolid .navLinks a:not(.navCta):hover {
+  color: var(--gold) !important;
+}
+
+.siteHeader.isSolid .headerCall small {
+  color: var(--muted) !important;
+}
+
+.siteHeader.isSolid .headerCall a {
+  color: var(--ink) !important;
+}
+
+.siteHeader.isSolid .headerCall {
+  border-left-color: var(--line) !important;
+}
+
+.siteHeader.isSolid .menuToggle {
+  color: var(--ink) !important;
+}
+
+/* ── Cinematic hero — editorial serif, deeper overlay ────────────────────── */
+.heroCinema {
+  min-height: 100svh !important;
+  background: var(--dark) !important;
+}
+
+.heroCinemaShade {
+  background:
+    linear-gradient(180deg, rgba(26, 26, 26, 0.3) 0%, rgba(26, 26, 26, 0.05) 40%, rgba(26, 26, 26, 0.7) 85%, rgba(26, 26, 26, 0.92) 100%) !important;
+}
+
+.heroCinemaInner {
+  padding-top: 160px !important;
+}
+
+.heroCinemaKicker {
+  color: var(--gold-soft) !important;
+  font-family: var(--font-sans) !important;
+  font-size: 11px !important;
+  letter-spacing: 0.25em !important;
+}
+
+.heroCinema h1 {
+  font-family: var(--font-serif) !important;
+  font-size: clamp(56px, 9vw, 120px) !important;
+  font-weight: 300 !important;
+  letter-spacing: -0.02em !important;
+  line-height: 0.95 !important;
+  max-width: 900px !important;
+}
+
+.heroCinema h1 span {
+  font-style: italic !important;
+  font-weight: 300 !important;
+  color: var(--gold-light) !important;
+}
+
+.heroCinemaLead {
+  font-family: var(--font-sans) !important;
+  font-size: clamp(16px, 1.4vw, 19px) !important;
+  color: rgba(255, 255, 255, 0.72) !important;
+  line-height: 1.7 !important;
+  max-width: 480px !important;
+}
+
+.heroCinemaFoot {
+  border-top-color: rgba(255, 255, 255, 0.15) !important;
+}
+
+.heroCinemaFacts dd {
+  font-family: var(--font-serif) !important;
+  font-weight: 400 !important;
+  font-size: clamp(28px, 3vw, 40px) !important;
+}
+
+.heroCinemaFacts dt {
+  font-family: var(--font-sans) !important;
+  font-size: 10px !important;
+  letter-spacing: 0.2em !important;
+}
+
+/* ── Sections — editorial whitespace, alternating backgrounds ────────────── */
+.section {
+  padding: clamp(80px, 10vw, 140px) 0 !important;
+}
+
+.sectionHeading,
+.sectionHeading h2 {
+  font-family: var(--font-serif) !important;
+  font-weight: 400 !important;
+  letter-spacing: -0.01em !important;
+  color: var(--ink) !important;
+}
+
+.sectionHeading h2 {
+  font-size: clamp(32px, 4vw, 56px) !important;
+}
+
+.sectionHeading p {
+  font-family: var(--font-sans) !important;
+  color: var(--muted) !important;
+  font-size: clamp(16px, 1.3vw, 18px) !important;
+  line-height: 1.7 !important;
+  max-width: 600px !important;
+}
+
+/* ── Homepage intro section — wider, editorial ───────────────────────────── */
+.wpIntroSection {
+  background: var(--cream) !important;
+}
+
+.wpIntroCopy h2,
+.wpAmenitiesSection h2,
+.wpLocationSection h2 {
+  font-family: var(--font-serif) !important;
+  font-weight: 400 !important;
+  font-size: clamp(32px, 4.5vw, 56px) !important;
+  letter-spacing: -0.01em !important;
+  line-height: 1.1 !important;
+  color: var(--ink) !important;
+}
+
+.wpIntroCopy p,
+.wpAmenitiesSection p,
+.wpLocationSection p {
+  font-size: clamp(16px, 1.3vw, 18px) !important;
+  line-height: 1.75 !important;
+  color: var(--muted) !important;
+}
+
+/* ── Stats row — serif numbers ───────────────────────────────────────────── */
+.wpStat strong {
+  font-family: var(--font-serif) !important;
+  font-size: clamp(40px, 5vw, 64px) !important;
+  font-weight: 400 !important;
+  color: var(--gold) !important;
+  line-height: 1 !important;
+}
+
+.wpStat span {
+  font-family: var(--font-sans) !important;
+  font-size: 12px !important;
+  letter-spacing: 0.1em !important;
+  text-transform: uppercase !important;
+  color: var(--muted) !important;
+}
+
+/* ── Amenities list — refined numbering ──────────────────────────────────── */
+.wpAmenitiesList li {
+  border-bottom-color: var(--line) !important;
+  font-family: var(--font-sans) !important;
+  font-size: 15px !important;
+  padding: 16px 0 !important;
+}
+
+.wpAmenitiesList span {
+  font-family: var(--font-serif) !important;
+  font-size: 20px !important;
+  color: var(--gold) !important;
+  font-weight: 400 !important;
+}
+
+/* ── Property & unit cards — softer, rounder ─────────────────────────────── */
+.propertyCard,
+.snapshotCard,
+.paymentPanel,
+.finderPanel,
+.leadForm,
+.unitResultCard,
+.trustFactCard,
+.mediaAssetCard {
+  border-radius: var(--radius-md) !important;
+  box-shadow: var(--shadow-soft) !important;
+  border-color: var(--line) !important;
+}
+
+.propertyCardVisual {
+  background: linear-gradient(135deg, var(--gold), var(--brown)) !important;
+}
+
+/* ── Showcase gallery ────────────────────────────────────────────────────── */
+.showcaseSection {
+  background: var(--dark) !important;
+  color: #fff !important;
+}
+
+.showcaseSection .sectionHeading,
+.showcaseSection .sectionHeading h2 {
+  color: #fff !important;
+}
+
+.showcaseSection .sectionHeading p {
+  color: rgba(255, 255, 255, 0.65) !important;
+}
+
+.showcaseSection .eyebrow {
+  color: var(--gold-soft) !important;
+}
+
+.showcaseSection .button.dark {
+  background: var(--gold) !important;
+  border-color: var(--gold) !important;
+  color: #fff !important;
+}
+
+/* ── Explorer & calculator sections ──────────────────────────────────────── */
+.explorerSection {
+  background: var(--cream) !important;
+}
+
+.calcSection {
+  background: var(--surface) !important;
+}
+
+/* ── Location section ────────────────────────────────────────────────────── */
+.wpLocationSection {
+  background: var(--cream) !important;
+}
+
+/* ── Tour section ────────────────────────────────────────────────────────── */
+.wpTourSection {
+  background: var(--dark) !important;
+  color: #fff !important;
+}
+
+.wpTourSection .sectionHeading,
+.wpTourSection .sectionHeading h2 {
+  color: #fff !important;
+}
+
+.wpTourSection .sectionHeading p {
+  color: rgba(255, 255, 255, 0.65) !important;
+}
+
+.wpTourSection .eyebrow {
+  color: var(--gold-soft) !important;
+}
+
+.wpTourSection .button.dark {
+  background: var(--gold) !important;
+  border-color: var(--gold) !important;
+}
+
+/* ── Construction updates section ────────────────────────────────────────── */
+.trustUpdatesSection {
+  background: var(--surface) !important;
+}
+
+/* ── Footer — premium dark ───────────────────────────────────────────────── */
+.footer.siteFooter {
+  background: var(--dark) !important;
+  color: rgba(255, 255, 255, 0.75) !important;
+  border-top: none !important;
+}
+
+.footer.siteFooter h2 {
+  color: #fff !important;
+  font-family: var(--font-sans) !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.2em !important;
+  text-transform: uppercase !important;
+}
+
+.footer.siteFooter a {
+  color: rgba(255, 255, 255, 0.6) !important;
+  transition: color 300ms ease !important;
+}
+
+.footer.siteFooter a:hover {
+  color: var(--gold-soft) !important;
+}
+
+.footerStatement {
+  color: rgba(255, 255, 255, 0.5) !important;
+  font-family: var(--font-serif) !important;
+  font-size: 20px !important;
+  font-weight: 300 !important;
+  font-style: italic !important;
+  line-height: 1.5 !important;
+}
+
+.footerBottom {
+  border-top-color: rgba(255, 255, 255, 0.1) !important;
+  color: rgba(255, 255, 255, 0.35) !important;
+}
+
+.footer .button {
+  background: var(--gold) !important;
+  border-color: var(--gold) !important;
+  color: #fff !important;
+}
+
+/* ── Interior page heroes — editorial style ──────────────────────────────── */
+.section.wpInternalHero,
+.section.paymentHero,
+.section.mediaHero,
+.section.trustHero,
+.section.finderPageHero,
+.section.explorerHero {
+  background: var(--dark) !important;
+  color: #fff !important;
+}
+
+.section.wpInternalHero h1,
+.section.paymentHero h1,
+.section.mediaHero h1,
+.section.trustHero h1,
+.section.finderPageHero h1,
+.section.explorerHero h1 {
+  font-family: var(--font-serif) !important;
+  font-weight: 300 !important;
+}
+
+/* ── Lead form — refined ─────────────────────────────────────────────────── */
+.leadForm {
+  background: var(--surface) !important;
+}
+
+.leadForm .button.primary {
+  background: var(--gold) !important;
+  border-color: var(--gold) !important;
+}
+
+/* ── Thin gold separator ─────────────────────────────────────────────────── */
+.goldSeparator {
+  width: 60px;
+  height: 1px;
+  background: var(--gold);
+  margin: 24px 0;
+}
+
+/* ── Smooth scrollbar styling ────────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--cream);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--gold);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--brown);
+}
+
+/* ── Mobile overrides for new styles ─────────────────────────────────────── */
+@media (max-width: 760px) {
+  .siteHeader {
+    background: rgba(26, 26, 26, 0.85) !important;
+    backdrop-filter: blur(16px) !important;
+    border-bottom-color: rgba(255, 255, 255, 0.08) !important;
+  }
+
+  .siteHeader.isSolid {
+    background: rgba(250, 247, 242, 0.97) !important;
+  }
+
+  .siteHeader .navLinks.isOpen {
+    background: var(--dark) !important;
+  }
+
+  .siteHeader.isSolid .navLinks.isOpen {
+    background: var(--cream) !important;
+  }
+
+  .heroCinema {
+    min-height: 100svh !important;
+  }
+
+  .heroCinemaInner {
+    padding-top: 120px !important;
+  }
+
+  .section {
+    padding: clamp(60px, 8vw, 100px) 0 !important;
+  }
+}
+
+@media (max-width: 560px) {
+  .heroCinema h1 {
+    font-size: clamp(40px, 12vw, 56px) !important;
+  }
+
+  .wpStat strong {
+    font-size: clamp(32px, 10vw, 48px) !important;
+  }
+}

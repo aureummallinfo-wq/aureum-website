@@ -13,19 +13,20 @@ export function Hero() {
       <div className="container heroCinemaInner">
         <p className="heroCinemaKicker">Bahria Town · Ring Road Interchange · Lahore</p>
         <h1 id="hero-title">Aureum Mall <span>&amp; Residences</span></h1>
-        <p className="heroCinemaLead">A 16 kanal landmark of shopping, dining, workplaces, a luxury hotel and residences.</p>
+        <p className="heroCinemaLead">A landmark destination of shopping, dining, workplaces, a luxury hotel and residences — rising at the gateway to Bahria Town.</p>
         <div className="actions">
           <ButtonLink href="/about">Discover Aureum</ButtonLink>
-          <ButtonLink href="/payment-plans" variant="secondary">View payment plans</ButtonLink>
+          <ButtonLink href="/payment-plans" variant="secondary">Payment plans</ButtonLink>
         </div>
       </div>
       <div className="container heroCinemaFoot">
         <dl className="heroCinemaFacts" aria-label="Project information">
-          <div><dt>Site</dt><dd>16 kanal</dd></div>
+          <div><dt>Site</dt><dd>16 Kanal</dd></div>
           <div><dt>Bahria Town</dt><dd>0 min</dd></div>
-          <div><dt>Lahore airport</dt><dd>25 min</dd></div>
+          <div><dt>Airport</dt><dd>25 min</dd></div>
+          <div><dt>Amenities</dt><dd>20+</dd></div>
         </dl>
-        <span className="heroCinemaNote">Artist’s impression</span>
+        <span className="heroCinemaNote">Artist&apos;s impression</span>
       </div>
     </section>
   );

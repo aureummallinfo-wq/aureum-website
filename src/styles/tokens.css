@@ -1,43 +1,72 @@
+/*
+ * Aureum — Belgrade Arbor-inspired design tokens
+ * Warm cream, deep charcoal, champagne gold, editorial serif + clean sans
+ */
+
 :root {
-  /* Aureum palette: deep navy, champagne gold, warm ivory. Legacy names kept so existing rules follow. */
-  --page: #f8f6f1;
-  --surface: #ffffff;
-  --soft: #f1ece3;
-  --ink: #1d1f33;
-  --muted: #676a7b;
-  --brown: #1b1d4a;
-  --gold: #8c6a3c;
-  --gold-soft: #d8bf8e;
-  --indigo: #1b1d4a;
-  --mauve: #8c6a3c;
-  --navy-deep: #111232;
-  --line: rgba(27, 29, 74, 0.12);
-  --line-gold: rgba(140, 106, 60, 0.35);
-  --success: #2f6b4f;
-  --error: #b94a48;
+  /* ── Palette ─────────────────────────────────────────── */
+  --page:        #FAF7F2;
+  --surface:     #FFFFFF;
+  --soft:        #F2EDE4;
+  --ink:         #1A1A1A;
+  --muted:       #6B6560;
+  --brown:       #3D3226;
+  --gold:        #9E7E4E;
+  --gold-soft:   #C5A96A;
+  --gold-light:  #E8D9B8;
+  --accent:      #9E7E4E;
+  --dark:        #1A1A1A;
+  --dark-surface:#252420;
+  --cream:       #FAF7F2;
 
-  /* Keep typography deterministic during offline builds; browsers use the branded font if installed. */
-  --font-sans: 'DM Sans', Arial, Helvetica, sans-serif;
-  --font-display: 'DM Sans', Arial, Helvetica, sans-serif;
-  --font-serif: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  /* Legacy aliases so existing rules don't break */
+  --indigo:      #1A1A1A;
+  --mauve:       #9E7E4E;
+  --navy-deep:   #1A1A1A;
 
-  --space-1: 4px;
-  --space-2: 8px;
-  --space-3: 12px;
-  --space-4: 16px;
-  --space-5: 20px;
-  --space-6: 24px;
-  --space-8: 32px;
+  --line:        rgba(26, 26, 26, 0.10);
+  --line-gold:   rgba(158, 126, 78, 0.30);
+  --success:     #2f6b4f;
+  --error:       #b94a48;
+
+  /* ── Typography ──────────────────────────────────────── */
+  --font-serif:    'Cormorant Garamond', 'Georgia', 'Times New Roman', serif;
+  --font-sans:     'DM Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-display:  var(--font-serif);
+
+  /* ── Spacing ─────────────────────────────────────────── */
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-5:  20px;
+  --space-6:  24px;
+  --space-8:  32px;
   --space-10: 40px;
   --space-12: 48px;
   --space-16: 64px;
   --space-20: 80px;
+  --space-24: 96px;
+  --space-32: 128px;
 
-  --container: 1240px;
-  --radius-sm: 3px;
-  --radius-md: 8px;
-  --radius-lg: 14px;
-  --shadow-card: 0 12px 40px rgba(27, 29, 74, 0.08);
-  --shadow-hero: 0 28px 80px rgba(27, 29, 74, 0.2);
-  --motion-fast: 240ms ease;
+  /* ── Layout ──────────────────────────────────────────── */
+  --container:   1240px;
+  --container-narrow: 900px;
+  --radius-sm:   2px;
+  --radius-md:   6px;
+  --radius-lg:   12px;
+
+  /* ── Shadows ─────────────────────────────────────────── */
+  --shadow-card:  0 8px 32px rgba(26, 26, 26, 0.06);
+  --shadow-hero:  0 24px 64px rgba(26, 26, 26, 0.18);
+  --shadow-soft:  0 2px 12px rgba(26, 26, 26, 0.04);
+
+  /* ── Motion ──────────────────────────────────────────── */
+  --motion-fast:    200ms cubic-bezier(0.25, 0.1, 0.25, 1);
+  --motion-medium:  500ms cubic-bezier(0.25, 0.1, 0.25, 1);
+  --motion-slow:    800ms cubic-bezier(0.16, 1, 0.3, 1);
+  --motion-reveal:  1000ms cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* ── Header height (set dynamically by JS, fallback) ── */
+  --header-h: 80px;
 }
