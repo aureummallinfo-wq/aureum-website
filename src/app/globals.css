@@ -4887,7 +4887,9 @@ textarea:focus-visible {
 .brochureCardCopy { display: flex; flex: 1; flex-direction: column; gap: 10px; padding: 22px; }
 .brochureCard h3 { margin: 0; color: var(--indigo); font-size: 20px; }
 .brochureCard p { flex: 1; margin: 0; color: var(--muted); font-size: 14px; }
-.brochureCard .button { align-self: flex-start; }
+.brochureCardActions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-top: auto; }
+.brochureCardActions .button { align-self: flex-start; }
+.brochurePreview { color: var(--indigo); font-size: 13px; font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
 .brochureForm { display: grid; gap: 14px; max-width: 760px; margin-top: 24px; padding: 24px; border: 1px solid var(--line-gold); border-radius: var(--radius-sm); background: var(--surface); box-shadow: var(--shadow-card); }
 .brochureForm > p { margin: 0; color: var(--ink); }
 .brochureFields { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr); gap: 14px; }

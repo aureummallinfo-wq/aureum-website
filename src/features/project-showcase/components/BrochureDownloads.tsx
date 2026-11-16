@@ -97,7 +97,7 @@ export function BrochureDownloads({ only }: { only?: readonly Brochure['id'][] }
   return (
     <section className="section brochureSection" id="brochures" aria-labelledby={`${uid}-heading`}>
       <div className="container">
-        <SectionHeading id={`${uid}-heading`} eyebrow="Project literature" title="Take Aureum with you." description="Download the current catalogue, collections and project factsheet with floor plans, sizes and prices." />
+        <SectionHeading id={`${uid}-heading`} eyebrow="Project literature" title="Take Aureum with you." description="Preview the current catalogue and collections in your browser, or download a lightweight copy with floor plans, sizes and prices." />
         <ul className="brochureGrid">
           {brochures.map((brochure) => (
             <li key={brochure.id} className="brochureCard">
@@ -108,7 +108,10 @@ export function BrochureDownloads({ only }: { only?: readonly Brochure['id'][] }
                 <Eyebrow>{brochure.format}</Eyebrow>
                 <h3>{brochure.title}</h3>
                 <p>{brochure.description}</p>
-                <Button type="button" variant="dark" onClick={() => choose(brochure)}>Download {brochure.format.toLowerCase()}</Button>
+                <div className="brochureCardActions">
+                  <a className="brochurePreview" href={brochure.file} target="_blank" rel="noopener noreferrer">Preview {brochure.format.toLowerCase()}</a>
+                  <Button type="button" variant="dark" onClick={() => choose(brochure)}>Download</Button>
+                </div>
               </div>
             </li>
           ))}
