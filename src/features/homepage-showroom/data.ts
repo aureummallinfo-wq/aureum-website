@@ -40,6 +40,55 @@ export const PROJECT_SNAPSHOT = [
   },
 ] as const;
 
+/** The four-stop story immediately after the homepage hero. Images are approved local WebP renders; the
+ * copy is deliberately about orientation and access rather than unverified travel-time promises. */
+export const JOURNEY_TO_AUREUM = [
+  {
+    id: 'lahore',
+    step: '01',
+    label: 'Lahore',
+    eyebrow: 'The city / Lahore',
+    title: 'A landmark destination for the city.',
+    description: 'Aureum brings shopping, dining, work and home together in one mixed-use destination.',
+    meta: 'Lahore · 16 kanal site',
+    image: '/assets/aureum/approved/renders/aureum-architecture-context.webp',
+    alt: 'Aerial context view of Aureum Mall & Residences within Lahore',
+  },
+  {
+    id: 'bahria-town',
+    step: '02',
+    label: 'Bahria Town',
+    eyebrow: 'The address / Bahria Town',
+    title: 'At the gateway to Bahria Town.',
+    description: 'A recognisable address designed for residents, shoppers, office teams and visitors.',
+    meta: 'Bahria Town · Lahore',
+    image: '/assets/aureum/approved/renders/aureum-exterior-day-view.webp',
+    alt: 'Aureum Mall & Residences viewed from the Bahria Town surroundings',
+  },
+  {
+    id: 'ring-road',
+    step: '03',
+    label: 'Ring Road',
+    eyebrow: 'The connection / Ring Road Interchange',
+    title: 'Visible from the city’s wider movement.',
+    description: 'The Ring Road Interchange gives Aureum a clear arrival and a strong commercial presence.',
+    meta: 'Ring Road Interchange · Lahore',
+    image: '/assets/aureum/approved/renders/aureum-exterior-ring-road-interchange.webp',
+    alt: 'Aureum Mall & Residences at the Ring Road Interchange',
+  },
+  {
+    id: 'aureum',
+    step: '04',
+    label: 'Aureum',
+    eyebrow: 'The destination / Aureum Mall & Residences',
+    title: 'One address for what comes next.',
+    description: 'Arrive at the mall, food court, offices, hotel and residences—then choose the pathway that fits you.',
+    meta: 'Aureum Mall & Residences · Lahore',
+    image: '/assets/aureum/approved/renders/aureum-architecture-aerial.webp',
+    alt: 'Aerial view of Aureum Mall & Residences, including the mall, hotel and residences',
+  },
+] as const;
+
 export const FEATURED_RESIDENCES = [
   {
     index: '01',
