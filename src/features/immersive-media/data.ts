@@ -21,6 +21,38 @@ export const VIRTUAL_TOUR = {
   note: 'Artist’s impression: 360° concept views based on the architects’ perspective images. Surroundings, furnishings and connections between spaces are illustrative, not an approved floor plan. Confirm current layouts with the sales team.',
 } as const;
 
+/** Approved D5 Showreel experiences supplied by the project team. They open in D5's own viewer so the
+ * heavyweight 8K panorama is never downloaded as part of the Aureum page load. */
+export const D5_VIRTUAL_TOURS = [
+  {
+    id: 'playland-360',
+    label: 'Family leisure',
+    title: 'Play Land 360°',
+    description: 'Walk through the planned play land in an 8K interactive view before your visit.',
+    url: 'https://share.d5render.com/user-hub/showreel/shortLink/FtPYTe',
+    poster: '/assets/aureum/approved/leisure/aureum-playland-1.webp',
+    posterAlt: 'Artist’s impression of the Aureum play land',
+  },
+  {
+    id: 'trampoline-360',
+    label: 'Family leisure',
+    title: 'Trampoline Park 360°',
+    description: 'Explore the trampoline park experience next to the food court and play land.',
+    url: 'https://share.d5render.com/user-hub/showreel/shortLink/4vk6qz',
+    poster: '/assets/aureum/approved/leisure/aureum-playland-2.webp',
+    posterAlt: 'Artist’s impression of Aureum family leisure spaces',
+  },
+  {
+    id: 'office-360',
+    label: 'Work / offices',
+    title: 'Office 360°',
+    description: 'Step into the full-glass office experience with Ring Road views and a focused arrival.',
+    url: 'https://showreel.d5render.com/personal-krpano?directory=https://usa.asset.d5cdn.com/tourProject/pano_roam_1793802211775_3314448/&tourId=2117987816020766721',
+    poster: '/assets/aureum/approved/offices/aureum-office-workspace.webp',
+    posterAlt: 'Artist’s impression of an Aureum office workspace',
+  },
+] as const;
+
 /**
  * The official TVC, played silently on a loop as a background from our own files (no soundtrack, fast-start MP4):
  * 720p for phones, 1080p for larger screens. Full version with sound: youtube.com/watch?v=Y7RDAxEacbI

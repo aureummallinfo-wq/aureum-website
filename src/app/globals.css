@@ -4801,6 +4801,38 @@ textarea:focus-visible {
   }
 }
 
+/* D5 showreels (immersive-media/components/D5VirtualTours.tsx) */
+.d5ToursSection { background: var(--soft); }
+.d5ToursIntro { display: grid; grid-template-columns: minmax(0, 1fr) minmax(260px, 0.7fr); gap: 48px; align-items: end; margin-bottom: 30px; }
+.d5ToursIntro h2 { max-width: 620px; margin: 10px 0 0; color: var(--indigo); font-size: clamp(30px, 4vw, 52px); line-height: 1.02; }
+.d5ToursIntro p { max-width: 480px; margin: 0; color: var(--muted); }
+.d5ToursGrid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; margin: 0; padding: 0; list-style: none; }
+.d5TourCard { display: flex; min-width: 0; flex-direction: column; overflow: hidden; border: 1px solid var(--line); border-radius: var(--radius-sm); background: var(--surface); box-shadow: var(--shadow-card); }
+.d5TourPoster { position: relative; display: block; aspect-ratio: 4 / 3; overflow: hidden; background: var(--indigo); }
+.d5TourPoster img { object-fit: cover; transition: transform 500ms ease; }
+.d5TourPoster::after { position: absolute; inset: 0; content: ''; background: linear-gradient(180deg, rgba(28, 25, 120, 0.05) 30%, rgba(28, 25, 120, 0.72) 100%); }
+.d5TourPoster:hover img, .d5TourPoster:focus-visible img { transform: scale(1.04); }
+.d5TourPoster:focus-visible { outline: 3px solid var(--gold-soft); outline-offset: -3px; }
+.d5TourBadge { position: absolute; top: 16px; left: 16px; z-index: 1; padding: 6px 9px; background: var(--mauve); color: var(--surface); font-size: 11px; font-weight: 700; letter-spacing: 0.12em; }
+.d5TourPlay { position: absolute; right: 16px; bottom: 14px; z-index: 1; display: grid; width: 38px; height: 38px; place-items: center; border-radius: 50%; background: var(--gold-soft); color: var(--indigo); font-size: 20px; font-weight: 700; }
+.d5TourCopy { display: flex; flex: 1; flex-direction: column; gap: 9px; padding: 20px; }
+.d5TourCopy h3 { margin: 0; color: var(--indigo); font-size: 22px; }
+.d5TourCopy p { flex: 1; margin: 0; color: var(--muted); font-size: 14px; line-height: 1.55; }
+.d5TourLink { align-self: flex-start; color: var(--mauve); font-size: 14px; font-weight: 700; }
+
+@media (max-width: 900px) {
+  .d5ToursIntro { grid-template-columns: 1fr; gap: 16px; }
+  .d5ToursGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 600px) {
+  .d5ToursGrid { grid-template-columns: 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .d5TourPoster img { transition: none; }
+}
+
 /* ===== Project showcase (src/features/project-showcase) ===== */
 .showcaseSection .sectionHeading,
 .developerSection h2,

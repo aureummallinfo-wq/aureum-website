@@ -9,6 +9,7 @@ import { MediaAssetCard } from './MediaAssetCard';
 import { MediaLightbox } from './MediaLightbox';
 import { BrandFilmSection } from './BrandFilm';
 import { VirtualTourEmbed } from './VirtualTourEmbed';
+import { D5VirtualTours } from './D5VirtualTours';
 
 function MediaRegister({ assets, onOpen }: { assets: readonly ImmersiveMediaAsset[]; onOpen: (asset: ImmersiveMediaAsset) => void }) {
   return <div className="mediaGallery">{assets.map((asset) => <MediaAssetCard key={asset.id} asset={asset} onOpen={() => onOpen(asset)} />)}</div>;
@@ -46,6 +47,8 @@ export function ImmersiveMediaExperience() {
           <VirtualTourEmbed placement="immersive_media" />
         </div>
       </section>
+
+      <D5VirtualTours />
 
       <section className="section mediaWorkspace" id="media-workspace">
         <div className="container">

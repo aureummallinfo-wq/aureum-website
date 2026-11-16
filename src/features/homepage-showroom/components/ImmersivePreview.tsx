@@ -12,10 +12,10 @@ export function ImmersivePreview() {
             id="immersive-heading"
             eyebrow="An immersive next step"
             title="Let the space become familiar before the visit."
-            description="This presentation slot is ready for an approved 360° apartment experience. Until then, it stays honest about the media still required."
+            description="Open the approved 360° experiences for the Play Land, Trampoline Park and full-glass offices, then explore the complete project media register."
           />
-          <Eyebrow>Coming with approved media</Eyebrow>
-          <ButtonLink href="/immersive-media" variant="dark">Open media experience <span aria-hidden="true">↗</span></ButtonLink>
+          <Eyebrow>Now available</Eyebrow>
+          <ButtonLink href="/immersive-media#d5-tours-heading" variant="dark">Open virtual tours <span aria-hidden="true">↗</span></ButtonLink>
         </div>
       </div>
     </section>

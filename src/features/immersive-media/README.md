@@ -9,7 +9,7 @@ Owns the reusable visual layer for image galleries, lightboxes, floor-plan viewi
 - Gallery and floor-plan cards expose captions and text descriptions before any heavy source is opened.
 - Approved media loads only after visitor intent. Image and floor-plan assets use responsive `next/image`; video uses `preload="metadata"` and native controls.
 - The lightbox supports keyboard Escape, a focused close control, click-away close and reduced-motion-safe styling.
-- Panorama assets have a labelled handoff surface ready for a dedicated 360 renderer once an approved scene format and source are selected.
+- The page includes the supplied D5 Play Land, Trampoline Park and Office showreels as external, intent-loaded experiences; the heavyweight 8K viewers are not embedded into the initial page load.
 
 ## Acceptance
 
