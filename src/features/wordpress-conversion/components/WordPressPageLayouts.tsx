@@ -7,7 +7,7 @@ import { SectionHeading } from '@/components/ui/SectionHeading';
 import type { NewsCardItem } from '@/features/news/posts';
 import { PROJECT_STATS } from '@/lib/project-facts';
 import { AccessSection, BuildingLevelsSection, DeveloperSection, FloorPlanGallery, LeadershipSection, ProjectDisclaimers, ShowcaseGallery, TeamPreview } from '@/features/project-showcase/components/ProjectShowcase';
-import { CUTAWAY_IMAGES, EXTERIOR_NIGHT, EXTERIOR_NIGHT_WIDE, FLOOR_PLAN_IMAGES, FOOD_COURT_IMAGE, LEISURE_IMAGES, MALL_IMAGES, PARKING_IMAGE, RESIDENCE_IMAGES } from '@/features/project-showcase/images';
+import { ARCHITECTURE_AERIAL, ARCHITECTURE_CONTEXT, ARCHITECTURE_DUSK, CUTAWAY_IMAGES, EXTERIOR_NIGHT, EXTERIOR_NIGHT_WIDE, FLOOR_PLAN_IMAGES, FOOD_COURT_IMAGE, LEISURE_IMAGES, MALL_IMAGES, PARKING_IMAGE, RESIDENCE_IMAGES } from '@/features/project-showcase/images';
 import { BrochureDownloads } from '@/features/project-showcase/components/BrochureDownloads';
 import { NewsCardList } from './NewsCardList';
 
@@ -80,7 +80,7 @@ export function WordPressAboutPage() {
 }
 
 const GALLERY_GROUPS = [
-  { id: 'exterior', eyebrow: 'The building', title: 'A landmark at the Ring Road Interchange.', images: [EXTERIOR_NIGHT_WIDE, EXTERIOR_NIGHT], branded: false },
+  { id: 'exterior', eyebrow: 'The building', title: 'A landmark at the Ring Road Interchange.', images: [ARCHITECTURE_AERIAL, ARCHITECTURE_CONTEXT, ARCHITECTURE_DUSK, EXTERIOR_NIGHT_WIDE, EXTERIOR_NIGHT], branded: false },
   { id: 'mall', eyebrow: 'The mall', title: 'Three retail levels around a central atrium.', images: [...MALL_IMAGES, FOOD_COURT_IMAGE], branded: true },
   { id: 'leisure', eyebrow: 'Dining & leisure', title: 'Where every visit becomes a day out.', images: LEISURE_IMAGES, branded: true },
   { id: 'residences', eyebrow: 'The residences', title: 'Light, space and calm.', images: [...CUTAWAY_IMAGES, ...RESIDENCE_IMAGES], branded: false },

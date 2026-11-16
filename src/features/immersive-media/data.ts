@@ -16,8 +16,8 @@ export type ImmersiveMediaAsset = {
 /** The 360° concept tour is a separate Vercel project (github.com/aureummallinfo-wq/360-aureum-virtual), embedded on demand. */
 export const VIRTUAL_TOUR = {
   url: 'https://360-aureum-virtual.vercel.app/',
-  poster: '/assets/aureum/approved/renders/aureum-exterior-day-view.webp',
-  posterAlt: 'Aureum Mall & Residences exterior render, the starting point of the 360° tour',
+  poster: '/assets/aureum/approved/renders/aureum-architecture-aerial.webp',
+  posterAlt: 'Aerial view of Aureum Mall & Residences, the starting point of the 360° tour',
   note: 'Artist’s impression: 360° concept views based on the architects’ perspective images. Surroundings, furnishings and connections between spaces are illustrative, not an approved floor plan. Confirm current layouts with the sales team.',
 } as const;
 
@@ -42,6 +42,36 @@ export const MEDIA_PRINCIPLES = [
 ] as const;
 
 export const PROJECT_MEDIA: readonly ImmersiveMediaAsset[] = [
+  {
+    id: 'architecture-aerial',
+    kind: 'image',
+    label: 'The architecture',
+    title: 'A landmark at the interchange',
+    description: 'An aerial view of the mall, residences and hotel arranged around Aureum’s central arrival. Artist’s impression.',
+    alt: 'Aerial view of Aureum Mall & Residences showing the mall entrance, residences and hotel',
+    caption: 'Aureum Mall & Residences at the Bahria Town Ring Road Interchange.',
+    src: '/assets/aureum/approved/renders/aureum-architecture-aerial.webp',
+  },
+  {
+    id: 'architecture-context',
+    kind: 'image',
+    label: 'The address',
+    title: 'The project from above',
+    description: 'A context view of Aureum and the roads around the Bahria Town Ring Road Interchange. Artist’s impression.',
+    alt: 'Aerial context view of Aureum Mall & Residences at the Bahria Town Ring Road Interchange',
+    caption: 'The address from above. Surroundings are illustrative.',
+    src: '/assets/aureum/approved/renders/aureum-architecture-context.webp',
+  },
+  {
+    id: 'architecture-dusk',
+    kind: 'image',
+    label: 'The arrival',
+    title: 'Aureum at dusk',
+    description: 'The glass atrium and hotel frontage glowing as the destination moves into the evening. Artist’s impression.',
+    alt: 'Aureum Mall & Residences at dusk with the glass atrium glowing',
+    caption: 'Aureum at dusk. Facade details and signage are illustrative.',
+    src: '/assets/aureum/approved/renders/aureum-architecture-dusk.webp',
+  },
   {
     id: 'mall-atrium',
     kind: 'image',

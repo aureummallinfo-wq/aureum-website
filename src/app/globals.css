@@ -5092,6 +5092,10 @@ h2:not(.srOnly) {
   object-position: 50% 45%;
 }
 
+.heroCinemaImageMobile {
+  display: none !important;
+}
+
 .heroCinemaShade {
   position: absolute;
   inset: 0;
@@ -5195,6 +5199,14 @@ h2:not(.srOnly) {
 
   .heroCinemaImage {
     object-position: 48% 40%;
+  }
+
+  .heroCinemaImageDesktop {
+    display: none !important;
+  }
+
+  .heroCinemaImageMobile {
+    display: block !important;
   }
 
   .heroCinemaShade {

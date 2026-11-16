@@ -9,7 +9,7 @@ import { SiteUpdates } from '@/features/trust-location/components/SiteUpdates';
 import { PriceCalculator } from '@/features/payment-plans/components/PriceCalculator';
 import { AMENITIES, DEVELOPER, PROJECT_STATS } from '@/lib/project-facts';
 import { ShowcaseGallery } from '@/features/project-showcase/components/ProjectShowcase';
-import { FOOD_COURT_IMAGE, LEISURE_IMAGES, MALL_IMAGES, RESIDENCE_IMAGES } from '@/features/project-showcase/images';
+import { ARCHITECTURE_AERIAL, ARCHITECTURE_CONTEXT, FOOD_COURT_IMAGE, LEISURE_IMAGES, MALL_IMAGES, RESIDENCE_IMAGES } from '@/features/project-showcase/images';
 
 // The homepage tells the project in order: what it is, what is inside, where you fit, what it costs, then how to visit.
 export function WordPressHomeExperience() {
@@ -39,7 +39,7 @@ export function WordPressHomeExperience() {
             <SectionHeading id="wp-inside-heading" eyebrow="Inside Aureum" title="Shop, dine, play and live." description="Three retail levels around a central atrium, a food court beside the playland, and homes planned for light and calm." />
           </ScrollReveal>
           <ScrollReveal delay={1}>
-            <ShowcaseGallery images={[MALL_IMAGES[0], FOOD_COURT_IMAGE, LEISURE_IMAGES[0], RESIDENCE_IMAGES[0], MALL_IMAGES[2], RESIDENCE_IMAGES[2]]} branded />
+            <ShowcaseGallery images={[ARCHITECTURE_AERIAL, MALL_IMAGES[0], FOOD_COURT_IMAGE, LEISURE_IMAGES[0], RESIDENCE_IMAGES[0], ARCHITECTURE_CONTEXT]} branded />
           </ScrollReveal>
           <ScrollReveal delay={2}>
             <ButtonLink href="/gallery" variant="dark">Open the full gallery</ButtonLink>

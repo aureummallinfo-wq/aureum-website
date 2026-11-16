@@ -34,7 +34,7 @@ export function ImmersiveMediaExperience() {
               <ButtonLink href="#media-workspace" variant="secondary">Open the project gallery</ButtonLink>
             </div>
           </div>
-          <div className="mediaHeroStamp" aria-hidden="true"><span>360° tour / images / plans</span><strong>06</strong></div>
+          <div className="mediaHeroStamp" aria-hidden="true"><span>360° tour / images / plans</span><strong>{String(PROJECT_MEDIA.length).padStart(2, '0')}</strong></div>
         </div>
       </section>
 

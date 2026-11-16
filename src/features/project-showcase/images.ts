@@ -60,5 +60,9 @@ export const LOCATION_MAP: ShowcaseImage = { src: `${base}/location/aureum-locat
 
 export const PARKING_IMAGE: ShowcaseImage = { src: `${base}/parking/aureum-basement-parking.webp`, alt: 'Aureum basement parking level with marked bays', label: 'Basement parking' };
 
+export const ARCHITECTURE_AERIAL: ShowcaseImage = { src: `${base}/renders/aureum-architecture-aerial.webp`, alt: 'Aerial view of Aureum Mall & Residences showing the mall entrance, residences and hotel', label: 'The Aureum destination' };
+export const ARCHITECTURE_DUSK: ShowcaseImage = { src: `${base}/renders/aureum-architecture-dusk.webp`, alt: 'Aureum Mall & Residences at dusk with the glass atrium glowing', label: 'Aureum at dusk' };
+export const ARCHITECTURE_CONTEXT: ShowcaseImage = { src: `${base}/renders/aureum-architecture-context.webp`, alt: 'Aerial context view of Aureum Mall & Residences at the Bahria Town Ring Road Interchange', label: 'The address from above' };
+
 export const EXTERIOR_NIGHT: ShowcaseImage = { src: `${base}/renders/aureum-exterior-night.webp`, alt: 'Aureum Mall & Residences at night', label: 'Aureum at night' };
 export const EXTERIOR_NIGHT_WIDE: ShowcaseImage = { src: `${base}/renders/aureum-exterior-night-wide.webp`, alt: 'Aureum Mall & Residences at night from the Ring Road', label: 'Visible from Ring Road' };
