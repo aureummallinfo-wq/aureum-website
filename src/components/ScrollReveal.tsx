@@ -14,7 +14,7 @@ type ScrollRevealProps = {
  * Uses IntersectionObserver — no external animation library needed.
  */
 export function ScrollReveal({ children, className = '', delay = 0, as: Tag = 'div' }: ScrollRevealProps) {
-  const ref = useRef<HTMLDivElement>(null);
+  const ref = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     const el = ref.current;
@@ -43,7 +43,7 @@ export function ScrollReveal({ children, className = '', delay = 0, as: Tag = 'd
   const delayClass = delay > 0 ? ` revealDelay${delay}` : '';
 
   return (
-    <Tag ref={ref as any} className={`reveal${delayClass} ${className}`}>
+    <Tag ref={(element: HTMLElement | null) => { ref.current = element; }} className={`reveal${delayClass} ${className}`}>
       {children}
     </Tag>
   );

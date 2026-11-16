@@ -8785,12 +8785,12 @@ body:has(> #main-content > section:first-of-type:is(.heroCinema, .wpInternalHero
 
 /* Gold keyline inside the navy mat. */
 .teamPhoto::before {
-  box-shadow: inset 0 0 0 1px rgba(216, 191, 142, 0.6);
+  box-shadow: inset 0 0 0 1px rgba(54, 148, 207, 0.4);
 }
 
 /* Soft navy fade at the foot so every photo sits on the caption the same way. */
 .teamPhoto::after {
-  background: linear-gradient(180deg, rgba(17, 18, 50, 0) 66%, rgba(17, 18, 50, 0.42) 100%);
+  background: linear-gradient(180deg, rgba(22, 52, 115, 0) 66%, rgba(22, 52, 115, 0.42) 100%);
 }
 
 .teamCard:hover .teamPhoto img {
@@ -8808,21 +8808,21 @@ body:has(> #main-content > section:first-of-type:is(.heroCinema, .wpInternalHero
 
 .teamPhoto.isGoldTone img,
 .teamCard:hover .teamPhoto.isGoldTone img {
-  filter: grayscale(1) sepia(0.9) saturate(1.6) hue-rotate(-8deg) contrast(1.1) brightness(1.08);
+  filter: grayscale(1) sepia(0.3) saturate(2.0) hue-rotate(185deg) contrast(1.05) brightness(1.1);
 }
 
 .teamPhoto.isGoldTone::before {
-  background: linear-gradient(160deg, #e9cf98 0%, #c9a465 50%, var(--gold) 100%);
+  background: linear-gradient(160deg, #a8c4e0 0%, #3694cf 50%, var(--gold) 100%);
   mix-blend-mode: color;
   opacity: 0.6;
-  box-shadow: inset 0 0 0 1px rgba(216, 191, 142, 0.6);
+  box-shadow: inset 0 0 0 1px rgba(54, 148, 207, 0.4);
 }
 
 .teamCaption {
   display: grid;
   gap: 4px;
   padding: 16px 18px 18px;
-  border-top: 2px solid var(--gold-soft);
+  border-top: 2px solid var(--gold);
 }
 
 .teamName {
@@ -9376,7 +9376,7 @@ body:has(> #main-content > section:first-of-type:is(.heroCinema, .wpInternalHero
   gap: 8px;
   padding: 24px;
   border: 1px solid var(--line);
-  border-top: 2px solid var(--gold-soft);
+  border-top: 2px solid var(--gold);
   border-radius: 0;
   background: var(--surface);
 }
@@ -9547,15 +9547,15 @@ h3:not(.srOnly) {
 }
 
 .button.dark {
-  background: var(--ink) !important;
-  border-color: var(--ink) !important;
+  background: var(--brown) !important;
+  border-color: var(--brown) !important;
   color: var(--cream) !important;
   box-shadow: none !important;
 }
 
 .button.dark:hover {
-  background: var(--brown) !important;
-  border-color: var(--brown) !important;
+  background: var(--gold) !important;
+  border-color: var(--gold) !important;
 }
 
 /* ── Site header — transparent overlay, Belgrade Arbor style ─────────────── */
@@ -9566,7 +9566,7 @@ h3:not(.srOnly) {
   right: 0;
   z-index: 50;
   background: transparent !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.12) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15) !important;
   box-shadow: none !important;
   transition: background 500ms ease, border-color 500ms ease, backdrop-filter 500ms ease !important;
 }
@@ -9612,7 +9612,7 @@ h3:not(.srOnly) {
 
 /* Solid state after scroll */
 .siteHeader.isSolid {
-  background: rgba(250, 247, 242, 0.97) !important;
+  background: rgba(244, 245, 248, 0.97) !important;
   border-bottom-color: var(--line) !important;
   backdrop-filter: blur(20px) !important;
 }
@@ -9652,7 +9652,7 @@ h3:not(.srOnly) {
 
 .heroCinemaShade {
   background:
-    linear-gradient(180deg, rgba(26, 26, 26, 0.3) 0%, rgba(26, 26, 26, 0.05) 40%, rgba(26, 26, 26, 0.7) 85%, rgba(26, 26, 26, 0.92) 100%) !important;
+    linear-gradient(180deg, rgba(22, 52, 115, 0.35) 0%, rgba(22, 52, 115, 0.05) 40%, rgba(22, 52, 115, 0.65) 85%, rgba(22, 52, 115, 0.92) 100%) !important;
 }
 
 .heroCinemaInner {
@@ -9806,21 +9806,21 @@ h3:not(.srOnly) {
 
 /* ── Showcase gallery ────────────────────────────────────────────────────── */
 .showcaseSection {
-  background: var(--dark) !important;
-  color: #fff !important;
+  background: var(--soft) !important;
+  color: var(--ink) !important;
 }
 
 .showcaseSection .sectionHeading,
 .showcaseSection .sectionHeading h2 {
-  color: #fff !important;
+  color: var(--ink) !important;
 }
 
 .showcaseSection .sectionHeading p {
-  color: rgba(255, 255, 255, 0.65) !important;
+  color: var(--muted) !important;
 }
 
 .showcaseSection .eyebrow {
-  color: var(--gold-soft) !important;
+  color: var(--gold) !important;
 }
 
 .showcaseSection .button.dark {
@@ -9845,21 +9845,21 @@ h3:not(.srOnly) {
 
 /* ── Tour section ────────────────────────────────────────────────────────── */
 .wpTourSection {
-  background: var(--dark) !important;
-  color: #fff !important;
+  background: var(--cream) !important;
+  color: var(--ink) !important;
 }
 
 .wpTourSection .sectionHeading,
 .wpTourSection .sectionHeading h2 {
-  color: #fff !important;
+  color: var(--ink) !important;
 }
 
 .wpTourSection .sectionHeading p {
-  color: rgba(255, 255, 255, 0.65) !important;
+  color: var(--muted) !important;
 }
 
 .wpTourSection .eyebrow {
-  color: var(--gold-soft) !important;
+  color: var(--gold) !important;
 }
 
 .wpTourSection .button.dark {
@@ -9875,12 +9875,12 @@ h3:not(.srOnly) {
 /* ── Footer — premium dark ───────────────────────────────────────────────── */
 .footer.siteFooter {
   background: var(--dark) !important;
-  color: rgba(255, 255, 255, 0.75) !important;
+  color: rgba(255, 255, 255, 0.8) !important;
   border-top: none !important;
 }
 
 .footer.siteFooter h2 {
-  color: #fff !important;
+  color: var(--gold-soft) !important;
   font-family: var(--font-sans) !important;
   font-size: 11px !important;
   font-weight: 600 !important;
@@ -9924,7 +9924,7 @@ h3:not(.srOnly) {
 .section.trustHero,
 .section.finderPageHero,
 .section.explorerHero {
-  background: var(--dark) !important;
+  background: linear-gradient(135deg, var(--brown), var(--dark)) !important;
   color: #fff !important;
 }
 
@@ -9977,13 +9977,13 @@ h3:not(.srOnly) {
 /* ── Mobile overrides for new styles ─────────────────────────────────────── */
 @media (max-width: 760px) {
   .siteHeader {
-    background: rgba(26, 26, 26, 0.85) !important;
+    background: rgba(22, 52, 115, 0.92) !important;
     backdrop-filter: blur(16px) !important;
     border-bottom-color: rgba(255, 255, 255, 0.08) !important;
   }
 
   .siteHeader.isSolid {
-    background: rgba(250, 247, 242, 0.97) !important;
+    background: rgba(244, 245, 248, 0.97) !important;
   }
 
   .siteHeader .navLinks.isOpen {

@@ -1,37 +1,42 @@
 /*
- * Aureum — Belgrade Arbor-inspired design tokens
- * Warm cream, deep charcoal, champagne gold, editorial serif + clean sans
+ * Aureum Mall & Residences — Brand design tokens
+ * Navy blue, cornflower, coral accent, Manrope + Playfair Display
+ * Based on the Aureum Visual Identity mood board
  */
 
 :root {
   /* ── Palette ─────────────────────────────────────────── */
-  --page:        #FAF7F2;
+  --page:        #F4F5F8;
   --surface:     #FFFFFF;
-  --soft:        #F2EDE4;
-  --ink:         #1A1A1A;
-  --muted:       #6B6560;
-  --brown:       #3D3226;
-  --gold:        #9E7E4E;
-  --gold-soft:   #C5A96A;
-  --gold-light:  #E8D9B8;
-  --accent:      #9E7E4E;
-  --dark:        #1A1A1A;
-  --dark-surface:#252420;
-  --cream:       #FAF7F2;
+  --soft:        #E8EAF0;
+  --ink:         #163473;
+  --muted:       #5A6580;
+  --brown:       #163473;
+  --gold:        #1B63AD;
+  --gold-soft:   #3694CF;
+  --gold-light:  #A8C4E0;
+  --accent:      #1B63AD;
+  --dark:        #163473;
+  --dark-surface:#1A3A7A;
+  --cream:       #F4F5F8;
+
+  /* Brand coral accent */
+  --coral:       #E8766A;
+  --coral-soft:  #F09E95;
 
   /* Legacy aliases so existing rules don't break */
-  --indigo:      #1A1A1A;
-  --mauve:       #9E7E4E;
-  --navy-deep:   #1A1A1A;
+  --indigo:      #163473;
+  --mauve:       #3694CF;
+  --navy-deep:   #163473;
 
-  --line:        rgba(26, 26, 26, 0.10);
-  --line-gold:   rgba(158, 126, 78, 0.30);
+  --line:        rgba(22, 52, 115, 0.10);
+  --line-gold:   rgba(27, 99, 173, 0.25);
   --success:     #2f6b4f;
   --error:       #b94a48;
 
   /* ── Typography ──────────────────────────────────────── */
-  --font-serif:    'Cormorant Garamond', 'Georgia', 'Times New Roman', serif;
-  --font-sans:     'DM Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-serif:    'Playfair Display', 'Georgia', 'Times New Roman', serif;
+  --font-sans:     'Manrope', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-display:  var(--font-serif);
 
   /* ── Spacing ─────────────────────────────────────────── */
@@ -57,9 +62,9 @@
   --radius-lg:   12px;
 
   /* ── Shadows ─────────────────────────────────────────── */
-  --shadow-card:  0 8px 32px rgba(26, 26, 26, 0.06);
-  --shadow-hero:  0 24px 64px rgba(26, 26, 26, 0.18);
-  --shadow-soft:  0 2px 12px rgba(26, 26, 26, 0.04);
+  --shadow-card:  0 8px 32px rgba(22, 52, 115, 0.08);
+  --shadow-hero:  0 24px 64px rgba(22, 52, 115, 0.20);
+  --shadow-soft:  0 2px 12px rgba(22, 52, 115, 0.05);
 
   /* ── Motion ──────────────────────────────────────────── */
   --motion-fast:    200ms cubic-bezier(0.25, 0.1, 0.25, 1);
