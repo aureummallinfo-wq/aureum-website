@@ -18,8 +18,8 @@ export const LEISURE_IMAGES: readonly ShowcaseImage[] = [
 
 /** Office interiors from the Aureum Catalogue (corporate offices chapter). */
 export const OFFICE_IMAGES: readonly ShowcaseImage[] = [
-  { src: `${base}/offices/aureum-office-workspace.jpg`, alt: 'Open-plan Aureum corporate office with linear ceiling lighting and workstations', label: 'Open-plan workspace' },
-  { src: `${base}/offices/aureum-office-reception.jpg`, alt: 'Aureum corporate office reception with timber seating and wayfinding signage', label: 'Reception & wayfinding' },
+  { src: `${base}/offices/aureum-office-workspace.webp`, alt: 'Open-plan Aureum corporate office with linear ceiling lighting and workstations', label: 'Open-plan workspace' },
+  { src: `${base}/offices/aureum-office-reception.webp`, alt: 'Aureum corporate office reception with timber seating and wayfinding signage', label: 'Reception & wayfinding' },
 ];
 
 export const RESIDENCE_IMAGES: readonly ShowcaseImage[] = [
