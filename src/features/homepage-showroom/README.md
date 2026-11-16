@@ -5,7 +5,7 @@ Owns the homepage journey: hero, category choice, Unit Finder entry, featured re
 ## Implementation
 
 - `data.ts` holds the homepage content model and deliberately excludes unapproved prices, dimensions, approvals and construction claims.
-- `components/JourneyToAureum.tsx` creates the four-stop scroll-linked location story immediately after the hero, with local WebP imagery, clickable stops, pause control and a text fallback.
+- `components/JourneyToAureum.tsx` creates the five-stop Airport-to-Aureum Ring Road story immediately after the hero, with a route line, local WebP imagery, clickable stops, pause control and a text fallback.
 - `components/ProjectSnapshot.tsx` presents the first serious project facts.
 - `components/FeaturedResidences.tsx` presents Studio, 1-Bed and 2-Bed pathways.
 - `components/CommercialTabs.tsx` keeps shops, food court and offices discoverable in one interaction.

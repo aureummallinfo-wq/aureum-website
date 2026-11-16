@@ -6,6 +6,7 @@ import { ButtonLink } from '@/components/ui/ButtonLink';
 import { JOURNEY_TO_AUREUM } from '../data';
 
 const clamp = (value: number, min: number, max: number) => Math.min(max, Math.max(min, value));
+const JOURNEY_ROUTE_PATH = 'M 5 73 C 17 66, 22 62, 30 57 C 39 52, 46 48, 54 43 C 63 37, 69 33, 76 30 C 84 25, 89 21, 95 17';
 
 export function JourneyToAureum() {
   const sectionRef = useRef<HTMLElement | null>(null);
@@ -81,6 +82,25 @@ export function JourneyToAureum() {
           <div className="journeyShade" />
         </div>
 
+        <div className="journeyMap" aria-hidden="true">
+          <p className="journeyMapKicker">Direct access / Ring Road</p>
+          <svg viewBox="0 0 100 100" role="presentation">
+            <path className="journeyRouteBase" d={JOURNEY_ROUTE_PATH} pathLength="1" />
+            <path className="journeyRouteProgress" d={JOURNEY_ROUTE_PATH} pathLength="1" strokeDasharray="1" strokeDashoffset={1 - progress} />
+          </svg>
+          <p className="journeyMapRoad">Lahore Ring Road / L-20</p>
+          {JOURNEY_TO_AUREUM.map((stop, index) => (
+            <span
+              key={stop.id}
+              className={`journeyMapMarker ${index === activeIndex ? 'isActive' : ''}`}
+              style={{ left: `${stop.mapX}%`, top: `${stop.mapY}%` }}
+            >
+              <i />
+              <b>{stop.shortLabel}</b>
+            </span>
+          ))}
+        </div>
+
         <div className="journeyRail" style={railStyle} aria-label="Journey to Aureum stops">
           <div className="journeyRailLine" aria-hidden="true" />
           <ol>
@@ -88,7 +108,7 @@ export function JourneyToAureum() {
               <li key={stop.id} className={index === activeIndex ? 'isActive' : ''}>
                 <button type="button" onClick={() => goToStop(index)} aria-label={`Go to ${stop.label}`} aria-current={index === activeIndex ? 'step' : undefined}>
                   <span className="journeyRailDot" aria-hidden="true" />
-                  <span>{stop.label}</span>
+                  <span>{stop.shortLabel}</span>
                 </button>
               </li>
             ))}
@@ -101,6 +121,7 @@ export function JourneyToAureum() {
           <h2 id="journey-heading" aria-live="polite">{activeStop.title}</h2>
           <p className="journeyDescription">{activeStop.description}</p>
           <p className="journeyMeta">{activeStop.meta}</p>
+          <p className="journeyRouteStatus">Airport <span aria-hidden="true">→</span> Ring Road / L-20 <span aria-hidden="true">→</span> SL-3 <span aria-hidden="true">→</span> Aureum</p>
           <div className="journeyActions">
             <ButtonLink href="/location" variant="secondary">Explore the location <span aria-hidden="true">↗</span></ButtonLink>
             <button type="button" className="journeyPause" onClick={togglePaused} aria-pressed={paused}>{paused ? 'Resume movement' : 'Pause movement'}</button>
@@ -111,7 +132,7 @@ export function JourneyToAureum() {
       </div>
 
       <div className="container journeyFallback" aria-label="Journey to Aureum overview">
-        <p className="journeyFallbackIntro">Scroll through the route, or read the four stops below.</p>
+        <p className="journeyFallbackIntro">Scroll through the route, or read the five stops below.</p>
         <ol>
           {JOURNEY_TO_AUREUM.map((stop) => <li key={stop.id}><span>{stop.step}</span><div><strong>{stop.label}</strong><p>{stop.description}</p></div></li>)}
         </ol>
