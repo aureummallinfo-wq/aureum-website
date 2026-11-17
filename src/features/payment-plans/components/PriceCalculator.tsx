@@ -195,10 +195,11 @@ export function PriceCalculator({ id = 'price-calculator', tableId, lockToTable 
             </small>
           </p>
 
-          <dl className="calcFigures">
-            <div><dt>Upfront</dt><dd><Amount value={upfront} /></dd><small>Booking 10% + confirmation 15%</small></div>
-            <div><dt>Monthly</dt><dd>{monthlyStage ? <Amount value={monthlyStage.each} /> : '—'}</dd><small>× {table.monthlyCount} months</small></div>
-            <div><dt>Half-yearly</dt><dd>{halfYearlyStage ? <Amount value={halfYearlyStage.each} /> : '—'}</dd><small>{halfYearlyStage ? `× ${halfYearlyStage.count}, every 6 months` : 'Not part of this plan'}</small></div>
+          <dl className="calcFigures calcFiguresCondensed">
+            <div><dt>At booking</dt><dd><Amount value={schedule.stages.find((s) => s.key === 'booking')?.total ?? 0} /></dd><small>10% of price</small></div>
+            <div><dt>Confirmation</dt><dd><Amount value={schedule.stages.find((s) => s.key === 'confirmation')?.total ?? 0} /></dd><small>15% · Month 1</small></div>
+            <div className="calcFigureHighlight"><dt>Monthly</dt><dd>{monthlyStage ? <Amount value={monthlyStage.each} /> : '—'}</dd><small>× {table.monthlyCount} identical instalments</small></div>
+            {halfYearlyStage ? <div><dt>Half-yearly</dt><dd><Amount value={halfYearlyStage.each} /></dd><small>× {halfYearlyStage.count}, every 6 months</small></div> : null}
             <div><dt>On possession</dt><dd>{completionStage ? <Amount value={completionStage.total} /> : '—'}</dd><small>20% · {monthLabel(schedule.possessionMonth, start)}*</small></div>
           </dl>
 

@@ -29,7 +29,7 @@ export function WordPressHomeExperience() {
     <>
       <section className={styles.editorial} aria-labelledby="wp-inside-heading">
         <div className="container">
-          <header className={styles.editorialHeading}>
+          <header className={`${styles.editorialHeading} textReveal`}>
             <Eyebrow>Inside Aureum</Eyebrow>
             <h2 id="wp-inside-heading">One address. Many ways to spend the day.</h2>
             <p>At the Bahria Town Ring Road Interchange, shops and dining gather around the atrium, with workplaces and homes above.</p>
@@ -86,7 +86,7 @@ export function WordPressHomeExperience() {
       <section className={styles.residences} aria-labelledby="home-residences-heading">
         <div className={`container ${styles.residencesGrid}`}>
           <ShowcaseFigure image={RESIDENCE_IMAGES[0]} sizes="(max-width: 760px) 94vw, (max-width: 1280px) 58vw, 760px" />
-          <div>
+          <div className="textReveal">
             <Eyebrow>Aureum Residences</Eyebrow>
             <h2 id="home-residences-heading">A home above the city.</h2>
             <p>Come inside the residences, from the private arrival to the living spaces, and explore Studio, 1 Bed and 2 Bed layouts.</p>
@@ -97,7 +97,7 @@ export function WordPressHomeExperience() {
 
       <section className="wpIntroSection section">
         <div className="container wpIntroGrid">
-          <div className="wpIntroCopy">
+          <div className="wpIntroCopy textReveal">
             <Eyebrow>The development</Eyebrow>
             <h2>Aureum at a glance.</h2>
             <p>Three retail levels, a food court and family entertainment, a luxury hotel, full-glass corporate offices and residences. Developed by {DEVELOPER.name} ({DEVELOPER.shortName}).</p>
@@ -147,7 +147,7 @@ export function WordPressHomeExperience() {
 
       <section className="wpAmenitiesSection section" aria-labelledby="wp-amenities-heading">
         <div className="container wpAmenitiesGrid">
-          <div>
+          <div className="textReveal">
             <Eyebrow>Amenities</Eyebrow>
             <h2 id="wp-amenities-heading">Everything you need, under one roof.</h2>
             <p>Twenty planned amenities for residents, office users and visitors, from a swimming pool and gym to a cinema, masjid and rooftop restaurant.</p>
@@ -162,7 +162,7 @@ export function WordPressHomeExperience() {
       <section className="wpLocationSection section" aria-labelledby="wp-location-heading">
         <div className="container wpLocationGrid">
           <LiveMap className="wpLiveMap" />
-          <div>
+          <div className="textReveal">
             <Eyebrow>Location / Ring Road Interchange</Eyebrow>
             <h2 id="wp-location-heading">At the gateway to Bahria Town.</h2>
             <p>On the Ring Road Interchange, 0 minutes from Bahria Town and about 25 minutes from Lahore airport.</p>

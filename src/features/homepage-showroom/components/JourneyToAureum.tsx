@@ -85,8 +85,24 @@ export function JourneyToAureum() {
         <div className="journeyMap" aria-hidden="true">
           <p className="journeyMapKicker">Direct access / Ring Road</p>
           <svg viewBox="0 0 100 100" role="presentation">
+            <defs>
+              <linearGradient id="terrainGrad" x1="0" y1="1" x2="1" y2="0">
+                <stop offset="0%" stopColor="rgba(54,148,207,0.06)" />
+                <stop offset="100%" stopColor="rgba(54,148,207,0.02)" />
+              </linearGradient>
+            </defs>
+            <path d={`${JOURNEY_ROUTE_PATH} L 95 100 L 5 100 Z`} fill="url(#terrainGrad)" />
             <path className="journeyRouteBase" d={JOURNEY_ROUTE_PATH} pathLength="1" />
             <path className="journeyRouteProgress" d={JOURNEY_ROUTE_PATH} pathLength="1" strokeDasharray="1" strokeDashoffset={1 - progress} />
+            {JOURNEY_TO_AUREUM.map((stop, index) => {
+              const reached = progress >= index / (JOURNEY_TO_AUREUM.length - 1) - 0.02;
+              return (
+                <g key={stop.id} className={`journeyAltitudeLabel ${reached ? 'isReached' : ''}`}>
+                  <line x1={stop.mapX} y1={stop.mapY} x2={stop.mapX} y2={stop.mapY + 8} strokeDasharray="2 2" />
+                  <text x={stop.mapX} y={stop.mapY + 13} textAnchor="middle">{stop.shortLabel}</text>
+                </g>
+              );
+            })}
           </svg>
           <p className="journeyMapRoad">Lahore Ring Road / L-20</p>
           {JOURNEY_TO_AUREUM.map((stop, index) => (

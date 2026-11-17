@@ -110,8 +110,8 @@ export const JOURNEY_TO_AUREUM = [
     meta: 'Sector C / 40 Feet Road · Bahria Town',
     mapX: 93,
     mapY: 17,
-    image: '/assets/aureum/approved/renders/aureum-exterior-night-wide.webp',
-    alt: 'Aureum Mall & Residencies illuminated at night',
+    image: '/assets/aureum/approved/renders/aureum-exterior-day-wide.jpg',
+    alt: 'Aureum Mall & Residences during the day, the complete destination',
   },
 ] as const;
 
