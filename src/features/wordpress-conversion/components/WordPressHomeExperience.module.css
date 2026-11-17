@@ -89,14 +89,27 @@
   grid-template-columns: minmax(0, 1fr) minmax(0, 2.65fr) minmax(0, 1fr);
   align-items: start;
   gap: clamp(12px, 3vw, 40px);
+  perspective: 1200px;
 }
 
 .collage > figure:first-child {
   margin-top: 32%;
+  transform: rotateY(4deg);
+  transition: transform 600ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.collage > figure:first-child:hover {
+  transform: rotateY(0deg) scale(1.02);
 }
 
 .collage > figure:last-child {
   margin-top: 78%;
+  transform: rotateY(-4deg);
+  transition: transform 600ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.collage > figure:last-child:hover {
+  transform: rotateY(0deg) scale(1.02);
 }
 
 .collage > figure :global(.showcaseFigureImage) {
@@ -121,6 +134,7 @@
 @media (max-width: 780px) {
   .collage {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    perspective: none;
   }
 
   .collageLead {
@@ -131,6 +145,120 @@
   .collage > figure:first-child,
   .collage > figure:last-child {
     margin-top: 0;
+    transform: none;
+  }
+}
+
+/* ── Lifestyle emotion section (Azimute-inspired 3D perspective grid) ── */
+.lifestyle {
+  padding-block: clamp(64px, 10vw, 132px);
+  background: var(--navy-deep);
+  color: var(--page);
+  overflow: hidden;
+}
+
+.lifestyleHeading {
+  max-width: 700px;
+  margin: 0 auto clamp(36px, 6vw, 72px);
+  text-align: center;
+}
+
+.lifestyleHeading h2 {
+  margin: 12px 0 20px;
+  color: var(--page);
+  font: 400 clamp(2.6rem, 6.3vw, 5.6rem)/0.98 var(--font-serif);
+  letter-spacing: -0.04em;
+}
+
+.lifestyleHeading p {
+  max-width: 48ch;
+  margin-inline: auto;
+  color: rgba(255, 255, 255, 0.68);
+}
+
+.lifestyleGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(14px, 2.5vw, 32px);
+  perspective: 1000px;
+}
+
+.lifestyleCard {
+  position: relative;
+  overflow: hidden;
+  transition: transform 700ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.lifestyleCard:nth-child(1) {
+  transform: rotateY(5deg);
+}
+
+.lifestyleCard:nth-child(2) {
+  transform: translateZ(20px) scale(1.03);
+  z-index: 1;
+}
+
+.lifestyleCard:nth-child(3) {
+  transform: rotateY(-5deg);
+}
+
+.lifestyleCard:hover {
+  transform: rotateY(0deg) scale(1.04) !important;
+  z-index: 2;
+}
+
+.lifestyleCard :global(.showcaseFigureImage) {
+  aspect-ratio: 3 / 4;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.lifestyleCard :global(.showcaseFigure) figcaption {
+  color: var(--page);
+}
+
+.lifestyleCard :global(.showcaseFigure) figcaption strong {
+  color: var(--page);
+}
+
+.lifestyleCard :global(.showcaseFigure) figcaption span {
+  color: rgba(255, 255, 255, 0.58);
+}
+
+@media (max-width: 760px) {
+  .lifestyleGrid {
+    grid-template-columns: 1fr;
+    perspective: none;
+  }
+
+  .lifestyleCard:nth-child(1),
+  .lifestyleCard:nth-child(2),
+  .lifestyleCard:nth-child(3) {
+    transform: none;
+  }
+
+  .lifestyleCard :global(.showcaseFigureImage) {
+    aspect-ratio: 16 / 9;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .collage > figure:first-child,
+  .collage > figure:last-child {
+    transform: none;
+    transition: none;
+  }
+
+  .lifestyleGrid {
+    perspective: none;
+  }
+
+  .lifestyleCard,
+  .lifestyleCard:nth-child(1),
+  .lifestyleCard:nth-child(2),
+  .lifestyleCard:nth-child(3) {
+    transform: none;
+    transition: none;
   }
 }
 

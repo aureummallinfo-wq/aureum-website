@@ -10,7 +10,7 @@ import { SiteUpdates } from '@/features/trust-location/components/SiteUpdates';
 import { PriceCalculator } from '@/features/payment-plans/components/PriceCalculator';
 import { AMENITIES, DEVELOPER, PROJECT_STATS } from '@/lib/project-facts';
 import { ShowcaseFigure } from '@/features/project-showcase/components/ProjectShowcase';
-import { EXTERIOR_NIGHT_WIDE, FOOD_COURT_IMAGE, MALL_IMAGES, OFFICE_IMAGES, RESIDENCE_IMAGES } from '@/features/project-showcase/images';
+import { EXTERIOR_NIGHT_WIDE, FOOD_COURT_IMAGE, GLASS_ATRIUM_AERIAL, GLASS_ATRIUM_CLOSE, MALL_IMAGES, MAIN_ROAD_VIEW, OFFICE_IMAGES, RESIDENCE_IMAGES, RING_ROAD_SUNSET } from '@/features/project-showcase/images';
 
 import { ResidenceGallery } from '@/app/apartments/ResidenceGallery';
 import { ResidenceSequence } from '@/app/apartments/ResidenceSequence';
@@ -80,6 +80,21 @@ export function WordPressHomeExperience() {
               image: <ShowcaseFigure image={scene.image} sizes="(max-width: 1320px) 94vw, 1240px" />,
             }))}
           />
+        </div>
+      </section>
+
+      <section className={styles.lifestyle} aria-labelledby="lifestyle-heading">
+        <div className="container">
+          <header className={`${styles.lifestyleHeading} textReveal`}>
+            <Eyebrow>The destination</Eyebrow>
+            <h2 id="lifestyle-heading">Every angle tells a story.</h2>
+            <p>From Ring Road to the glass atrium entrance, Aureum is designed to be recognised from every approach.</p>
+          </header>
+          <div className={styles.lifestyleGrid}>
+            <div className={styles.lifestyleCard}><ShowcaseFigure image={RING_ROAD_SUNSET} sizes="(max-width: 760px) 94vw, 33vw" /></div>
+            <div className={styles.lifestyleCard}><ShowcaseFigure image={GLASS_ATRIUM_AERIAL} sizes="(max-width: 760px) 94vw, 33vw" /></div>
+            <div className={styles.lifestyleCard}><ShowcaseFigure image={MAIN_ROAD_VIEW} sizes="(max-width: 760px) 94vw, 33vw" /></div>
+          </div>
         </div>
       </section>
 
