@@ -1779,37 +1779,30 @@ textarea:focus-visible {
   text-align: left;
 }
 
-.mediaAssetButton:hover .mediaAssetVisual,
-.mediaAssetButton:focus-visible .mediaAssetVisual {
-  background-position: 100% 50%;
-}
-
 .mediaAssetVisual {
-  display: flex;
-  min-height: 240px;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 24px;
-  background: linear-gradient(135deg, #aa8b59, #33271a 74%);
-  background-size: 180% 100%;
-  color: var(--surface);
-  transition: background-position var(--motion-normal);
+  position: relative;
+  display: block;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: var(--soft);
 }
 
-.mediaAssetVisual span {
-  color: var(--gold-soft);
-  font-size: 10px;
-  font-weight: 800;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+.mediaAssetVisual img {
+  object-fit: cover;
 }
 
-.mediaAssetVisual strong {
-  max-width: 210px;
-  font-family: var(--font-display);
-  font-size: 31px;
-  font-weight: 400;
-  line-height: 1.02;
+.mediaAssetVisual[data-kind="floor-plan"] img {
+  object-fit: contain;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .mediaAssetVisual img {
+    transition: transform 480ms ease;
+  }
+
+  .mediaAssetButton:hover .mediaAssetVisual img {
+    transform: scale(1.035);
+  }
 }
 
 .mediaAssetBody {
@@ -1843,12 +1836,24 @@ textarea:focus-visible {
 
 .mediaLightbox {
   position: fixed;
-  z-index: 50;
   inset: 0;
-  display: grid;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  border: 0;
   place-items: center;
   padding: 24px;
-  background: rgba(23, 18, 14, 0.84);
+  background: transparent;
+}
+
+.mediaLightbox[open] {
+  display: grid;
+}
+
+.mediaLightbox::backdrop {
+  background: rgb(17 18 50 / 84%);
 }
 
 .mediaLightboxPanel {
@@ -4801,38 +4806,6 @@ textarea:focus-visible {
   }
 }
 
-/* D5 showreels (immersive-media/components/D5VirtualTours.tsx) */
-.d5ToursSection { background: var(--soft); }
-.d5ToursIntro { display: grid; grid-template-columns: minmax(0, 1fr) minmax(260px, 0.7fr); gap: 48px; align-items: end; margin-bottom: 30px; }
-.d5ToursIntro h2 { max-width: 620px; margin: 10px 0 0; color: var(--indigo); font-size: clamp(30px, 4vw, 52px); line-height: 1.02; }
-.d5ToursIntro p { max-width: 480px; margin: 0; color: var(--muted); }
-.d5ToursGrid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; margin: 0; padding: 0; list-style: none; }
-.d5TourCard { display: flex; min-width: 0; flex-direction: column; overflow: hidden; border: 1px solid var(--line); border-radius: var(--radius-sm); background: var(--surface); box-shadow: var(--shadow-card); }
-.d5TourPoster { position: relative; display: block; aspect-ratio: 4 / 3; overflow: hidden; background: var(--indigo); }
-.d5TourPoster img { object-fit: cover; transition: transform 500ms ease; }
-.d5TourPoster::after { position: absolute; inset: 0; content: ''; background: linear-gradient(180deg, rgba(28, 25, 120, 0.05) 30%, rgba(28, 25, 120, 0.72) 100%); }
-.d5TourPoster:hover img, .d5TourPoster:focus-visible img { transform: scale(1.04); }
-.d5TourPoster:focus-visible { outline: 3px solid var(--gold-soft); outline-offset: -3px; }
-.d5TourBadge { position: absolute; top: 16px; left: 16px; z-index: 1; padding: 6px 9px; background: var(--mauve); color: var(--surface); font-size: 11px; font-weight: 700; letter-spacing: 0.12em; }
-.d5TourPlay { position: absolute; right: 16px; bottom: 14px; z-index: 1; display: grid; width: 38px; height: 38px; place-items: center; border-radius: 50%; background: var(--gold-soft); color: var(--indigo); font-size: 20px; font-weight: 700; }
-.d5TourCopy { display: flex; flex: 1; flex-direction: column; gap: 9px; padding: 20px; }
-.d5TourCopy h3 { margin: 0; color: var(--indigo); font-size: 22px; }
-.d5TourCopy p { flex: 1; margin: 0; color: var(--muted); font-size: 14px; line-height: 1.55; }
-.d5TourLink { align-self: flex-start; color: var(--mauve); font-size: 14px; font-weight: 700; }
-
-@media (max-width: 900px) {
-  .d5ToursIntro { grid-template-columns: 1fr; gap: 16px; }
-  .d5ToursGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-}
-
-@media (max-width: 600px) {
-  .d5ToursGrid { grid-template-columns: 1fr; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .d5TourPoster img { transition: none; }
-}
-
 /* ===== Project showcase (src/features/project-showcase) ===== */
 .showcaseSection .sectionHeading,
 .developerSection h2,
@@ -4919,9 +4892,7 @@ textarea:focus-visible {
 .brochureCardCopy { display: flex; flex: 1; flex-direction: column; gap: 10px; padding: 22px; }
 .brochureCard h3 { margin: 0; color: var(--indigo); font-size: 20px; }
 .brochureCard p { flex: 1; margin: 0; color: var(--muted); font-size: 14px; }
-.brochureCardActions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-top: auto; }
-.brochureCardActions .button { align-self: flex-start; }
-.brochurePreview { color: var(--indigo); font-size: 13px; font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+.brochureCard .button { align-self: flex-start; }
 .brochureForm { display: grid; gap: 14px; max-width: 760px; margin-top: 24px; padding: 24px; border: 1px solid var(--line-gold); border-radius: var(--radius-sm); background: var(--surface); box-shadow: var(--shadow-card); }
 .brochureForm > p { margin: 0; color: var(--ink); }
 .brochureFields { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr); gap: 14px; }
@@ -5126,10 +5097,6 @@ h2:not(.srOnly) {
   object-position: 50% 45%;
 }
 
-.heroCinemaImageMobile {
-  display: none !important;
-}
-
 .heroCinemaShade {
   position: absolute;
   inset: 0;
@@ -5233,14 +5200,6 @@ h2:not(.srOnly) {
 
   .heroCinemaImage {
     object-position: 48% 40%;
-  }
-
-  .heroCinemaImageDesktop {
-    display: none !important;
-  }
-
-  .heroCinemaImageMobile {
-    display: block !important;
   }
 
   .heroCinemaShade {
@@ -6217,18 +6176,6 @@ h2:not(.srOnly) {
   width: 100%;
   height: 100%;
   object-fit: cover;
-}
-
-.walkthroughStep {
-  position: absolute;
-  top: 12px;
-  left: 12px;
-  padding: 4px 9px;
-  background: rgba(17, 18, 50, 0.72);
-  color: var(--gold-soft);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.14em;
 }
 
 .walkthroughItem h3 {
@@ -8831,12 +8778,12 @@ body:has(> #main-content > section:first-of-type:is(.heroCinema, .wpInternalHero
 
 /* Gold keyline inside the navy mat. */
 .teamPhoto::before {
-  box-shadow: inset 0 0 0 1px rgba(54, 148, 207, 0.4);
+  box-shadow: inset 0 0 0 1px rgba(216, 191, 142, 0.6);
 }
 
 /* Soft navy fade at the foot so every photo sits on the caption the same way. */
 .teamPhoto::after {
-  background: linear-gradient(180deg, rgba(22, 52, 115, 0) 66%, rgba(22, 52, 115, 0.42) 100%);
+  background: linear-gradient(180deg, rgba(17, 18, 50, 0) 66%, rgba(17, 18, 50, 0.42) 100%);
 }
 
 .teamCard:hover .teamPhoto img {
@@ -8854,21 +8801,21 @@ body:has(> #main-content > section:first-of-type:is(.heroCinema, .wpInternalHero
 
 .teamPhoto.isGoldTone img,
 .teamCard:hover .teamPhoto.isGoldTone img {
-  filter: grayscale(1) sepia(0.3) saturate(2.0) hue-rotate(185deg) contrast(1.05) brightness(1.1);
+  filter: grayscale(1) sepia(0.9) saturate(1.6) hue-rotate(-8deg) contrast(1.1) brightness(1.08);
 }
 
 .teamPhoto.isGoldTone::before {
-  background: linear-gradient(160deg, #a8c4e0 0%, #3694cf 50%, var(--gold) 100%);
+  background: linear-gradient(160deg, #e9cf98 0%, #c9a465 50%, var(--gold) 100%);
   mix-blend-mode: color;
   opacity: 0.6;
-  box-shadow: inset 0 0 0 1px rgba(54, 148, 207, 0.4);
+  box-shadow: inset 0 0 0 1px rgba(216, 191, 142, 0.6);
 }
 
 .teamCaption {
   display: grid;
   gap: 4px;
   padding: 16px 18px 18px;
-  border-top: 2px solid var(--gold);
+  border-top: 2px solid var(--gold-soft);
 }
 
 .teamName {
@@ -9422,7 +9369,7 @@ body:has(> #main-content > section:first-of-type:is(.heroCinema, .wpInternalHero
   gap: 8px;
   padding: 24px;
   border: 1px solid var(--line);
-  border-top: 2px solid var(--gold);
+  border-top: 2px solid var(--gold-soft);
   border-radius: 0;
   background: var(--surface);
 }
@@ -9492,1086 +9439,93 @@ body:has(> #main-content > section:first-of-type:is(.heroCinema, .wpInternalHero
   }
 }
 
-/* ═══════════════════════════════════════════════════════════════════════════
-   BELGRADE ARBOR STYLE OVERRIDE LAYER
-   Premium editorial redesign — warm cream, champagne gold, cinematic hero,
-   serif display type, scroll-reveal animations, full-viewport sections.
-   ═══════════════════════════════════════════════════════════════════════════ */
-
-/* ── Scroll reveal animation ─────────────────────────────────────────────── */
-.reveal {
-  opacity: 0;
-  transform: translateY(40px);
-  transition: opacity var(--motion-reveal), transform var(--motion-reveal);
-}
-
-.reveal.isVisible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.reveal.revealDelay1 { transition-delay: 120ms; }
-.reveal.revealDelay2 { transition-delay: 240ms; }
-.reveal.revealDelay3 { transition-delay: 360ms; }
-.reveal.revealDelay4 { transition-delay: 480ms; }
-
-@media (prefers-reduced-motion: reduce) {
-  .reveal { opacity: 1; transform: none; transition: none; }
-}
-
-/* ── Journey to Aureum scrollytelling section ───────────────────────────── */
-.journeySection {
-  --journey-progress: 0%;
-  position: relative;
-  height: calc((100svh * var(--journey-stops)) + 100svh);
-  background: var(--indigo);
-}
-
-.journeySticky {
-  position: sticky;
-  top: 0;
-  height: 100svh;
-  min-height: 560px;
-  overflow: hidden;
-  color: var(--surface);
-  isolation: isolate;
-}
-
-.journeyVisual,
-.journeyImage,
-.journeyShade {
-  position: absolute;
-  inset: 0;
-}
-
-.journeyVisual {
-  z-index: -1;
-  overflow: hidden;
-  background: var(--indigo);
-}
-
-.journeyImage {
-  object-fit: cover;
-  object-position: center;
-  transition: opacity 700ms cubic-bezier(0.16, 1, 0.3, 1), transform 1200ms cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: opacity, transform;
-}
-
-.journeyShade {
-  background: linear-gradient(180deg, rgba(13, 28, 67, 0.6) 0%, rgba(13, 28, 67, 0.18) 38%, rgba(13, 28, 67, 0.88) 100%);
-}
-
-.journeyMap {
-  position: absolute;
-  z-index: 1;
-  top: clamp(170px, 24vh, 230px);
-  right: clamp(24px, 7vw, 120px);
-  width: min(52vw, 760px);
-  height: min(52vh, 430px);
-  pointer-events: none;
-}
-
-.journeyMap svg {
-  display: block;
-  width: 100%;
-  height: 100%;
-  overflow: visible;
-}
-
-.journeyMapKicker,
-.journeyMapRoad {
-  position: absolute;
-  z-index: 2;
-  margin: 0;
-  color: rgba(255, 255, 255, 0.72);
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-}
-
-.journeyMapKicker {
-  top: -24px;
-  left: 2px;
-  color: var(--gold-soft);
-}
-
-.journeyMapRoad {
-  top: 47%;
-  left: 32%;
-  padding: 7px 10px;
-  border: 1px solid rgba(255, 255, 255, 0.22);
-  background: rgba(13, 28, 67, 0.62);
-  font-size: 9px;
-  letter-spacing: 0.1em;
-  transform: rotate(-16deg);
-}
-
-.journeyRouteBase,
-.journeyRouteProgress {
-  fill: none;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-
-.journeyRouteBase {
-  stroke: rgba(255, 255, 255, 0.28);
-  stroke-width: 1.2;
-}
-
-.journeyRouteProgress {
-  stroke: var(--gold-soft);
-  stroke-width: 2.6;
-  filter: drop-shadow(0 0 7px rgba(244, 192, 78, 0.4));
-  transition: stroke-dashoffset 300ms ease-out;
-}
-
-.journeyMapMarker {
-  position: absolute;
-  display: grid;
-  justify-items: center;
-  gap: 7px;
-  color: rgba(255, 255, 255, 0.62);
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  transform: translate(-50%, -50%);
-  transition: color 300ms ease, transform 300ms ease;
-}
-
-.journeyMapMarker i {
-  display: block;
-  width: 12px;
-  height: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.6);
-  border-radius: 50%;
-  background: rgba(13, 28, 67, 0.78);
-  box-shadow: 0 0 0 6px rgba(13, 28, 67, 0.18);
-}
-
-.journeyMapMarker.isActive {
-  color: var(--surface);
-  transform: translate(-50%, -50%) scale(1.08);
-}
-
-.journeyMapMarker.isActive i {
-  border-color: var(--gold-soft);
-  background: var(--gold-soft);
-  box-shadow: 0 0 0 7px rgba(244, 192, 78, 0.18), 0 0 20px rgba(244, 192, 78, 0.42);
-}
-
-.journeyRail {
-  position: absolute;
-  z-index: 2;
-  top: clamp(84px, 12vh, 132px);
-  left: 50%;
-  width: min(calc(100% - 48px), 1180px);
-  transform: translateX(-50%);
-}
-
-.journeyRail ol {
-  position: relative;
-  display: flex;
-  justify-content: space-between;
-  gap: 16px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.journeyRailLine,
-.journeyRailLine::after {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  height: 1px;
-  content: '';
-}
-
-.journeyRailLine {
-  right: 10px;
-  background: rgba(255, 255, 255, 0.28);
-}
-
-.journeyRailLine::after {
-  width: var(--journey-progress);
-  background: var(--gold-soft);
-  transition: width 300ms ease-out;
-}
-
-.journeyRail li {
-  min-width: 0;
-}
-
-.journeyRail button {
-  position: relative;
-  display: grid;
-  justify-items: start;
-  gap: 10px;
-  padding: 0;
-  border: 0;
-  background: transparent;
-  color: rgba(255, 255, 255, 0.68);
-  cursor: pointer;
-  font: inherit;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-
-.journeyRail button:focus-visible {
-  outline: 2px solid var(--gold-soft);
-  outline-offset: 8px;
-}
-
-.journeyRail li.isActive button,
-.journeyRail button:hover {
-  color: var(--surface);
-}
-
-.journeyRailDot {
-  position: relative;
-  z-index: 1;
-  display: block;
-  width: 20px;
-  height: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.55);
-  border-radius: 50%;
-  background: rgba(13, 28, 67, 0.65);
-  box-shadow: 0 0 0 5px rgba(13, 28, 67, 0.14);
-}
-
-.journeyRail li.isActive .journeyRailDot {
-  border-color: var(--gold-soft);
-  background: var(--gold-soft);
-  box-shadow: 0 0 0 5px rgba(54, 148, 207, 0.22);
-}
-
-.journeyCopy {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  min-height: 100%;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding-top: 190px;
-  padding-bottom: clamp(88px, 14vh, 150px);
-}
-
-.journeyStep,
-.journeyEyebrow,
-.journeyMeta,
-.journeyDisclaimer {
-  margin: 0;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-}
-
-.journeyStep {
-  color: var(--gold-soft);
-}
-
-.journeyEyebrow {
-  max-width: 700px;
-  margin-top: 14px;
-  color: rgba(255, 255, 255, 0.72);
-}
-
-.journeyCopy h2 {
-  max-width: 820px;
-  margin: 12px 0 18px;
-  color: var(--surface);
-  font-size: clamp(42px, 7vw, 96px) !important;
-  line-height: 0.98 !important;
-  text-wrap: balance;
-}
-
-.journeyDescription {
-  max-width: 580px;
-  margin: 0;
-  color: rgba(255, 255, 255, 0.9);
-  font-size: clamp(17px, 2vw, 22px);
-  line-height: 1.45;
-}
-
-.journeyMeta {
-  margin-top: 20px;
-  color: rgba(255, 255, 255, 0.62);
-  font-size: 11px;
-}
-
-.journeyRouteStatus {
-  margin: 18px 0 0;
-  color: rgba(255, 255, 255, 0.62);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
-
-.journeyRouteStatus span {
-  padding: 0 8px;
-  color: var(--gold-soft);
-}
-
-.journeyActions {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 18px;
-  margin-top: 28px;
-}
-
-.journeyPause {
-  padding: 11px 0;
-  border: 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.6);
-  background: transparent;
-  color: var(--surface);
-  cursor: pointer;
-  font: inherit;
-  font-size: 13px;
-  font-weight: 700;
-}
-
-.journeyPause:focus-visible {
-  outline: 2px solid var(--gold-soft);
-  outline-offset: 5px;
-}
-
-.journeyDisclaimer {
-  position: absolute;
-  z-index: 1;
-  right: 24px;
-  bottom: 24px;
-  max-width: 440px;
-  color: rgba(255, 255, 255, 0.58);
-  font-size: 10px;
-  font-weight: 500;
-  letter-spacing: 0.04em;
-  line-height: 1.5;
-  text-align: right;
-  text-transform: none;
-}
-
-.journeyFallback {
-  display: none;
-}
-
-@media (max-width: 760px) {
-  .journeySticky {
-    min-height: 500px;
-  }
-
-  .journeyRail {
-    top: 82px;
-    width: calc(100% - 32px);
-  }
-
-  .journeyRail button {
+/* Residential quick actions share the existing contact bar and safe-area clearance. */
+@media (min-width: 768px) {
+  .residenceContact {
+    position: fixed;
+    z-index: 40;
+    right: 24px;
+    bottom: 24px;
+    display: flex;
     gap: 8px;
-    font-size: 9px;
-    letter-spacing: 0.08em;
-  }
-
-  .journeyRailDot {
-    width: 16px;
-    height: 16px;
-  }
-
-  .journeyRailLine,
-  .journeyRailLine::after {
-    top: 8px;
-  }
-
-  .journeyRailLine {
-    left: 8px;
-    right: 8px;
-  }
-
-  .journeyMap {
-    top: 168px;
-    right: 16px;
-    width: calc(100% - 32px);
-    height: 34%;
-    opacity: 0.72;
-  }
-
-  .journeyMapRoad {
-    left: 26%;
-    font-size: 8px;
-  }
-
-  .journeyMapMarker {
-    gap: 5px;
-    font-size: 7px;
-    letter-spacing: 0.08em;
-  }
-
-  .journeyMapMarker i {
-    width: 10px;
-    height: 10px;
-  }
-
-  .journeyCopy {
-    justify-content: flex-start;
-    padding-top: 248px;
-    padding-bottom: 80px;
-  }
-
-  .journeyCopy h2 {
-    max-width: 540px;
-    margin-top: 8px;
-    margin-bottom: 12px;
-    font-size: clamp(36px, 10vw, 58px) !important;
-  }
-
-  .journeyDescription {
-    max-width: 440px;
-    font-size: 15px;
-    line-height: 1.35;
-  }
-
-  .journeyMeta,
-  .journeyRouteStatus {
-    margin-top: 12px;
-    font-size: 9px;
-  }
-
-  .journeyRouteStatus span {
-    padding: 0 5px;
-  }
-
-  .journeyActions {
-    gap: 14px;
-    margin-top: 18px;
-  }
-
-  .journeyDisclaimer {
-    right: 16px;
-    bottom: 16px;
-    left: 16px;
-    max-width: none;
-    text-align: left;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .journeySection {
-    height: auto;
+    align-items: center;
+    padding: 4px 8px;
+    border: 1px solid var(--line-gold);
+    border-radius: var(--radius-sm);
     background: var(--page);
   }
 
-  .journeySticky {
-    position: relative;
-    height: auto;
-    min-height: 560px;
+  .residenceContact nav {
+    display: flex;
   }
 
-  .journeyImage,
-  .journeyRailLine::after,
-  .journeyRouteProgress,
-  .journeyMapMarker {
-    transition: none;
-  }
-
-  .journeyFallback {
-    display: block;
-    padding-top: 28px;
-    padding-bottom: 64px;
-    color: var(--ink);
-  }
-
-  .journeyFallbackIntro {
-    margin: 0 0 18px;
-    color: var(--muted);
-  }
-
-  .journeyFallback ol {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 14px;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-  }
-
-  .journeyFallback li {
-    display: grid;
-    grid-template-columns: 44px 1fr;
-    gap: 12px;
-    padding: 18px;
-    border: 1px solid var(--line);
-    background: var(--surface);
-  }
-
-  .journeyFallback li > span {
-    color: var(--gold);
+  .residenceContact a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding-inline: 10px;
+    color: var(--indigo);
+    font-size: 0.8rem;
     font-weight: 700;
   }
 
-  .journeyFallback strong {
+  .residenceContact .whatsappFloat {
+    position: static;
+    border-radius: 0;
+    border-left: 1px solid var(--line);
+    background: transparent;
+    box-shadow: none;
+    transition: none;
+  }
+
+  .residenceContact a:hover {
+    transform: none;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+}
+
+@media (max-width: 767px) {
+  .residenceContact {
+    display: none;
+  }
+
+  .residenceMobileContact {
+    grid-template-columns: 0.65fr 1fr 1fr 1.15fr;
+    background: var(--page);
+  }
+
+  .residenceMobileContact a {
+    padding: 0 4px;
+    text-align: center;
+    font-size: 0.75rem;
+    line-height: 1.25;
+  }
+
+  .residenceMobileContact .mobileCtaWhatsapp {
+    background: transparent;
     color: var(--indigo);
   }
 
-  .journeyFallback p {
-    margin: 4px 0 0;
-    color: var(--muted);
-    font-size: 14px;
-    line-height: 1.5;
+  .residenceMobileContact a:last-child {
+    background: var(--indigo);
+    color: var(--page);
   }
 }
 
-@media (prefers-reduced-motion: reduce) and (max-width: 760px) {
-  .journeyFallback ol {
-    grid-template-columns: 1fr;
+@media print {
+  .residenceContact {
+    display: none;
   }
 }
 
-/* ── Global typography ───────────────────────────────────────────────────── */
-h1:not(.srOnly),
-h2:not(.srOnly),
-h3:not(.srOnly) {
-  font-family: var(--font-serif) !important;
-  font-weight: 400 !important;
-  letter-spacing: -0.01em !important;
-}
-
-h1:not(.srOnly) {
-  font-size: clamp(48px, 7.5vw, 104px) !important;
-  line-height: 1 !important;
-}
-
-h2:not(.srOnly) {
-  font-size: clamp(32px, 4vw, 56px) !important;
-  line-height: 1.1 !important;
-}
-
-h3:not(.srOnly) {
-  font-size: clamp(22px, 2.4vw, 32px) !important;
-  line-height: 1.2 !important;
-}
-
-/* ── Eyebrow / kicker labels ─────────────────────────────────────────────── */
-.eyebrow,
-.cardEyebrow,
-.visualLabel,
-.heroCinemaKicker {
-  font-family: var(--font-sans) !important;
-  font-size: 11px !important;
-  font-weight: 600 !important;
-  letter-spacing: 0.22em !important;
-  text-transform: uppercase !important;
-  color: var(--gold) !important;
-}
-
-/* ── Buttons — pill shape with gold accent ───────────────────────────────── */
-.button {
-  border-radius: 100px !important;
-  font-family: var(--font-sans) !important;
-  font-size: 12px !important;
-  font-weight: 600 !important;
-  letter-spacing: 0.12em !important;
-  text-transform: uppercase !important;
-  padding: 16px 36px !important;
-  transition: all 400ms cubic-bezier(0.25, 0.1, 0.25, 1) !important;
-}
-
-.button.primary {
-  background: var(--gold) !important;
-  border-color: var(--gold) !important;
-  color: #fff !important;
-  box-shadow: none !important;
-}
-
-.button.primary:hover {
-  background: var(--brown) !important;
-  border-color: var(--brown) !important;
-}
-
-.button.secondary {
-  background: transparent !important;
-  border-color: rgba(255, 255, 255, 0.5) !important;
-  color: #fff !important;
-  box-shadow: none !important;
-}
-
-.button.secondary:hover {
-  background: rgba(255, 255, 255, 0.1) !important;
-  border-color: #fff !important;
-}
-
-.button.dark {
-  background: var(--brown) !important;
-  border-color: var(--brown) !important;
-  color: var(--cream) !important;
-  box-shadow: none !important;
-}
-
-.button.dark:hover {
-  background: var(--gold) !important;
-  border-color: var(--gold) !important;
-}
-
-/* ── Site header — transparent overlay, Belgrade Arbor style ─────────────── */
-.siteHeader {
-  position: fixed !important;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 50;
-  background: transparent !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.15) !important;
-  box-shadow: none !important;
-  transition: background 500ms ease, border-color 500ms ease, backdrop-filter 500ms ease !important;
-}
-
-.siteHeader .brandOnLight { display: none; }
-.siteHeader .brandOnDark { display: inline-flex; }
-
-.siteHeader .navLinks a:not(.navCta) {
-  color: rgba(255, 255, 255, 0.85) !important;
-}
-
-.siteHeader .navLinks a:not(.navCta):hover {
-  color: var(--gold-soft) !important;
-}
-
-.siteHeader .headerCall small {
-  color: rgba(255, 255, 255, 0.5) !important;
-}
-
-.siteHeader .headerCall a {
-  color: #fff !important;
-}
-
-.siteHeader .headerCall {
-  border-left-color: rgba(255, 255, 255, 0.2) !important;
-}
-
-.siteHeader .menuToggle {
-  color: #fff !important;
-}
-
-.siteHeader .navCta {
-  background: var(--gold) !important;
-  border-color: var(--gold) !important;
-  color: #fff !important;
-  border-radius: 100px !important;
-}
-
-.siteHeader .navCta:hover {
-  background: var(--gold-soft) !important;
-  border-color: var(--gold-soft) !important;
-}
-
-/* Solid state after scroll */
-.siteHeader.isSolid {
-  background: rgba(244, 245, 248, 0.97) !important;
-  border-bottom-color: var(--line) !important;
-  backdrop-filter: blur(20px) !important;
-}
-
-.siteHeader.isSolid .brandOnLight { display: inline-flex; }
-.siteHeader.isSolid .brandOnDark { display: none; }
-
-.siteHeader.isSolid .navLinks a:not(.navCta) {
-  color: var(--ink) !important;
-}
-
-.siteHeader.isSolid .navLinks a:not(.navCta):hover {
-  color: var(--gold) !important;
-}
-
-.siteHeader.isSolid .headerCall small {
-  color: var(--muted) !important;
-}
-
-.siteHeader.isSolid .headerCall a {
-  color: var(--ink) !important;
-}
-
-.siteHeader.isSolid .headerCall {
-  border-left-color: var(--line) !important;
-}
-
-.siteHeader.isSolid .menuToggle {
-  color: var(--ink) !important;
-}
-
-/* ── Cinematic hero — editorial serif, deeper overlay ────────────────────── */
-.heroCinema {
-  min-height: 100svh !important;
-  background: var(--dark) !important;
-}
-
-.heroCinemaShade {
-  background:
-    linear-gradient(180deg, rgba(22, 52, 115, 0.35) 0%, rgba(22, 52, 115, 0.05) 40%, rgba(22, 52, 115, 0.65) 85%, rgba(22, 52, 115, 0.92) 100%) !important;
-}
-
-.heroCinemaInner {
-  padding-top: 160px !important;
-}
-
-.heroCinemaKicker {
-  color: var(--gold-soft) !important;
-  font-family: var(--font-sans) !important;
-  font-size: 11px !important;
-  letter-spacing: 0.25em !important;
-}
-
-.heroCinema h1 {
-  font-family: var(--font-serif) !important;
-  font-size: clamp(56px, 9vw, 120px) !important;
-  font-weight: 300 !important;
-  letter-spacing: -0.02em !important;
-  line-height: 0.95 !important;
-  max-width: 900px !important;
-}
-
-.heroCinema h1 span {
-  font-style: italic !important;
-  font-weight: 300 !important;
-  color: var(--gold-light) !important;
-}
-
-.heroCinemaLead {
-  font-family: var(--font-sans) !important;
-  font-size: clamp(16px, 1.4vw, 19px) !important;
-  color: rgba(255, 255, 255, 0.72) !important;
-  line-height: 1.7 !important;
-  max-width: 480px !important;
-}
-
-.heroCinemaFoot {
-  border-top-color: rgba(255, 255, 255, 0.15) !important;
-}
-
-.heroCinemaFacts dd {
-  font-family: var(--font-serif) !important;
-  font-weight: 400 !important;
-  font-size: clamp(28px, 3vw, 40px) !important;
-}
-
-.heroCinemaFacts dt {
-  font-family: var(--font-sans) !important;
-  font-size: 10px !important;
-  letter-spacing: 0.2em !important;
-}
-
-/* ── Sections — editorial whitespace, alternating backgrounds ────────────── */
-.section {
-  padding: clamp(80px, 10vw, 140px) 0 !important;
-}
-
-.sectionHeading,
-.sectionHeading h2 {
-  font-family: var(--font-serif) !important;
-  font-weight: 400 !important;
-  letter-spacing: -0.01em !important;
-  color: var(--ink) !important;
-}
-
-.sectionHeading h2 {
-  font-size: clamp(32px, 4vw, 56px) !important;
-}
-
-.sectionHeading p {
-  font-family: var(--font-sans) !important;
-  color: var(--muted) !important;
-  font-size: clamp(16px, 1.3vw, 18px) !important;
-  line-height: 1.7 !important;
-  max-width: 600px !important;
-}
-
-/* ── Homepage intro section — wider, editorial ───────────────────────────── */
-.wpIntroSection {
-  background: var(--cream) !important;
-}
-
-.wpIntroCopy h2,
-.wpAmenitiesSection h2,
-.wpLocationSection h2 {
-  font-family: var(--font-serif) !important;
-  font-weight: 400 !important;
-  font-size: clamp(32px, 4.5vw, 56px) !important;
-  letter-spacing: -0.01em !important;
-  line-height: 1.1 !important;
-  color: var(--ink) !important;
-}
-
-.wpIntroCopy p,
-.wpAmenitiesSection p,
-.wpLocationSection p {
-  font-size: clamp(16px, 1.3vw, 18px) !important;
-  line-height: 1.75 !important;
-  color: var(--muted) !important;
-}
-
-/* ── Stats row — serif numbers ───────────────────────────────────────────── */
-.wpStat strong {
-  font-family: var(--font-serif) !important;
-  font-size: clamp(40px, 5vw, 64px) !important;
-  font-weight: 400 !important;
-  color: var(--gold) !important;
-  line-height: 1 !important;
-}
-
-.wpStat span {
-  font-family: var(--font-sans) !important;
-  font-size: 12px !important;
-  letter-spacing: 0.1em !important;
-  text-transform: uppercase !important;
-  color: var(--muted) !important;
-}
-
-/* ── Amenities list — refined numbering ──────────────────────────────────── */
-.wpAmenitiesList li {
-  border-bottom-color: var(--line) !important;
-  font-family: var(--font-sans) !important;
-  font-size: 15px !important;
-  padding: 16px 0 !important;
-}
-
-.wpAmenitiesList span {
-  font-family: var(--font-serif) !important;
-  font-size: 20px !important;
-  color: var(--gold) !important;
-  font-weight: 400 !important;
-}
-
-/* ── Property & unit cards — softer, rounder ─────────────────────────────── */
-.propertyCard,
-.snapshotCard,
-.paymentPanel,
-.finderPanel,
-.leadForm,
-.unitResultCard,
-.trustFactCard,
-.mediaAssetCard {
-  border-radius: var(--radius-md) !important;
-  box-shadow: var(--shadow-soft) !important;
-  border-color: var(--line) !important;
-}
-
-.propertyCardVisual {
-  background: linear-gradient(135deg, var(--gold), var(--brown)) !important;
-}
-
-/* ── Showcase gallery ────────────────────────────────────────────────────── */
-.showcaseSection {
-  background: var(--soft) !important;
-  color: var(--ink) !important;
-}
-
-.showcaseSection .sectionHeading,
-.showcaseSection .sectionHeading h2 {
-  color: var(--ink) !important;
-}
-
-.showcaseSection .sectionHeading p {
-  color: var(--muted) !important;
-}
-
-.showcaseSection .eyebrow {
-  color: var(--gold) !important;
-}
-
-.showcaseSection .button.dark {
-  background: var(--gold) !important;
-  border-color: var(--gold) !important;
-  color: #fff !important;
-}
-
-/* ── Explorer & calculator sections ──────────────────────────────────────── */
-.explorerSection {
-  background: var(--cream) !important;
-}
-
-.calcSection {
-  background: var(--surface) !important;
-}
-
-/* ── Location section ────────────────────────────────────────────────────── */
-.wpLocationSection {
-  background: var(--cream) !important;
-}
-
-/* ── Tour section ────────────────────────────────────────────────────────── */
-.wpTourSection {
-  background: var(--cream) !important;
-  color: var(--ink) !important;
-}
-
-.wpTourSection .sectionHeading,
-.wpTourSection .sectionHeading h2 {
-  color: var(--ink) !important;
-}
-
-.wpTourSection .sectionHeading p {
-  color: var(--muted) !important;
-}
-
-.wpTourSection .eyebrow {
-  color: var(--gold) !important;
-}
-
-.wpTourSection .button.dark {
-  background: var(--gold) !important;
-  border-color: var(--gold) !important;
-}
-
-/* ── Construction updates section ────────────────────────────────────────── */
-.trustUpdatesSection {
-  background: var(--surface) !important;
-}
-
-/* ── Footer — premium dark ───────────────────────────────────────────────── */
-.footer.siteFooter {
-  background: var(--dark) !important;
-  color: rgba(255, 255, 255, 0.8) !important;
-  border-top: none !important;
-}
-
-.footer.siteFooter h2 {
-  color: var(--gold-soft) !important;
-  font-family: var(--font-sans) !important;
-  font-size: 11px !important;
-  font-weight: 600 !important;
-  letter-spacing: 0.2em !important;
-  text-transform: uppercase !important;
-}
-
-.footer.siteFooter a {
-  color: rgba(255, 255, 255, 0.6) !important;
-  transition: color 300ms ease !important;
-}
-
-.footer.siteFooter a:hover {
-  color: var(--gold-soft) !important;
-}
-
-.footerStatement {
-  color: rgba(255, 255, 255, 0.5) !important;
-  font-family: var(--font-serif) !important;
-  font-size: 20px !important;
-  font-weight: 300 !important;
-  font-style: italic !important;
-  line-height: 1.5 !important;
-}
-
-.footerBottom {
-  border-top-color: rgba(255, 255, 255, 0.1) !important;
-  color: rgba(255, 255, 255, 0.35) !important;
-}
-
-.footer .button {
-  background: var(--gold) !important;
-  border-color: var(--gold) !important;
-  color: #fff !important;
-}
-
-/* ── Interior page heroes — editorial style ──────────────────────────────── */
-.section.wpInternalHero,
-.section.paymentHero,
-.section.mediaHero,
-.section.trustHero,
-.section.finderPageHero,
-.section.explorerHero {
-  background: linear-gradient(135deg, var(--brown), var(--dark)) !important;
-  color: #fff !important;
-}
-
-.section.wpInternalHero h1,
-.section.paymentHero h1,
-.section.mediaHero h1,
-.section.trustHero h1,
-.section.finderPageHero h1,
-.section.explorerHero h1 {
-  font-family: var(--font-serif) !important;
-  font-weight: 300 !important;
-}
-
-/* ── Lead form — refined ─────────────────────────────────────────────────── */
-.leadForm {
-  background: var(--surface) !important;
-}
-
-.leadForm .button.primary {
-  background: var(--gold) !important;
-  border-color: var(--gold) !important;
-}
-
-/* ── Thin gold separator ─────────────────────────────────────────────────── */
-.goldSeparator {
-  width: 60px;
-  height: 1px;
-  background: var(--gold);
-  margin: 24px 0;
-}
-
-/* ── Smooth scrollbar styling ────────────────────────────────────────────── */
-::-webkit-scrollbar {
-  width: 6px;
-}
-
-::-webkit-scrollbar-track {
-  background: var(--cream);
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--gold);
-  border-radius: 3px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--brown);
-}
-
-/* ── Mobile overrides for new styles ─────────────────────────────────────── */
-@media (max-width: 760px) {
-  .siteHeader {
-    background: rgba(22, 52, 115, 0.92) !important;
-    backdrop-filter: blur(16px) !important;
-    border-bottom-color: rgba(255, 255, 255, 0.08) !important;
-  }
-
-  .siteHeader.isSolid {
-    background: rgba(244, 245, 248, 0.97) !important;
-  }
-
-  .siteHeader .navLinks.isOpen {
-    background: var(--dark) !important;
-  }
-
-  .siteHeader.isSolid .navLinks.isOpen {
-    background: var(--cream) !important;
-  }
-
-  .heroCinema {
-    min-height: 100svh !important;
-  }
-
-  .heroCinemaInner {
-    padding-top: 120px !important;
-  }
-
-  .section {
-    padding: clamp(60px, 8vw, 100px) 0 !important;
-  }
-}
-
-@media (max-width: 560px) {
-  .heroCinema h1 {
-    font-size: clamp(40px, 12vw, 56px) !important;
-  }
-
-  .wpStat strong {
-    font-size: clamp(32px, 10vw, 48px) !important;
-  }
+.residenceTypes #apartment-types-heading {
+  scroll-margin-top: 100px;
+}
+
+.filmFrame > video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }

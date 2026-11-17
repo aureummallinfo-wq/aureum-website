@@ -4,29 +4,39 @@ import { ButtonLink } from '@/components/ui/ButtonLink';
 import { Eyebrow } from '@/components/ui/Eyebrow';
 import { SectionHeading } from '@/components/ui/SectionHeading';
 import { SITE } from '@/lib/site';
+import { MediaOpening } from '@/features/immersive-media/components/MediaOpening';
+import { VIRTUAL_TOUR } from '@/features/immersive-media/data';
 import { LOCATION_MAP } from '@/features/project-showcase/images';
 import { LiveMap } from './LiveMap';
 import { SiteUpdates } from './SiteUpdates';
 import { GROUNDBREAKING, SITE_UPDATES } from '../site-updates';
+import styles from './LocationEditorial.module.css';
 
 function LocationSection() {
   return (
-    <section className="section trustLocationSection" id="trust-location-workspace">
+    <section className={styles.location} id="trust-location-workspace" aria-labelledby="location-heading">
       <div className="container">
-        <SectionHeading eyebrow="The place / Lahore" title="Aureum keeps you connected." description="Ideally located in Bahria Town Lahore, Aureum Mall & Residences brings peaceful living, modern convenience and city connectivity together." />
-        <div className="trustLocationGrid">
-          <div className="trustFactList">
-            <article className="trustFactCard"><Eyebrow>Address</Eyebrow><h3>{SITE.location}</h3><p>A landmark mixed-use destination combining residences, retail, food courts and offices.</p></article>
-            <article className="trustFactCard"><Eyebrow>Minutes from everything</Eyebrow><h3>0 min from Bahria Town · 25 min from Lahore Airport</h3><p>At the Bahria Town Ring Road Interchange with SL-3 connectivity, and visible from Ring Road. Nearby: ICON Mall &amp; Towers, ABS Mall &amp; Residency and Dubai Islamic Bank.</p></article>
-            <article className="trustFactCard"><Eyebrow>Plan your visit</Eyebrow><h3>Speak with Aureum</h3><p>Contact the project team for current directions, availability and a suitable time to visit.</p><ButtonLink href="/contact" variant="dark">Contact the team <span aria-hidden="true">↗</span></ButtonLink></article>
+        <div className={styles.locationGrid}>
+          <div>
+            <Eyebrow>Bahria Town · Lahore</Eyebrow>
+            <h2 id="location-heading">At the Ring Road interchange.</h2>
+            <p>{SITE.location}. Lahore Airport is about 25 minutes away, depending on traffic.</p>
+            <div className={styles.actions}>
+              <ButtonLink href={SITE.directionsUrl} target="_blank" rel="noopener" variant="dark">Get directions ↗</ButtonLink>
+              <Link href="/contact?intent=site_visit#enquiry">Book a site visit →</Link>
+            </div>
           </div>
           <figure className="trustMapFigure">
-            <a href={LOCATION_MAP.src} target="_blank" rel="noopener" aria-label="Open the full-size location map"><Image src={LOCATION_MAP.src} alt={LOCATION_MAP.alt} width={1448} height={1086} sizes="(max-width: 900px) 92vw, 600px" /></a>
+            <a href={LOCATION_MAP.src} target="_blank" rel="noopener" aria-label="Open the full-size location map">
+              <Image src={LOCATION_MAP.src} alt={LOCATION_MAP.alt} width={1448} height={1086} sizes="(max-width: 780px) 94vw, 60vw" />
+            </a>
             <figcaption>{LOCATION_MAP.note}</figcaption>
           </figure>
         </div>
-        <LiveMap className="trustLiveMap" />
-        <div className="trustSourceBar"><Eyebrow>Location information</Eyebrow><p>The project is located at {SITE.location}. Contact the Aureum team for current directions and visit arrangements.</p></div>
+        <div className={styles.map} id="location-live-map">
+          <h2>Find Aureum on the map.</h2>
+          <LiveMap className="trustLiveMap" />
+        </div>
       </div>
     </section>
   );
@@ -55,5 +65,21 @@ function TrustFaqSection() {
 }
 
 export function TrustLocationExperience() {
-  return <><section className="section trustHero"><div className="container trustHeroGrid"><div><Eyebrow>Location / Aureum Mall</Eyebrow><h1>Know the place. Plan your visit.</h1><p>Find Aureum Mall &amp; Residences in Bahria Town Lahore and connect with the project team.</p><ButtonLink href="#trust-location-workspace">Explore the location <span aria-hidden="true">↓</span></ButtonLink></div><div className="trustHeroStamp" aria-hidden="true"><span>Minutes from Bahria Town</span><strong>0</strong></div></div></section><LocationSection /><ConstructionUpdatesSection /><TrustFaqSection /></>;
+  return (
+    <>
+      <MediaOpening
+        eyebrow="Location · Lahore"
+        title="Where Aureum meets Ring Road."
+        image={{ src: VIRTUAL_TOUR.poster, alt: VIRTUAL_TOUR.posterAlt }}
+        links={[
+          { href: '#trust-location-workspace', label: 'Location and directions' },
+          { href: '#location-live-map', label: 'Live map' },
+          { href: '#construction-register', label: 'Site progress' },
+        ]}
+      />
+      <LocationSection />
+      <ConstructionUpdatesSection />
+      <TrustFaqSection />
+    </>
+  );
 }

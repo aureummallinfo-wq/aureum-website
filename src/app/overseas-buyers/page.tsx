@@ -1,8 +1,8 @@
+import { ButtonLink } from '@/components/ui/ButtonLink';
 import Link from 'next/link';
 import { createRouteMetadata } from '@/features/content-seo/metadata';
 import { SectionHeading } from '@/components/ui/SectionHeading';
 import { PlanPickerSection } from '@/features/payment-plans/components/PlanPickerSection';
-import { BrochureDownloads } from '@/features/project-showcase/components/BrochureDownloads';
 import { EXTERIOR_NIGHT } from '@/features/project-showcase/images';
 import { ArchitectureLanding } from '@/features/site-architecture/components/ArchitectureLanding';
 import { whatsappHref } from '@/lib/whatsapp';
@@ -50,7 +50,7 @@ export default function Page() {
         </div>
       </section>
       <PlanPickerSection eyebrow="Prices & plans" title="Starting prices for every category." description="Starting base prices in PKR from the current price list; applicable 10% category charges are additional." id="overseas-plans-heading" />
-      <BrochureDownloads only={['master-catalogue', 'residential', 'factsheet']} />
+      <div className="container"><ButtonLink href="/about#brochures" variant="dark">Find the Aureum Catalogue and factsheet</ButtonLink></div>
     </ArchitectureLanding>
   );
 }

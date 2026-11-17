@@ -1,6 +1,5 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { LeadForm } from '@/components/LeadForm';
 import { ButtonLink } from '@/components/ui/ButtonLink';
 import { Eyebrow } from '@/components/ui/Eyebrow';
 import { SectionHeading } from '@/components/ui/SectionHeading';
@@ -88,7 +87,7 @@ export function UnitFinderExperience() {
       <section className="section wpInquirySection" id="enquiry">
         <div className="container wpInquiryGrid">
           <div><Eyebrow>Current availability</Eyebrow><h2>Let the project team guide your next step.</h2><p>Tell us which space you are exploring and the Aureum team will share current availability, the price list and the payment plan.</p></div>
-          <div className="wpInquiryCard"><LeadForm /></div>
+          <div><ButtonLink href="/contact#enquiry">Contact the sales team</ButtonLink></div>
         </div>
       </section>
     </>

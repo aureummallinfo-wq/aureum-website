@@ -1,0 +1,1124 @@
+<title>Belgrade Arbor — Design Analysis</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Manrope:wght@300;400;500;600;700&display=swap">
+<style>
+/* Layout: editorial design-analysis document, structured as a vertical scroll with full-bleed color bands and an inner column */
+:root {
+  --bg: #FDFBEF;
+  --fg: #2E3A26;
+  --surface: #F4F0DB;
+  --olive: #3D4A35;
+  --olive-light: #60735C;
+  --gold: #A68150;
+  --gold-light: #CCBF99;
+  --cream: #FFF4D6;
+  --accent: #E7FD55;
+  --slate: #536B7A;
+  --teal: #2A5C5C;
+  --mint: #E8EDE6;
+  --line: rgba(46, 58, 38, 0.12);
+
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body: 'Manrope', system-ui, sans-serif;
+
+  --col: min(960px, 100%);
+  --gutter: max(16px, env(safe-area-inset-left, 0px));
+  --gutter-r: max(16px, env(safe-area-inset-right, 0px));
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #1A1E17;
+    --fg: #E8E4D6;
+    --surface: #252A20;
+    --olive: #2A3024;
+    --olive-light: #8A9A84;
+    --gold: #C9A06A;
+    --gold-light: #8A7A5C;
+    --cream: #E8E0C8;
+    --accent: #C8DD48;
+    --slate: #3A4E5C;
+    --teal: #1E4242;
+    --mint: #242A22;
+    --line: rgba(232, 228, 214, 0.1);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #1A1E17;
+  --fg: #E8E4D6;
+  --surface: #252A20;
+  --olive: #2A3024;
+  --olive-light: #8A9A84;
+  --gold: #C9A06A;
+  --gold-light: #8A7A5C;
+  --cream: #E8E0C8;
+  --accent: #C8DD48;
+  --slate: #3A4E5C;
+  --teal: #1E4242;
+  --mint: #242A22;
+  --line: rgba(232, 228, 214, 0.1);
+  color-scheme: dark;
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.6;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+}
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0 0 auto;
+  height: env(safe-area-inset-top, 0px);
+  z-index: 10;
+  background: var(--bg);
+}
+
+* { box-sizing: border-box; }
+img { max-width: 100%; display: block; }
+
+.inner {
+  max-width: var(--col);
+  margin: 0 auto;
+  padding-left: var(--gutter);
+  padding-right: var(--gutter-r);
+}
+
+/* ─── Cover ──────────────────────────────── */
+.cover {
+  background: var(--olive);
+  color: var(--cream);
+  padding-block: 80px 60px;
+  position: relative;
+  overflow: hidden;
+}
+.cover::before {
+  content: "";
+  position: absolute;
+  top: -40%; right: -20%;
+  width: 600px; height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(231,253,85,0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+.cover-eyebrow {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 32px;
+}
+.cover h1 {
+  font-family: var(--font-display);
+  font-size: clamp(36px, 6vw, 64px);
+  font-weight: 400;
+  line-height: 1.05;
+  margin: 0 0 24px;
+  max-width: 700px;
+}
+.cover h1 em {
+  font-style: italic;
+  color: var(--gold);
+}
+.cover-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px 48px;
+  margin-top: 40px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(255,244,214,0.15);
+  font-size: 13px;
+  color: var(--gold-light);
+}
+.cover-meta dt {
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--olive-light);
+  margin-bottom: 4px;
+}
+.cover-meta dd { margin: 0; }
+
+/* ─── Section titles ─────────────────────── */
+.section-band {
+  padding-block: 56px 48px;
+  border-bottom: 1px solid var(--line);
+}
+.section-num {
+  font-family: var(--font-display);
+  font-size: 12px;
+  color: var(--gold);
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+}
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(24px, 4vw, 36px);
+  font-weight: 400;
+  line-height: 1.15;
+  margin: 0;
+  text-wrap: balance;
+}
+
+/* ─── Typography specimen ────────────────── */
+.type-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+  margin-top: 32px;
+}
+@media (min-width: 640px) {
+  .type-grid { grid-template-columns: 1fr 1fr; }
+}
+.type-card {
+  padding: 28px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--surface);
+}
+.type-card-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--olive-light);
+  margin-bottom: 16px;
+}
+.type-sample-serif {
+  font-family: var(--font-display);
+  line-height: 1.1;
+  color: var(--fg);
+}
+.type-sample-sans {
+  font-family: var(--font-body);
+  color: var(--fg);
+}
+.type-detail {
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+  font-size: 12px;
+  color: var(--olive-light);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 16px;
+}
+.type-detail code {
+  font-family: 'SF Mono', 'Consolas', monospace;
+  font-size: 11px;
+  background: var(--bg);
+  padding: 1px 5px;
+  border-radius: 3px;
+}
+
+/* ─── Color palette ──────────────────────── */
+.palette {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 16px;
+  margin-top: 28px;
+}
+.swatch {
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+}
+.swatch-color {
+  height: 80px;
+  position: relative;
+}
+.swatch-info {
+  padding: 10px 12px;
+  font-size: 12px;
+  background: var(--surface);
+}
+.swatch-name {
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+.swatch-hex {
+  color: var(--olive-light);
+  font-family: 'SF Mono', 'Consolas', monospace;
+  font-size: 11px;
+}
+.swatch-rgb {
+  color: var(--olive-light);
+  font-size: 10px;
+  margin-top: 2px;
+}
+
+/* ─── Spec table ─────────────────────────── */
+.spec-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 24px;
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+}
+.spec-table th {
+  text-align: left;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--olive-light);
+  padding: 8px 12px 8px 0;
+  border-bottom: 2px solid var(--line);
+  white-space: nowrap;
+}
+.spec-table td {
+  padding: 10px 12px 10px 0;
+  border-bottom: 1px solid var(--line);
+  vertical-align: top;
+}
+.spec-table code {
+  font-family: 'SF Mono', 'Consolas', monospace;
+  font-size: 11px;
+  background: var(--surface);
+  padding: 1px 5px;
+  border-radius: 3px;
+}
+.spec-table .mono { font-family: 'SF Mono', 'Consolas', monospace; font-size: 12px; }
+.spec-table-wrap { overflow-x: auto; }
+
+/* ─── Section map ────────────────────────── */
+.section-map {
+  display: grid;
+  gap: 2px;
+  margin-top: 28px;
+}
+.map-row {
+  display: grid;
+  grid-template-columns: 40px 1fr 1fr 1fr;
+  gap: 2px;
+  min-height: 56px;
+  font-size: 12px;
+}
+@media (max-width: 639px) {
+  .map-row { grid-template-columns: 32px 1fr 1fr; }
+  .map-row > :nth-child(4) { display: none; }
+}
+.map-num {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 11px;
+  color: var(--olive-light);
+  background: var(--surface);
+  border-radius: 4px 0 0 4px;
+}
+.map-cell {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 10px 14px;
+  background: var(--surface);
+  min-width: 0;
+}
+.map-cell:last-child { border-radius: 0 4px 4px 0; }
+.map-label {
+  font-weight: 600;
+  font-size: 12px;
+  margin-bottom: 2px;
+}
+.map-detail {
+  font-size: 11px;
+  color: var(--olive-light);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ─── Animation specs ────────────────────── */
+.anim-list {
+  display: grid;
+  gap: 16px;
+  margin-top: 28px;
+}
+.anim-card {
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  gap: 16px;
+  padding: 20px;
+  background: var(--surface);
+  border-radius: 6px;
+  border: 1px solid var(--line);
+  align-items: start;
+}
+.anim-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+}
+.anim-name {
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+.anim-desc {
+  font-size: 12px;
+  color: var(--olive-light);
+  line-height: 1.5;
+}
+
+/* ─── Layout diagrams ────────────────────── */
+.layout-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  margin-top: 28px;
+}
+@media (min-width: 640px) {
+  .layout-grid { grid-template-columns: 1fr 1fr; }
+}
+.layout-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  overflow: hidden;
+}
+.layout-preview {
+  height: 160px;
+  position: relative;
+  overflow: hidden;
+}
+.layout-info {
+  padding: 16px;
+}
+.layout-name {
+  font-weight: 600;
+  font-size: 13px;
+  margin-bottom: 4px;
+}
+.layout-desc {
+  font-size: 12px;
+  color: var(--olive-light);
+  line-height: 1.5;
+}
+
+/* ─── UI components ──────────────────────── */
+.comp-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 24px;
+  align-items: flex-start;
+}
+.comp-item {
+  padding: 20px 24px;
+  border-radius: 6px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+}
+
+/* ─── Notes / callouts ───────────────────── */
+.note {
+  margin-top: 28px;
+  padding: 20px 24px;
+  background: var(--surface);
+  border-left: 3px solid var(--gold);
+  border-radius: 0 6px 6px 0;
+  font-size: 13px;
+  line-height: 1.6;
+}
+.note strong { color: var(--gold); }
+
+/* ─── Print-friendly ─────────────────────── */
+@media print {
+  .cover { break-after: page; }
+  .section-band { break-before: auto; break-inside: avoid; }
+  body { font-size: 12px; }
+}
+</style>
+
+<!-- ═══════════════════════════════════════════ COVER ═══ -->
+<div class="cover">
+  <div class="inner">
+    <div class="cover-eyebrow">Design System Analysis</div>
+    <h1>Belgrade Arbor <em>Deep Dive</em></h1>
+    <p style="max-width:560px; font-size:15px; color:var(--gold-light); line-height:1.6; margin:0;">
+      A comprehensive design analysis of belgradearbor.rs — typography, color, spacing, animation patterns, section architecture, and UI components — extracted for reference.
+    </p>
+    <dl class="cover-meta">
+      <div><dt>Source</dt><dd>belgradearbor.rs/en</dd></div>
+      <div><dt>Award</dt><dd>Awwwards Site of the Day</dd></div>
+      <div><dt>Stack</dt><dd>Next.js + Tailwind CSS v4</dd></div>
+      <div><dt>Page Height</dt><dd>20,126px (14 sections)</dd></div>
+      <div><dt>Analyzed</dt><dd>November 2026</dd></div>
+    </dl>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ 01 · TYPOGRAPHY ═══ -->
+<div class="inner">
+  <div class="section-band">
+    <div class="section-num">01</div>
+    <h2 class="section-title">Typography</h2>
+  </div>
+
+  <div class="type-grid">
+    <!-- editorialOld -->
+    <div class="type-card">
+      <div class="type-card-label">Display Serif</div>
+      <div class="type-sample-serif" style="font-size:42px; font-weight:400; text-transform:uppercase; letter-spacing:-0.5px;">
+        Belgrade<br>Arbor
+      </div>
+      <div class="type-detail">
+        <span>Family: <code>editorialOld</code></span>
+        <span>Weights: <code>300</code> <code>400</code></span>
+        <span>Styles: <code>normal</code> <code>italic</code></span>
+      </div>
+    </div>
+
+    <!-- Work Sans -->
+    <div class="type-card">
+      <div class="type-card-label">Body Sans-Serif</div>
+      <div class="type-sample-sans" style="font-size:20px; font-weight:400; line-height:1.5;">
+        A clear architectural vision, a carefully selected location, and thoughtfully curated amenities.
+      </div>
+      <div class="type-detail">
+        <span>Family: <code>Work Sans</code></span>
+        <span>Weights: <code>300–700</code></span>
+        <span>Used for body text &amp; UI</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Type scale table -->
+  <div class="spec-table-wrap">
+    <table class="spec-table">
+      <thead>
+        <tr>
+          <th>Element</th>
+          <th>Font</th>
+          <th>Size</th>
+          <th>Weight</th>
+          <th>Line-Height</th>
+          <th>Details</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>H1 — Hero</strong></td>
+          <td>editorialOld</td>
+          <td class="mono">96px</td>
+          <td class="mono">400</td>
+          <td class="mono">1:1 (96px)</td>
+          <td>Uppercase, no letter-spacing</td>
+        </tr>
+        <tr>
+          <td><strong>H2 — Section</strong></td>
+          <td>editorialOld</td>
+          <td class="mono">57px</td>
+          <td class="mono">300</td>
+          <td class="mono">1.1 (63px)</td>
+          <td>Letter-spacing: <code>1.14px</code></td>
+        </tr>
+        <tr>
+          <td><strong>Nav Links</strong></td>
+          <td>editorialOld</td>
+          <td class="mono">38px</td>
+          <td class="mono">300</td>
+          <td class="mono">normal</td>
+          <td>In full-screen menu overlay</td>
+        </tr>
+        <tr>
+          <td><strong>Body Text</strong></td>
+          <td>Work Sans</td>
+          <td class="mono">24px</td>
+          <td class="mono">400</td>
+          <td class="mono">1.5 (36px)</td>
+          <td>Letter-spacing: <code>0.48px</code></td>
+        </tr>
+        <tr>
+          <td><strong>Base / UI</strong></td>
+          <td>System sans</td>
+          <td class="mono">19px</td>
+          <td class="mono">400</td>
+          <td class="mono">1.5 (28px)</td>
+          <td>Fallback for non-content text</td>
+        </tr>
+        <tr>
+          <td><strong>Labels / CTA</strong></td>
+          <td>Work Sans</td>
+          <td class="mono">14–16px</td>
+          <td class="mono">500</td>
+          <td class="mono">normal</td>
+          <td>Uppercase, letter-spacing: <code>2–3px</code></td>
+        </tr>
+        <tr>
+          <td><strong>Eyebrow</strong></td>
+          <td>Work Sans</td>
+          <td class="mono">12–14px</td>
+          <td class="mono">500</td>
+          <td class="mono">normal</td>
+          <td>Uppercase, accent color (#E7FD55)</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note">
+    <strong>Key insight:</strong> The entire typographic personality comes from <em>editorialOld</em> — a custom serif with dramatic contrast between thick and thin strokes. It's used only for display (H1, H2, nav) while Work Sans handles all readable text. The contrast between the ornate serif and the clean geometric sans creates the editorial luxury feel.
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ 02 · COLOR ═══ -->
+<div class="inner">
+  <div class="section-band">
+    <div class="section-num">02</div>
+    <h2 class="section-title">Color Palette</h2>
+  </div>
+
+  <div class="palette">
+    <div class="swatch">
+      <div class="swatch-color" style="background:#FDFBEF;"></div>
+      <div class="swatch-info">
+        <div class="swatch-name">Vanilla</div>
+        <div class="swatch-hex">#FDFBEF</div>
+        <div class="swatch-rgb">rgb(253, 251, 239)</div>
+      </div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#2E3A26;"></div>
+      <div class="swatch-info">
+        <div class="swatch-name">Pine Green</div>
+        <div class="swatch-hex">#2E3A26</div>
+        <div class="swatch-rgb">rgb(46, 58, 38)</div>
+      </div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#60735C;"></div>
+      <div class="swatch-info">
+        <div class="swatch-name">Olive</div>
+        <div class="swatch-hex">#60735C</div>
+        <div class="swatch-rgb">rgb(96, 115, 92)</div>
+      </div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#A68150;"></div>
+      <div class="swatch-info">
+        <div class="swatch-name">Gold</div>
+        <div class="swatch-hex">#A68150</div>
+        <div class="swatch-rgb">rgb(166, 129, 80)</div>
+      </div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#FFF4D6;"></div>
+      <div class="swatch-info">
+        <div class="swatch-name">Cream</div>
+        <div class="swatch-hex">#FFF4D6</div>
+        <div class="swatch-rgb">rgb(255, 244, 214)</div>
+      </div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#F4F0DB;"></div>
+      <div class="swatch-info">
+        <div class="swatch-name">Parchment</div>
+        <div class="swatch-hex">#F4F0DB</div>
+        <div class="swatch-rgb">rgb(244, 240, 219)</div>
+      </div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#E7FD55;"></div>
+      <div class="swatch-info">
+        <div class="swatch-name">Chartreuse</div>
+        <div class="swatch-hex">#E7FD55</div>
+        <div class="swatch-rgb">rgb(231, 253, 85)</div>
+      </div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#536B7A;"></div>
+      <div class="swatch-info">
+        <div class="swatch-name">Slate</div>
+        <div class="swatch-hex">#536B7A</div>
+        <div class="swatch-rgb">Roots section bg</div>
+      </div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#CCBF99;"></div>
+      <div class="swatch-info">
+        <div class="swatch-name">Khaki</div>
+        <div class="swatch-hex">#CCBF99</div>
+        <div class="swatch-rgb">rgb(204, 191, 153)</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="note" style="margin-top:32px;">
+    <strong>Color strategy:</strong> The palette is rooted in nature — forest greens, warm golds, and vanilla cream evoke the "arbor" (tree) concept. The unexpected chartreuse accent (#E7FD55) adds modernity and energy to what would otherwise be a purely classical scheme. Dark sections use Pine Green (#2E3A26) at 80% opacity as overlays, never pure black. The Slate blue appears only once, for the "Your Roots" emotional section — a deliberate departure that signals a shift in tone.
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ 03 · CSS TOKENS ═══ -->
+<div class="inner">
+  <div class="section-band">
+    <div class="section-num">03</div>
+    <h2 class="section-title">CSS Custom Properties</h2>
+  </div>
+
+  <div class="spec-table-wrap">
+    <table class="spec-table">
+      <thead>
+        <tr><th>Token</th><th>Value</th><th>Usage</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><code>--color-vanilla</code></td><td class="mono">#FDFBEF</td><td>Page background (body)</td></tr>
+        <tr><td><code>--color-pine-green</code></td><td class="mono">#2E3A26</td><td>Primary text, foreground</td></tr>
+        <tr><td><code>--background</code></td><td><code>var(--color-vanilla)</code></td><td>Root background alias</td></tr>
+        <tr><td><code>--foreground</code></td><td><code>var(--color-pine-green)</code></td><td>Root foreground alias</td></tr>
+        <tr><td><code>--radius</code></td><td class="mono">0.625rem (10px)</td><td>Default border radius</td></tr>
+        <tr><td><code>--primary</code></td><td class="mono">#171717</td><td>System primary (Tailwind)</td></tr>
+        <tr><td><code>--border</code></td><td class="mono">#E5E5E5</td><td>Default borders</td></tr>
+        <tr><td><code>--ring</code></td><td class="mono">#A1A1A1</td><td>Focus ring color</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ 04 · LAYOUT ═══ -->
+<div class="inner">
+  <div class="section-band">
+    <div class="section-num">04</div>
+    <h2 class="section-title">Layout Patterns</h2>
+  </div>
+
+  <div class="layout-grid">
+    <!-- Hero -->
+    <div class="layout-card">
+      <div class="layout-preview" style="background:var(--olive); display:flex; flex-direction:column; justify-content:flex-end; padding:16px;">
+        <div style="display:flex; justify-content:center; margin-bottom:auto; padding-top:12px;">
+          <div style="background:rgba(255,244,214,0.15); border-radius:100px; padding:8px 32px; display:flex; gap:24px; align-items:center;">
+            <span style="color:var(--cream); font-size:9px; letter-spacing:1px;">MENU</span>
+            <span style="color:var(--gold); font-size:14px;">&#9753;</span>
+            <span style="color:var(--cream); font-size:9px; letter-spacing:1px;">INQUIRE &rarr;</span>
+          </div>
+        </div>
+        <div style="font-family:var(--font-display); font-size:28px; color:var(--cream); text-transform:uppercase; text-align:center; opacity:0.9;">Belgrade Arbor</div>
+      </div>
+      <div class="layout-info">
+        <div class="layout-name">Cinematic Hero</div>
+        <div class="layout-desc">100svh full-viewport image. Blueprint-to-render reveal animation on load. Transparent pill-shaped header floats above. Title at bottom with stats bar.</div>
+      </div>
+    </div>
+
+    <!-- Asymmetric images -->
+    <div class="layout-card">
+      <div class="layout-preview" style="background:var(--olive); display:flex; gap:8px; padding:16px; align-items:center;">
+        <div style="width:45%; height:100px; background:var(--olive-light); border-radius:20px 8px 8px 20px; opacity:0.6;"></div>
+        <div style="width:55%; height:120px; background:var(--olive-light); border-radius:8px 24px 24px 8px; opacity:0.4; margin-top:-20px;"></div>
+      </div>
+      <div class="layout-info">
+        <div class="layout-name">Asymmetric Image Pairs</div>
+        <div class="layout-desc">Two images side-by-side with organic blob-like rounded corners (20–30px radius), slightly offset vertically. Never grid-aligned — deliberately imperfect placement.</div>
+      </div>
+    </div>
+
+    <!-- Text + right paragraph -->
+    <div class="layout-card">
+      <div class="layout-preview" style="background:var(--olive); padding:16px; display:flex; flex-direction:column; gap:12px;">
+        <div style="font-family:var(--font-display); font-size:18px; color:var(--cream); line-height:1.2; max-width:85%;">A New Chapter in Prestigious Living</div>
+        <div style="align-self:flex-end; max-width:55%; font-size:8px; color:var(--gold-light); line-height:1.5;">A clear architectural vision, a carefully selected location, and thoughtfully curated amenities...</div>
+        <div style="font-size:8px; color:var(--accent); letter-spacing:2px; align-self:flex-end;">EXPLORE &rarr;</div>
+      </div>
+      <div class="layout-info">
+        <div class="layout-name">Split Hierarchy</div>
+        <div class="layout-desc">Large serif heading fills the left 2/3, body paragraph pushed right, CTA link below text with uppercase tracking and arrow. Text-reveal animation on scroll.</div>
+      </div>
+    </div>
+
+    <!-- Full-bleed parallax -->
+    <div class="layout-card">
+      <div class="layout-preview" style="background:var(--olive-light); position:relative;">
+        <div style="position:absolute; inset:0; background:linear-gradient(180deg, transparent 30%, rgba(46,58,38,0.6)); display:flex; align-items:flex-end; padding:16px;">
+          <span style="font-family:var(--font-display); font-size:24px; color:var(--cream); text-transform:uppercase; opacity:0.8;">Amenities</span>
+        </div>
+      </div>
+      <div class="layout-info">
+        <div class="layout-name">Full-Bleed Parallax</div>
+        <div class="layout-desc">Edge-to-edge lifestyle photos with slow parallax scroll. Large serif text overlaid directly on image. Used for emotional/aspirational sections (Amenities, View From Above).</div>
+      </div>
+    </div>
+
+    <!-- Card overlay -->
+    <div class="layout-card">
+      <div class="layout-preview" style="background:var(--olive-light); display:flex; align-items:flex-end; padding:16px;">
+        <div style="background:var(--surface); border-radius:10px; padding:12px 16px; width:100%;">
+          <div style="font-size:9px; font-weight:600; letter-spacing:1px; color:var(--olive); margin-bottom:4px;">STUDIO</div>
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <span style="font-family:var(--font-display); font-size:22px; color:var(--fg);">80 <span style="font-size:10px; color:var(--olive-light);">units</span></span>
+            <span style="font-size:8px; letter-spacing:1px; border:1px solid var(--olive-light); border-radius:100px; padding:4px 12px; color:var(--olive-light);">REQUEST &rarr;</span>
+          </div>
+        </div>
+      </div>
+      <div class="layout-info">
+        <div class="layout-name">Info Card Overlay</div>
+        <div class="layout-desc">Cream-colored cards (#FDF8EF) with rounded corners float over images. Contains unit type, count (large serif number), and pill-shaped CTA button. Used for apartment types.</div>
+      </div>
+    </div>
+
+    <!-- Accordion/tab -->
+    <div class="layout-card">
+      <div class="layout-preview" style="background:var(--olive-light); position:relative;">
+        <div style="position:absolute; top:12px; left:16px; right:16px; background:var(--surface); border-radius:8px; padding:10px 14px; display:flex; justify-content:space-between; align-items:center;">
+          <div style="display:flex; align-items:center; gap:6px;">
+            <span style="width:2px; height:16px; background:var(--gold); display:block;"></span>
+            <span style="font-family:var(--font-display); font-style:italic; font-size:14px; color:var(--fg);">Rooftop</span>
+          </div>
+          <span style="color:var(--gold); font-size:12px;">&#9662;</span>
+        </div>
+      </div>
+      <div class="layout-info">
+        <div class="layout-name">Amenity Accordion</div>
+        <div class="layout-desc">Floating cream tab with gold left-bar accent, italic serif title, and chevron. Expands to show full-bleed photo + description card below. Tabs: Rooftop, Gym, Cafe-Restaurant.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ 05 · ANIMATIONS ═══ -->
+<div class="inner">
+  <div class="section-band">
+    <div class="section-num">05</div>
+    <h2 class="section-title">Animation &amp; Motion</h2>
+  </div>
+
+  <div class="anim-list">
+    <div class="anim-card">
+      <div class="anim-icon" style="background:var(--olive); color:var(--cream);">&#9634;</div>
+      <div>
+        <div class="anim-name">Loading Screen</div>
+        <div class="anim-desc">
+          Centered tree logo on vanilla background. Animated progress bar counts 0% → 100%. Serif percentage counter below. Once loaded, the entire screen fades out to reveal the hero. Duration: ~3–5 seconds depending on asset loading.
+        </div>
+      </div>
+    </div>
+
+    <div class="anim-card">
+      <div class="anim-icon" style="background:var(--gold); color:var(--cream);">&#9998;</div>
+      <div>
+        <div class="anim-name">Blueprint-to-Render Reveal</div>
+        <div class="anim-desc">
+          Hero opens with an architectural blueprint drawing of the building. As the page loads, the drawing morphs/fades into a photorealistic 3D render. This is the signature animation — it communicates "from vision to reality." Cross-fade with slight scale transition.
+        </div>
+      </div>
+    </div>
+
+    <div class="anim-card">
+      <div class="anim-icon" style="background:var(--accent); color:var(--olive);">Aa</div>
+      <div>
+        <div class="anim-name">Text Reveal (Character-by-Character)</div>
+        <div class="anim-desc">
+          Large serif headings animate in letter by letter, from semi-transparent to full opacity. Used on the "A NEW CHAPTER IN PRESTIGIOUS LIVING" heading. Each character has a staggered delay (~30ms). CSS: <code>opacity: 0 → 1</code>, <code>transform: translateY(20px) → 0</code>. Triggered by IntersectionObserver.
+        </div>
+      </div>
+    </div>
+
+    <div class="anim-card">
+      <div class="anim-icon" style="background:var(--slate); color:var(--cream);">&#8597;</div>
+      <div>
+        <div class="anim-name">Parallax Scroll</div>
+        <div class="anim-desc">
+          Full-bleed images scroll at a slower rate than surrounding content, creating depth. Applied to lifestyle photos in the Amenities and View From Above sections. Factor: approximately 0.3–0.5x scroll speed. Also used for the floating text over the aerial view.
+        </div>
+      </div>
+    </div>
+
+    <div class="anim-card">
+      <div class="anim-icon" style="background:var(--surface); color:var(--olive);">&#8599;</div>
+      <div>
+        <div class="anim-name">Fade-Up on Scroll</div>
+        <div class="anim-desc">
+          Standard reveal pattern for paragraphs, images, and cards. Elements start at <code>opacity: 0; transform: translateY(40px)</code> and ease to visible. Easing: <code>cubic-bezier(0.16, 1, 0.3, 1)</code>. Duration: ~800ms. Triggered at 15% intersection with 60px bottom margin. Respects <code>prefers-reduced-motion</code>.
+        </div>
+      </div>
+    </div>
+
+    <div class="anim-card">
+      <div class="anim-icon" style="background:var(--olive); color:var(--accent);">%</div>
+      <div>
+        <div class="anim-name">Counter Animation</div>
+        <div class="anim-desc">
+          Numbers count up from 0 to their final value when they enter the viewport. Used for construction progress stats (30%, 10%) and the hero stats bar. Duration: ~1.5s with ease-out. Font: editorialOld serif for the numbers, Work Sans for the labels.
+        </div>
+      </div>
+    </div>
+
+    <div class="anim-card">
+      <div class="anim-icon" style="background:var(--gold); color:var(--cream);">&#10132;</div>
+      <div>
+        <div class="anim-name">Button Hover</div>
+        <div class="anim-desc">
+          Pill-shaped buttons: on hover, the arrow icon translates right ~4px, and the border subtly lightens. No background fill change — keeps the transparent/outlined aesthetic. Transition: <code>all 0.3s ease</code>. Circle nav arrows: border becomes gold on hover.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ 06 · UI COMPONENTS ═══ -->
+<div class="inner">
+  <div class="section-band">
+    <div class="section-num">06</div>
+    <h2 class="section-title">UI Components</h2>
+  </div>
+
+  <div style="margin-top:28px;">
+    <div class="type-card-label">Header Navigation</div>
+    <div style="display:flex; justify-content:center; padding:24px; background:var(--olive); border-radius:8px; margin-top:8px;">
+      <div style="display:flex; align-items:center; gap:24px; background:rgba(46,58,38,0.7); border:1px solid rgba(255,244,214,0.15); border-radius:100px; padding:12px 28px; backdrop-filter:blur(8px);">
+        <span style="display:flex; gap:4px; align-items:center;">
+          <span style="width:18px; height:1.5px; background:var(--cream); display:block;"></span>
+          <span style="width:14px; height:1.5px; background:var(--cream); display:block;"></span>
+        </span>
+        <span style="color:var(--cream); font-size:12px; letter-spacing:2px; font-weight:500;">MENU</span>
+        <span style="color:var(--gold); font-size:18px;">&#9753;</span>
+        <span style="color:var(--cream); font-size:12px; letter-spacing:2px; font-weight:500;">INQUIRE</span>
+        <span style="color:var(--cream); font-size:14px;">&rarr;</span>
+      </div>
+    </div>
+    <div style="font-size:12px; color:var(--olive-light); margin-top:8px; line-height:1.5;">
+      Pill-shaped (border-radius: 100px). Semi-transparent dark green with backdrop blur. Border: 1px rgba white at 15% opacity. Fixed position, z-index above hero. Hamburger icon = 2 horizontal lines (not 3). Logo centered. INQUIRE button has arrow icon. On scroll: gains solid background.
+    </div>
+  </div>
+
+  <div class="comp-row" style="margin-top:32px;">
+    <!-- Pill Button -->
+    <div class="comp-item" style="display:flex; flex-direction:column; gap:12px;">
+      <div class="type-card-label" style="margin:0;">Pill Buttons</div>
+      <div style="display:inline-flex; align-items:center; gap:12px; border:1px solid var(--olive-light); border-radius:100px; padding:12px 24px; font-size:12px; letter-spacing:2px; color:var(--fg);">
+        SUBMIT A REQUEST <span>&rarr;</span>
+      </div>
+      <div style="display:inline-flex; align-items:center; gap:12px; border:1px solid var(--gold); border-radius:100px; padding:12px 24px; font-size:12px; letter-spacing:2px; color:var(--gold);">
+        FIND OUT MORE <span>&rarr;</span>
+      </div>
+      <div style="font-size:11px; color:var(--olive-light);">Border-radius: 100px. Always outline style, never filled. Uppercase tracking. Arrow icon right-aligned.</div>
+    </div>
+
+    <!-- Circle Arrows -->
+    <div class="comp-item" style="display:flex; flex-direction:column; gap:12px;">
+      <div class="type-card-label" style="margin:0;">Navigation Arrows</div>
+      <div style="display:flex; gap:12px;">
+        <div style="width:44px; height:44px; border:1px solid var(--olive-light); border-radius:50%; display:flex; align-items:center; justify-content:center; color:var(--olive-light); font-size:16px;">&larr;</div>
+        <div style="width:44px; height:44px; border:1px solid var(--olive-light); border-radius:50%; display:flex; align-items:center; justify-content:center; color:var(--olive-light); font-size:16px;">&rarr;</div>
+      </div>
+      <div style="font-size:11px; color:var(--olive-light);">Circle-outlined, 44px diameter. Thin 1px border. Used for image carousels. On hover: border becomes gold.</div>
+    </div>
+
+    <!-- Progress indicator -->
+    <div class="comp-item" style="display:flex; flex-direction:column; gap:12px;">
+      <div class="type-card-label" style="margin:0;">Section Counter</div>
+      <div style="display:flex; align-items:center; gap:12px;">
+        <div style="width:80px; height:2px; background:var(--accent);"></div>
+        <div style="width:40px; height:1px; background:var(--olive-light);"></div>
+        <span style="font-family:var(--font-display); font-size:14px; color:var(--olive-light);">03</span>
+      </div>
+      <div style="font-size:11px; color:var(--olive-light);">Yellow-green progress line (active) + grey line (remaining). Serif number. Shows current position within the scroll narrative.</div>
+    </div>
+  </div>
+
+  <!-- Form -->
+  <div style="margin-top:32px;">
+    <div class="type-card-label">Contact Form (Footer)</div>
+    <div style="background:var(--mint); border-radius:8px; padding:24px; margin-top:8px;">
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px;">
+        <div>
+          <div style="font-size:10px; letter-spacing:1px; text-transform:uppercase; color:var(--olive-light); margin-bottom:6px;">First Name*</div>
+          <div style="border-bottom:1px solid var(--olive-light); padding-bottom:8px;"></div>
+        </div>
+        <div>
+          <div style="font-size:10px; letter-spacing:1px; text-transform:uppercase; color:var(--olive-light); margin-bottom:6px;">Last Name*</div>
+          <div style="border-bottom:1px solid var(--olive-light); padding-bottom:8px;"></div>
+        </div>
+      </div>
+      <div style="margin-bottom:16px;">
+        <div style="font-size:10px; letter-spacing:1px; text-transform:uppercase; color:var(--olive-light); margin-bottom:6px;">Email*</div>
+        <div style="border-bottom:1px solid var(--olive-light); padding-bottom:8px;"></div>
+      </div>
+      <div style="font-size:12px; text-decoration:underline; letter-spacing:2px; color:var(--fg); margin-top:20px;">LET'S BEGIN</div>
+    </div>
+    <div style="font-size:11px; color:var(--olive-light); margin-top:8px;">Minimal form fields with bottom-border-only inputs. Labels as uppercase micro-text above. Submit = underlined text link, not a button. Consent checkbox before submit.</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ 07 · SECTION MAP ═══ -->
+<div class="inner">
+  <div class="section-band">
+    <div class="section-num">07</div>
+    <h2 class="section-title">Section Architecture</h2>
+  </div>
+
+  <p style="font-size:13px; color:var(--olive-light); margin-top:16px;">The page is a vertical narrative in 14 sections, alternating between dark immersive and light informational zones. Total scroll height: ~20,126px.</p>
+
+  <div class="section-map">
+    <div class="map-row">
+      <div class="map-num">00</div>
+      <div class="map-cell"><div class="map-label">Loading Screen</div><div class="map-detail">Logo + progress bar</div></div>
+      <div class="map-cell"><div class="map-detail" style="color:var(--gold);">bg: #FDFBEF</div></div>
+      <div class="map-cell"><div class="map-detail">Blueprint-to-render transition</div></div>
+    </div>
+    <div class="map-row" style="background:var(--olive); color:var(--cream); border-radius:4px;">
+      <div class="map-num" style="color:var(--gold-light); background:transparent;">01</div>
+      <div class="map-cell" style="background:transparent;"><div class="map-label" style="color:var(--cream);">Hero</div><div class="map-detail" style="color:var(--gold-light);">Full-viewport building render</div></div>
+      <div class="map-cell" style="background:transparent;"><div class="map-detail" style="color:var(--gold-light);">bg: image + gradient</div></div>
+      <div class="map-cell" style="background:transparent;"><div class="map-detail" style="color:var(--gold-light);">96px serif title, stats bar</div></div>
+    </div>
+    <div class="map-row" style="background:var(--olive); color:var(--cream); border-radius:4px;">
+      <div class="map-num" style="color:var(--gold-light); background:transparent;">02</div>
+      <div class="map-cell" style="background:transparent;"><div class="map-label" style="color:var(--cream);">Design</div><div class="map-detail" style="color:var(--gold-light);">Identity + 3D experience</div></div>
+      <div class="map-cell" style="background:transparent;"><div class="map-detail" style="color:var(--gold-light);">bg: #2E3A26 at 80%</div></div>
+      <div class="map-cell" style="background:transparent;"><div class="map-detail" style="color:var(--gold-light);">57px H2, blob images, EXPLORE IN 3D</div></div>
+    </div>
+    <div class="map-row" style="background:var(--olive); color:var(--cream); border-radius:4px;">
+      <div class="map-num" style="color:var(--gold-light); background:transparent;">03</div>
+      <div class="map-cell" style="background:transparent;"><div class="map-label" style="color:var(--cream);">Lifestyle</div><div class="map-detail" style="color:var(--gold-light);">Italic serif quote + photos</div></div>
+      <div class="map-cell" style="background:transparent;"><div class="map-detail" style="color:var(--gold-light);">bg: #2E3A26 at 80%</div></div>
+      <div class="map-cell" style="background:transparent;"><div class="map-detail" style="color:var(--gold-light);">Organic image masks, numbered</div></div>
+    </div>
+    <div class="map-row" style="background:var(--olive); color:var(--cream); border-radius:4px;">
+      <div class="map-num" style="color:var(--gold-light); background:transparent;">04</div>
+      <div class="map-cell" style="background:transparent;"><div class="map-label" style="color:var(--cream);">Living</div><div class="map-detail" style="color:var(--gold-light);">Text reveal animation</div></div>
+      <div class="map-cell" style="background:transparent;"><div class="map-detail" style="color:var(--gold-light);">bg: #2E3A26 at 80%</div></div>
+      <div class="map-cell" style="background:transparent;"><div class="map-detail" style="color:var(--gold-light);">Char-by-char heading, CTA right</div></div>
+    </div>
+    <div class="map-row">
+      <div class="map-num">05</div>
+      <div class="map-cell"><div class="map-label">Location</div><div class="map-detail">Custom illustrated map</div></div>
+      <div class="map-cell"><div class="map-detail" style="color:var(--gold);">bg: #FDFBEF</div></div>
+      <div class="map-cell"><div class="map-detail">Map pins, distance cards, carousel</div></div>
+    </div>
+    <div class="map-row">
+      <div class="map-num">06</div>
+      <div class="map-cell"><div class="map-label">Residences</div><div class="map-detail">Large heading + interior photos</div></div>
+      <div class="map-cell"><div class="map-detail" style="color:var(--gold);">bg: #FDFBEF (cream)</div></div>
+      <div class="map-cell"><div class="map-detail">Gold heading, organic masks, shadow</div></div>
+    </div>
+    <div class="map-row">
+      <div class="map-num">07</div>
+      <div class="map-cell"><div class="map-label">Apartment Types</div><div class="map-detail">Studio/1BR/2BR cards</div></div>
+      <div class="map-cell"><div class="map-detail" style="color:var(--gold);">bg: #FDFBEF</div></div>
+      <div class="map-cell"><div class="map-detail">Photo carousel, unit count, pill CTA</div></div>
+    </div>
+    <div class="map-row" style="background:var(--olive); color:var(--cream); border-radius:4px;">
+      <div class="map-num" style="color:var(--gold-light); background:transparent;">08</div>
+      <div class="map-cell" style="background:transparent;"><div class="map-label" style="color:var(--cream);">Business</div><div class="map-detail" style="color:var(--gold-light);">Teal fabric texture bg</div></div>
+      <div class="map-cell" style="background:transparent;"><div class="map-detail" style="color:var(--gold-light);">bg: dark green + teal</div></div>
+      <div class="map-cell" style="background:transparent;"><div class="map-detail" style="color:var(--gold-light);">Wing A/B cards, FIND OUT MORE</div></div>
+    </div>
+    <div class="map-row" style="background:var(--slate); color:var(--cream); border-radius:4px;">
+      <div class="map-num" style="color:var(--gold-light); background:transparent;">09</div>
+      <div class="map-cell" style="background:transparent;"><div class="map-label" style="color:var(--cream);">Your Roots</div><div class="map-detail" style="color:var(--gold-light);">Emotional lifestyle section</div></div>
+      <div class="map-cell" style="background:transparent;"><div class="map-detail" style="color:var(--gold-light);">bg: #536B7A (slate)</div></div>
+      <div class="map-cell" style="background:transparent;"><div class="map-detail" style="color:var(--gold-light);">Portrait + interior, large serif quote</div></div>
+    </div>
+    <div class="map-row" style="background:var(--olive); color:var(--cream); border-radius:4px;">
+      <div class="map-num" style="color:var(--gold-light); background:transparent;">10</div>
+      <div class="map-cell" style="background:transparent;"><div class="map-label" style="color:var(--cream);">Amenities</div><div class="map-detail" style="color:var(--gold-light);">Full-bleed photo bg</div></div>
+      <div class="map-cell" style="background:transparent;"><div class="map-detail" style="color:var(--gold-light);">bg: lifestyle photo</div></div>
+      <div class="map-cell" style="background:transparent;"><div class="map-detail" style="color:var(--gold-light);">Parallax, accordion tabs</div></div>
+    </div>
+    <div class="map-row">
+      <div class="map-num">11</div>
+      <div class="map-cell"><div class="map-label">View From Above</div><div class="map-detail">Aerial drone view</div></div>
+      <div class="map-cell"><div class="map-detail" style="color:var(--gold);">bg: aerial photo</div></div>
+      <div class="map-cell"><div class="map-detail">Parallax text, Wing A/B labels</div></div>
+    </div>
+    <div class="map-row" style="background:var(--olive); color:var(--cream); border-radius:4px;">
+      <div class="map-num" style="color:var(--gold-light); background:transparent;">12</div>
+      <div class="map-cell" style="background:transparent;"><div class="map-label" style="color:var(--cream);">Progress</div><div class="map-detail" style="color:var(--gold-light);">Construction stats</div></div>
+      <div class="map-cell" style="background:transparent;"><div class="map-detail" style="color:var(--gold-light);">bg: #2E3A26</div></div>
+      <div class="map-cell" style="background:transparent;"><div class="map-detail" style="color:var(--gold-light);">30% building, PDF permit button</div></div>
+    </div>
+    <div class="map-row">
+      <div class="map-num">13</div>
+      <div class="map-cell"><div class="map-label">Contact + Footer</div><div class="map-detail">Form + 3-col footer</div></div>
+      <div class="map-cell"><div class="map-detail" style="color:var(--gold);">bg: #E8EDE6 (mint)</div></div>
+      <div class="map-cell"><div class="map-detail">Name/email form, nav + social links</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ 08 · SPACING ═══ -->
+<div class="inner">
+  <div class="section-band">
+    <div class="section-num">08</div>
+    <h2 class="section-title">Spacing &amp; Dimensions</h2>
+  </div>
+
+  <div class="spec-table-wrap">
+    <table class="spec-table">
+      <thead>
+        <tr><th>Property</th><th>Value</th><th>Notes</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Page width</td><td class="mono">Full-bleed (100vw)</td><td>No max-width container — content fills the viewport</td></tr>
+        <tr><td>Content column</td><td class="mono">~900px</td><td>Text and cards constrained within this width</td></tr>
+        <tr><td>Section padding</td><td class="mono">120–160px vertical</td><td>Generous vertical rhythm between sections</td></tr>
+        <tr><td>Heading margin-bottom</td><td class="mono">48px (H2)</td><td><code>margin-bottom: 47.59px</code> (computed)</td></tr>
+        <tr><td>Body line-height</td><td class="mono">1.5</td><td>24px text / 36px line-height</td></tr>
+        <tr><td>Letter-spacing (H2)</td><td class="mono">1.14px</td><td>Subtle tracking on large serif headings</td></tr>
+        <tr><td>Letter-spacing (labels)</td><td class="mono">2–3px</td><td>Wider tracking on uppercase micro-labels</td></tr>
+        <tr><td>Border radius</td><td class="mono">10px default</td><td><code>--radius: 0.625rem</code></td></tr>
+        <tr><td>Image mask radius</td><td class="mono">20–30px</td><td>Organic blob shapes, larger than UI radius</td></tr>
+        <tr><td>Button radius</td><td class="mono">100px (pill)</td><td>Always fully rounded pill shape</td></tr>
+        <tr><td>Nav arrow size</td><td class="mono">44px circle</td><td>1px border, centered arrow glyph</td></tr>
+        <tr><td>Header height</td><td class="mono">~56px</td><td>Pill-shaped, compact for transparent overlay</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ 09 · DESIGN PRINCIPLES ═══ -->
+<div class="inner">
+  <div class="section-band">
+    <div class="section-num">09</div>
+    <h2 class="section-title">Design Principles &amp; Awwwards Patterns</h2>
+  </div>
+
+  <div style="display:grid; gap:20px; margin-top:28px;">
+    <div class="type-card">
+      <div class="type-card-label">Editorial Storytelling</div>
+      <p style="margin:0; font-size:13px; line-height:1.6;">The page reads like a luxury magazine spread, not a property listing. Each section is a "chapter" with its own mood — dark olive for aspirational, cream for informational, slate blue for emotional. The numbered progress indicator (01–13) reinforces the narrative structure. Content is revealed through scroll, rewarding engagement.</p>
+    </div>
+
+    <div class="type-card">
+      <div class="type-card-label">Nature-Inspired Organic Shapes</div>
+      <p style="margin:0; font-size:13px; line-height:1.6;">No rigid grids. Images use blob-like organic masks with large border-radii (20–30px), asymmetric placement, and slight vertical offsets. This mirrors the "arbor" (tree) concept — growth, natural forms, imperfection as beauty. The tree-canopy facade motif from the architecture carries through to the visual language.</p>
+    </div>
+
+    <div class="type-card">
+      <div class="type-card-label">Contrast as Currency</div>
+      <p style="margin:0; font-size:13px; line-height:1.6;">The power comes from contrasts: ornate serif vs. clean sans-serif. Dark immersive sections vs. bright informational ones. Massive 96px headings vs. delicate 12px labels. Chartreuse accent vs. muted earth tones. Each contrast is deliberate — the unexpected element (like lime-green on forest green) is what makes it feel premium, not predictable.</p>
+    </div>
+
+    <div class="type-card">
+      <div class="type-card-label">Transparent &amp; Minimal Chrome</div>
+      <p style="margin:0; font-size:13px; line-height:1.6;">UI elements are barely there — the header is a floating transparent pill, buttons are outlines not fills, form inputs have only a bottom border. Navigation arrows are thin circles. This "less chrome" approach lets the architecture photography and typography do the heavy lifting. The UI gets out of the way of the content.</p>
+    </div>
+
+    <div class="type-card">
+      <div class="type-card-label">Cinematic Scale</div>
+      <p style="margin:0; font-size:13px; line-height:1.6;">Every section uses generous whitespace (120–160px padding), full-viewport images, and oversized typography. Nothing feels cramped. The page is 20,000+ pixels tall — it's designed to be an experience, not a quick scan. The loading screen itself is a deliberate pace-setter: "slow down, this is worth your time." This is the hallmark of Awwwards-winning real estate sites in 2024–2026.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ FOOTER ═══ -->
+<div style="margin-top:64px; padding-block:32px; border-top:1px solid var(--line);">
+  <div class="inner" style="display:flex; flex-wrap:wrap; justify-content:space-between; gap:16px; font-size:12px; color:var(--olive-light);">
+    <span>Belgrade Arbor Design Analysis — For Aureum Mall &amp; Residences reference</span>
+    <span>Source: belgradearbor.rs/en &middot; Awwwards SOTD</span>
+  </div>
+</div>

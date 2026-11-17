@@ -1,57 +1,100 @@
 import Image from 'next/image';
 import type { ReactNode } from 'react';
-import { LeadForm } from '@/components/LeadForm';
 import { ButtonLink } from '@/components/ui/ButtonLink';
 import { Eyebrow } from '@/components/ui/Eyebrow';
 import { SectionHeading } from '@/components/ui/SectionHeading';
 import type { NewsCardItem } from '@/features/news/posts';
-import { PROJECT_STATS } from '@/lib/project-facts';
-import { AccessSection, BuildingLevelsSection, DeveloperSection, FloorPlanGallery, LeadershipSection, ProjectDisclaimers, ShowcaseGallery, TeamPreview } from '@/features/project-showcase/components/ProjectShowcase';
-import { ARCHITECTURE_AERIAL, ARCHITECTURE_CONTEXT, ARCHITECTURE_DUSK, CUTAWAY_IMAGES, EXTERIOR_NIGHT, EXTERIOR_NIGHT_WIDE, FLOOR_PLAN_IMAGES, FOOD_COURT_IMAGE, LEISURE_IMAGES, MALL_IMAGES, PARKING_IMAGE, RESIDENCE_IMAGES } from '@/features/project-showcase/images';
+import { IMAGE_DISCLAIMER, PROJECT_STATS } from '@/lib/project-facts';
+import { AccessSection, BuildingLevelsSection, DeveloperSection, FloorPlanGallery, LeadershipSection, ProjectDisclaimers, ShowcaseGallery, ShowcaseFigure, TeamPreview, type ShowcaseImage } from '@/features/project-showcase/components/ProjectShowcase';
+import { CUTAWAY_IMAGES, EXTERIOR_NIGHT, EXTERIOR_NIGHT_WIDE, FLOOR_PLAN_IMAGES, FOOD_COURT_IMAGE, LEISURE_IMAGES, MALL_IMAGES, PARKING_IMAGE, RESIDENCE_IMAGES } from '@/features/project-showcase/images';
 import { BrochureDownloads } from '@/features/project-showcase/components/BrochureDownloads';
+import { MediaOpening } from '@/features/immersive-media/components/MediaOpening';
+import mediaStyles from '@/features/immersive-media/components/MediaEditorial.module.css';
 import { NewsCardList } from './NewsCardList';
+import styles from './PropertyPage.module.css';
+
+type PropertyInterest = 'apartment' | 'commercial_shop' | 'corporate_office' | 'food_court';
 
 type PropertyPageProps = {
   eyebrow: string;
   title: string;
   intro: string;
-  image: string;
-  imageAlt: string;
+  image: ShowcaseImage;
   features: readonly string[];
-  interest: 'apartment' | 'commercial_shop' | 'corporate_office';
+  interest: Exclude<PropertyInterest, 'apartment'>;
   registerLabel: string;
-  /** Page-specific sections shown between the feature list and the enquiry form. */
+  payment: { href: string; label: string };
+  plans?: readonly ShowcaseImage[];
+  destinations?: readonly { href: string; title: string; description: string }[];
   children?: ReactNode;
 };
 
-const AT_A_GLANCE: Record<PropertyPageProps['interest'], { description: string; plan: string }> = {
-  apartment: { description: 'Studios to premium Signature Glass Apartments on the 6th to 12th floors, with a private residential entrance and a 4.5-year payment plan.', plan: '/payment-plans/apartments' },
-  commercial_shop: { description: 'Shops on three retail levels around a central atrium, beside a food court and playland, on a 3.5-year payment plan.', plan: '/payment-plans/first-floor-shops' },
-  corporate_office: { description: 'Full-glass offices facing Ring Road, with their own entrance, dedicated lifts and a lifetime amenities membership for owners.', plan: '/payment-plans/offices' },
-};
-
-export function WordPressPropertyPage({ eyebrow, title, intro, image, imageAlt, features, interest, registerLabel, children }: PropertyPageProps) {
+export function WordPressPropertyPage({
+  eyebrow, title, intro, image, features, interest, registerLabel, payment, plans, destinations, children,
+}: PropertyPageProps) {
   return (
     <>
-      <section className="wpInternalHero section">
-        <div className="container wpInternalHeroGrid">
-          <div><Eyebrow>{eyebrow}</Eyebrow><h1>{title}</h1><p>{intro}</p><ButtonLink href="#enquiry">Request details <span aria-hidden="true">↘</span></ButtonLink></div>
-          <div className="wpInternalHeroImage"><Image src={image} alt={imageAlt} fill priority sizes="(max-width: 900px) 92vw, 560px" /></div>
+      <section className={styles.hero} data-blended-navigation aria-labelledby="property-title">
+        <figure>
+          <Image src={image.src} alt={image.alt} fill preload sizes="(max-width: 780px) 135vh, 100vw" />
+          <figcaption>{image.label} · Artist’s impression</figcaption>
+        </figure>
+        <div className={`container ${styles.heroCopy}`}>
+          <Eyebrow>{eyebrow}</Eyebrow>
+          <h1 id="property-title">{title}</h1>
+          <div className={styles.actions}>
+            <ButtonLink href={payment.href} className={styles.heroLink}>{payment.label} <span aria-hidden="true">→</span></ButtonLink>
+            <ButtonLink href={`/contact?interest=${interest}#enquiry`} className={styles.heroLink}>
+              Request details <span aria-hidden="true">→</span>
+            </ButtonLink>
+          </div>
         </div>
       </section>
-      <section className="section wpPropertySection">
-        <div className="container wpPropertyGrid">
-          <div><SectionHeading eyebrow="At a glance" title="The essentials, in four facts." description={AT_A_GLANCE[interest].description} /><ButtonLink href={AT_A_GLANCE[interest].plan} variant="dark">See the payment plan <span aria-hidden="true">→</span></ButtonLink></div>
-          <ul className="wpPropertyFeatures">{features.map((feature, index) => <li key={feature}><span>0{index + 1}</span><strong>{feature}</strong></li>)}</ul>
+
+      <section className={styles.facts} aria-labelledby="property-facts">
+        <div className={`container ${styles.factGrid}`}>
+          <div><h2 id="property-facts">At a glance.</h2><p>{intro}</p></div>
+          <ul>{features.map((feature) => <li key={feature}>{feature}</li>)}</ul>
         </div>
       </section>
+
+      {destinations && (
+        <section className={`container ${styles.destinations}`} aria-labelledby="property-destinations">
+          <h2 id="property-destinations">Explore by level.</h2>
+          <ul>
+            {destinations.map((destination) => (
+              <li key={destination.href}>
+                <ButtonLink href={destination.href} className={styles.enquiryLink}>
+                  {destination.title} <span aria-hidden="true">→</span>
+                </ButtonLink>
+                <p>{destination.description}</p>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {plans && (
+        <section className={`container ${styles.plans}`} aria-labelledby="property-plans">
+          <h2 id="property-plans">Floor plans.</h2>
+          <p>Open the drawing at full size to see the layout.</p>
+          <FloorPlanGallery plans={plans} />
+        </section>
+      )}
+
       {children}
-      <section className="section wpInquirySection" id="enquiry">
-        <div className="container wpInquiryGrid">
-          <div><Eyebrow>{registerLabel}</Eyebrow><h2>Bring your plans into one conversation.</h2><p>Tell us which space you are exploring and the Aureum team will share the latest details with you.</p><div className="wpContactFacts"><span>Bahria Town, Ring Road Interchange, Lahore</span><a href="tel:+923225551121">(0322) 555 1121</a><a href="mailto:hello@aureummall.info">hello@aureummall.info</a></div></div><div className="wpInquiryCard"><LeadForm defaultInterest={interest} /></div>
-        </div>
-      </section>
+      <PropertyEnquiry interest={interest} registerLabel={registerLabel} />
     </>
+  );
+}
+
+export function PropertyEnquiry({ interest, registerLabel }: { interest: PropertyInterest; registerLabel: string }) {
+  return (
+    <section className="section wpInquirySection" id="enquiry">
+      <div className="container wpInquiryGrid">
+        <div><Eyebrow>{registerLabel}</Eyebrow><h2>Bring your plans into one conversation.</h2><p>Tell us which space you are exploring and the Aureum team will share the latest details with you.</p><div className="wpContactFacts"><span>Bahria Town, Ring Road Interchange, Lahore</span><a href="tel:+923225551121">(0322) 555 1121</a><a href="mailto:hello@aureummall.info">hello@aureummall.info</a></div></div><div><ButtonLink href={`/contact?interest=${interest}#enquiry`}>Contact the sales team <span aria-hidden="true">→</span></ButtonLink></div>
+      </div>
+    </section>
   );
 }
 
@@ -73,14 +116,14 @@ export function WordPressAboutPage() {
       <TeamPreview />
       <BuildingLevelsSection image={MALL_IMAGES[0]} />
       <AccessSection />
-      <BrochureDownloads />
+      <BrochureDownloads only={['master-catalogue', 'factsheet']} />
       <ProjectDisclaimers />
     </>
   );
 }
 
 const GALLERY_GROUPS = [
-  { id: 'exterior', eyebrow: 'The building', title: 'A landmark at the Ring Road Interchange.', images: [ARCHITECTURE_AERIAL, ARCHITECTURE_CONTEXT, ARCHITECTURE_DUSK, EXTERIOR_NIGHT_WIDE, EXTERIOR_NIGHT], branded: false },
+  { id: 'exterior', eyebrow: 'The building', title: 'A landmark at the Ring Road Interchange.', images: [EXTERIOR_NIGHT_WIDE, EXTERIOR_NIGHT], branded: false },
   { id: 'mall', eyebrow: 'The mall', title: 'Three retail levels around a central atrium.', images: [...MALL_IMAGES, FOOD_COURT_IMAGE], branded: true },
   { id: 'leisure', eyebrow: 'Dining & leisure', title: 'Where every visit becomes a day out.', images: LEISURE_IMAGES, branded: true },
   { id: 'residences', eyebrow: 'The residences', title: 'Light, space and calm.', images: [...CUTAWAY_IMAGES, ...RESIDENCE_IMAGES], branded: false },
@@ -88,21 +131,32 @@ const GALLERY_GROUPS = [
 ] as const;
 
 export function WordPressGalleryPage() {
+  const links = [
+    ...GALLERY_GROUPS.map((group) => ({ href: `#${group.id}`, label: group.eyebrow })),
+    { href: '#plans', label: 'Floor plans' },
+  ];
+
   return (
     <>
-      <section className="wpInternalHero section">
-        <div className="container wpInternalHeroGrid">
-          <div><Eyebrow>Gallery / project visuals</Eyebrow><h1>See the project from every useful angle.</h1><p>Explore Aureum Mall &amp; Residences through exterior and interior renders, the mall, dining and leisure, the residences and the floor plans.</p><nav className="galleryJump" aria-label="Gallery sections">{GALLERY_GROUPS.map((group) => <a key={group.id} href={`#${group.id}`}>{group.eyebrow}</a>)}<a href="#plans">Floor plans</a></nav></div>
-          <div className="wpInternalHeroImage"><Image src={EXTERIOR_NIGHT_WIDE.src} alt={EXTERIOR_NIGHT_WIDE.alt} fill priority sizes="(max-width: 900px) 92vw, 560px" /></div>
+      <MediaOpening eyebrow="Aureum gallery" title="See Aureum up close." image={EXTERIOR_NIGHT_WIDE} links={links} />
+      {GALLERY_GROUPS.map((group) => {
+        const [featured, ...others] = group.images;
+        return (
+          <section className={mediaStyles.chapter} id={group.id} key={group.id}>
+            <div className="container">
+              <SectionHeading eyebrow={group.eyebrow} title={group.title} />
+              <ShowcaseFigure className={mediaStyles.featured} image={featured} zoomable sizes="(max-width: 1320px) 94vw, 1240px" />
+              {others.length > 0 && <ShowcaseGallery images={others} />}
+              {group.branded && <p className="showcaseNote">{IMAGE_DISCLAIMER}</p>}
+            </div>
+          </section>
+        );
+      })}
+      <section className={mediaStyles.chapter} id="plans">
+        <div className="container">
+          <SectionHeading eyebrow="Floor plans" title="Every level of the building." description="Open a drawing at full size to see the layout." />
+          <FloorPlanGallery plans={FLOOR_PLAN_IMAGES} />
         </div>
-      </section>
-      {GALLERY_GROUPS.map((group) => (
-        <section className="section showcaseSection" id={group.id} key={group.id}>
-          <div className="container"><SectionHeading eyebrow={group.eyebrow} title={group.title} /><ShowcaseGallery images={group.images} branded={group.branded} /></div>
-        </section>
-      ))}
-      <section className="section showcaseSection" id="plans">
-        <div className="container"><SectionHeading eyebrow="Floor plans" title="Every level of the building." description="Tap a plan to open it at full size." /><FloorPlanGallery plans={FLOOR_PLAN_IMAGES} /></div>
       </section>
     </>
   );

@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import type { ImmersiveMediaAsset } from '../data';
 
 type MediaAssetCardProps = {
@@ -8,10 +9,9 @@ type MediaAssetCardProps = {
 export function MediaAssetCard({ asset, onOpen }: MediaAssetCardProps) {
   return (
     <article className="mediaAssetCard">
-      <button className="mediaAssetButton" type="button" onClick={onOpen}>
-        <span className="mediaAssetVisual" aria-hidden="true">
-          <span>{asset.kind === 'floor-plan' ? 'Plan' : 'Image'}</span>
-          <strong>Open project media</strong>
+      <button className="mediaAssetButton" type="button" aria-haspopup="dialog" onClick={onOpen}>
+        <span className="mediaAssetVisual" data-kind={asset.kind} aria-hidden="true">
+          <Image src={asset.src} alt="" fill sizes="(max-width: 760px) 94vw, (max-width: 1080px) 46vw, 390px" />
         </span>
         <span className="mediaAssetBody">
           <span className="eyebrow">{asset.label}</span>

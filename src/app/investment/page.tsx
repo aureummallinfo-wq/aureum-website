@@ -1,7 +1,7 @@
+import { ButtonLink } from '@/components/ui/ButtonLink';
 import { createRouteMetadata } from '@/features/content-seo/metadata';
 import { SectionHeading } from '@/components/ui/SectionHeading';
 import { PlanPickerSection } from '@/features/payment-plans/components/PlanPickerSection';
-import { BrochureDownloads } from '@/features/project-showcase/components/BrochureDownloads';
 import { EXTERIOR_NIGHT_WIDE } from '@/features/project-showcase/images';
 import { ArchitectureLanding } from '@/features/site-architecture/components/ArchitectureLanding';
 
@@ -47,7 +47,7 @@ export default function Page() {
           </ul>
         </div>
       </section>
-      <BrochureDownloads only={['master-catalogue', 'factsheet', 'commercial']} />
+      <div className="container"><ButtonLink href="/about#brochures" variant="dark">Find the Aureum Catalogue and factsheet</ButtonLink></div>
     </ArchitectureLanding>
   );
 }

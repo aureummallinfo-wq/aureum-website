@@ -13,8 +13,8 @@ export default function Page() {
       eyebrow="Corporate / office spaces"
       title="Full glass. Ring Road views."
       intro="Every office has full-glass frontage on the main side of Aureum, facing Ring Road. Offices of 1,007 to 2,595 sq ft at PKR 25,000 per sq ft, from PKR 25,175,000, and every owner receives a lifetime amenities membership."
-      image={OFFICE_IMAGES[0].src}
-      imageAlt={OFFICE_IMAGES[0].alt}
+      image={OFFICE_IMAGES[0]}
+      payment={{ href: "/payment-plans/offices", label: "View the office payment plan" }}
       features={['1,007 / 1,009 / 1,295 / 2,595 sq ft at PKR 25,000 per sq ft', 'Lifetime complimentary amenities membership for owners', 'Separate entrance lobby and dedicated elevators', '4.5-year plan with 10% booking; possession in 3.5 years']}
       interest="corporate_office"
       registerLabel="Corporate office enquiry"
@@ -27,7 +27,7 @@ export default function Page() {
       </section>
       <AccessSection />
       <AmenitiesSection />
-      <BrochureDownloads only={['offices', 'master-catalogue', 'factsheet']} />
+      <BrochureDownloads only={['offices']} />
     </WordPressPropertyPage>
   );
 }

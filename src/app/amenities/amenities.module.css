@@ -1,0 +1,106 @@
+.story,
+.directory {
+  padding-block: clamp(50px, 8vw, 112px);
+}
+
+.story,
+.directory,
+.access {
+  scroll-margin-top: 95px;
+}
+
+.storyGrid,
+.themes {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.45fr);
+  align-items: center;
+  gap: clamp(24px, 6vw, 86px);
+}
+
+.story h2,
+.directory h2 {
+  margin: 10px 0 20px;
+  color: var(--indigo);
+  font: 400 clamp(2.65rem, 6vw, 6rem)/0.98 var(--font-serif);
+  letter-spacing: -0.04em;
+}
+
+.story p:not(:first-child),
+.directory p:not(:first-child) {
+  max-width: 52ch;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.story a,
+.membership a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: var(--indigo);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.storyGrid :global(.showcaseFigureImage) {
+  aspect-ratio: 5 / 4;
+  border-radius: 0;
+}
+
+.storyGrid figcaption {
+  flex-wrap: wrap;
+}
+
+.directory {
+  background: var(--soft);
+}
+
+.themes {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  align-items: start;
+  gap: 28px;
+  margin-top: 44px;
+}
+
+.themes section {
+  padding-top: 18px;
+  border-top: 1px solid var(--line-gold);
+}
+
+.themes h3 {
+  margin: 0 0 12px;
+  color: var(--indigo);
+  font: 400 1.8rem/1.1 var(--font-serif);
+}
+
+.themes ul {
+  margin: 0;
+  padding-inline-start: 18px;
+}
+
+.themes li {
+  padding-block: 4px;
+}
+
+.membership {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 22px;
+  padding-bottom: 40px;
+}
+
+@media (max-width: 780px) {
+  .storyGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .themes {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 420px) {
+  .themes {
+    grid-template-columns: 1fr;
+  }
+}

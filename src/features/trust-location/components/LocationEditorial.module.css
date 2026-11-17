@@ -1,0 +1,55 @@
+.location {
+  padding-block: clamp(54px, 8vw, 118px);
+  background: var(--page);
+}
+
+.location,
+.map {
+  scroll-margin-top: 95px;
+}
+
+.locationGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr);
+  align-items: center;
+  gap: clamp(24px, 6vw, 88px);
+}
+
+.location h2 {
+  margin: 12px 0 20px;
+  color: var(--indigo);
+  font: 400 clamp(2.65rem, 6vw, 6rem)/0.98 var(--font-serif);
+  letter-spacing: -0.04em;
+}
+
+.locationGrid p:not(:first-child) {
+  max-width: 46ch;
+  color: var(--muted);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 22px;
+  margin-top: 22px;
+}
+
+.actions a:last-child {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: var(--indigo);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.map {
+  margin-top: clamp(64px, 9vw, 130px);
+}
+
+@media (max-width: 780px) {
+  .locationGrid {
+    grid-template-columns: 1fr;
+  }
+}

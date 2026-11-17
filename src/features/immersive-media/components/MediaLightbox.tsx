@@ -18,35 +18,38 @@ function MediaSurface({ asset }: { asset: ImmersiveMediaAsset }) {
 }
 
 export function MediaLightbox({ asset, onClose }: MediaLightboxProps) {
-  const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const dialogRef = useRef<HTMLDialogElement>(null);
 
   useEffect(() => {
-    closeButtonRef.current?.focus();
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') onClose();
-    };
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
-    window.addEventListener('keydown', handleKeyDown);
+    const dialog = dialogRef.current;
+    if (!dialog) return;
+    const trigger = document.activeElement;
+    dialog.showModal();
     return () => {
-      document.body.style.overflow = previousOverflow;
-      window.removeEventListener('keydown', handleKeyDown);
+      dialog.close();
+      if (trigger instanceof HTMLElement) trigger.focus({ preventScroll: true });
     };
-  }, [onClose]);
+  }, []);
 
   return (
-    <div className="mediaLightbox" role="dialog" aria-modal="true" aria-labelledby="media-lightbox-title" onClick={onClose}>
-      <div className="mediaLightboxPanel" onClick={(event) => event.stopPropagation()}>
+    <dialog
+      className="mediaLightbox"
+      ref={dialogRef}
+      aria-labelledby="media-lightbox-title"
+      onCancel={(event) => { event.preventDefault(); onClose(); }}
+      onClick={(event) => { if (event.target === event.currentTarget) onClose(); }}
+    >
+      <div className="mediaLightboxPanel">
         <div className="mediaLightboxHeader">
           <div>
             <span className="eyebrow">{asset.label}</span>
             <h2 id="media-lightbox-title">{asset.title}</h2>
           </div>
-          <button className="mediaCloseButton" type="button" onClick={onClose} ref={closeButtonRef} aria-label="Close media viewer">Close</button>
+          <button className="mediaCloseButton" type="button" onClick={onClose} aria-label="Close media viewer">Close</button>
         </div>
         <div className="mediaLightboxSurface"><MediaSurface asset={asset} /></div>
         <p className="mediaLightboxCaption">{asset.caption}</p>
       </div>
-    </div>
+    </dialog>
   );
 }

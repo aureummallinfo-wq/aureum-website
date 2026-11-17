@@ -1,0 +1,297 @@
+.residences {
+  padding-block: clamp(56px, 9vw, 132px);
+  background: var(--soft);
+}
+
+.residencesGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
+  gap: clamp(24px, 6vw, 88px);
+  align-items: center;
+}
+
+.residencesGrid h2 {
+  margin: 8px 0 16px;
+  color: var(--indigo);
+  font: 400 clamp(2.55rem, 5.5vw, 5.4rem)/0.98 var(--font-serif);
+  letter-spacing: -0.04em;
+}
+
+.residencesGrid p:not(:first-child) {
+  max-width: 37ch;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.residencesGrid :global(.showcaseFigureImage) {
+  aspect-ratio: 4 / 3;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+@media (max-width: 760px) {
+  .residencesGrid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.spaceLinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+}
+
+.spaceLinks :global(.button) {
+  padding-inline: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  color: var(--indigo);
+  letter-spacing: normal;
+  text-transform: none;
+  text-decoration: underline;
+  text-decoration-color: var(--gold);
+  text-underline-offset: 4px;
+}
+
+.spaceLinks :global(.button):hover {
+  background: transparent;
+  color: var(--gold);
+}
+
+.editorial {
+  padding-block: clamp(64px, 10vw, 132px);
+  background: var(--page);
+}
+
+.editorialHeading {
+  max-width: 750px;
+  margin: 0 auto clamp(36px, 6vw, 76px);
+  text-align: center;
+}
+
+.editorialHeading h2 {
+  margin: 12px 0 20px;
+  color: var(--indigo);
+  font: 400 clamp(2.6rem, 6.3vw, 6rem)/0.98 var(--font-serif);
+  letter-spacing: -0.04em;
+}
+
+.editorialHeading p:last-child,
+.imageNote {
+  max-width: 52ch;
+  margin-inline: auto;
+  color: var(--muted);
+}
+
+.collage {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2.65fr) minmax(0, 1fr);
+  align-items: start;
+  gap: clamp(12px, 3vw, 40px);
+}
+
+.collage > figure:first-child {
+  margin-top: 32%;
+}
+
+.collage > figure:last-child {
+  margin-top: 78%;
+}
+
+.collage > figure :global(.showcaseFigureImage) {
+  aspect-ratio: 4 / 5;
+}
+
+.collage :global(.showcaseFigureImage) {
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.collage :global(.showcaseFigure) figcaption {
+  flex-wrap: wrap;
+  gap: 2px 10px;
+}
+
+.imageNote {
+  margin: 18px 0 10px;
+  font-size: 0.8rem;
+}
+
+@media (max-width: 780px) {
+  .collage {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .collageLead {
+    grid-column: 1 / -1;
+    grid-row: 1;
+  }
+
+  .collage > figure:first-child,
+  .collage > figure:last-child {
+    margin-top: 0;
+  }
+}
+
+.gateway,
+.architectureScenes {
+  scroll-margin-top: 90px;
+}
+
+.gateway {
+  background: var(--soft);
+  color: var(--indigo);
+}
+
+.gatewayStage {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  align-items: end;
+  min-height: min(72svh, 640px);
+  overflow: clip;
+  background: var(--navy-deep);
+  color: white;
+}
+
+.gatewayWord {
+  display: none;
+}
+
+.gatewayImage {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  margin: 0;
+}
+
+.gatewayImage img {
+  object-fit: cover;
+}
+
+.gatewayImage::after {
+  position: absolute;
+  inset: 0;
+  content: '';
+  background: linear-gradient(0deg, rgb(17 18 50 / 93%), transparent 72%);
+}
+
+.gatewayCaption {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  justify-content: space-between;
+  gap: 12px 28px;
+  padding-block: clamp(30px, 6vw, 78px);
+}
+
+.gatewayCaption h2 {
+  margin: 10px 0 0;
+  color: white;
+  font: 400 clamp(2.8rem, 7.5vw, 7.4rem)/0.95 var(--font-serif);
+  letter-spacing: -0.045em;
+}
+
+.gatewayCaption a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  color: white;
+  text-decoration: underline;
+  text-underline-offset: 5px;
+}
+
+.architectureScenes {
+  padding-block: clamp(34px, 6vw, 86px);
+  background: var(--navy-deep);
+  color: var(--page);
+}
+
+.architectureScenes :is(h3, p) {
+  color: inherit;
+}
+
+.architectureScenes :global(.showcaseFigure) figcaption :is(strong, span) {
+  color: var(--page);
+}
+
+@supports (animation-timeline: view()) {
+  @media (min-width: 900px) and (min-height: 550px) and (prefers-reduced-motion: no-preference) {
+    .gateway {
+      min-height: 190svh;
+      view-timeline-name: --aureum-architecture;
+    }
+
+    .gatewayStage {
+      position: sticky;
+      top: 0;
+      height: 100svh;
+      min-height: 0;
+      background: var(--soft);
+    }
+
+    .gatewayWord {
+      position: absolute;
+      z-index: -2;
+      inset: 50% 0 auto;
+      display: block;
+      margin: 0;
+      color: var(--indigo);
+      text-align: center;
+      text-transform: uppercase;
+      white-space: nowrap;
+      font: 500 23vw/1 var(--font-serif);
+      animation: wordAcross linear both;
+      animation-timeline: --aureum-architecture;
+      animation-range: contain 0% contain 76%;
+    }
+
+    .gatewayImage {
+      animation: architectureExpand linear both;
+      animation-timeline: --aureum-architecture;
+      animation-range: contain 0% contain 83%;
+    }
+
+    .gatewayCaption {
+      animation: architectureCaption linear both;
+      animation-timeline: --aureum-architecture;
+      animation-range: contain 72% contain 94%;
+    }
+
+    .gatewayCaption:focus-within {
+      animation: none;
+      opacity: 1;
+      background: var(--navy-deep);
+    }
+
+    @keyframes architectureExpand {
+      from { transform: scale(0.32); }
+      to { transform: scale(1); }
+    }
+
+    @keyframes wordAcross {
+      from { opacity: 1; transform: translate(3%, -50%); }
+      to { opacity: 0; transform: translate(-9%, -50%); }
+    }
+
+    @keyframes architectureCaption {
+      from { opacity: 0; transform: translateY(18px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  }
+}
+
+.architectureScenes nav a {
+  color: var(--page);
+}
+
+.architectureScenes nav a[aria-current="step"],
+.architectureScenes nav a:hover {
+  color: var(--gold-soft);
+}
+
+.architectureScenes :not([data-enhanced]) > div > [data-residence-chapter] + [data-residence-chapter] {
+  margin-top: clamp(44px, 8vw, 108px);
+}

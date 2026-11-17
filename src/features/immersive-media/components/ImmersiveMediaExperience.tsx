@@ -1,15 +1,14 @@
 'use client';
 
 import { useCallback, useMemo, useState } from 'react';
-import { ButtonLink } from '@/components/ui/ButtonLink';
 import { Eyebrow } from '@/components/ui/Eyebrow';
 import { SectionHeading } from '@/components/ui/SectionHeading';
-import { PROJECT_MEDIA, MEDIA_PRINCIPLES, type ImmersiveMediaAsset } from '../data';
+import { PROJECT_MEDIA, MEDIA_PRINCIPLES, BRAND_FILM, type ImmersiveMediaAsset } from '../data';
 import { MediaAssetCard } from './MediaAssetCard';
 import { MediaLightbox } from './MediaLightbox';
 import { BrandFilmSection } from './BrandFilm';
 import { VirtualTourEmbed } from './VirtualTourEmbed';
-import { D5VirtualTours } from './D5VirtualTours';
+import { MediaOpening } from './MediaOpening';
 
 function MediaRegister({ assets, onOpen }: { assets: readonly ImmersiveMediaAsset[]; onOpen: (asset: ImmersiveMediaAsset) => void }) {
   return <div className="mediaGallery">{assets.map((asset) => <MediaAssetCard key={asset.id} asset={asset} onOpen={() => onOpen(asset)} />)}</div>;
@@ -24,20 +23,17 @@ export function ImmersiveMediaExperience() {
 
   return (
     <>
-      <section className="section mediaHero">
-        <div className="container mediaHeroGrid">
-          <div>
-            <Eyebrow>Project media</Eyebrow>
-            <h1>Let the space become familiar before the visit.</h1>
-            <p>Walk through Aureum Mall &amp; Residences in a 360° virtual tour, then explore the project artwork, payment-plan visuals and floor plans.</p>
-            <div className="mediaHeroActions">
-              <ButtonLink href="#virtual-tour">Start the 360° tour <span aria-hidden="true">↓</span></ButtonLink>
-              <ButtonLink href="#media-workspace" variant="secondary">Open the project gallery</ButtonLink>
-            </div>
-          </div>
-          <div className="mediaHeroStamp" aria-hidden="true"><span>360° tour / images / plans</span><strong>{String(PROJECT_MEDIA.length).padStart(2, '0')}</strong></div>
-        </div>
-      </section>
+      <MediaOpening
+        eyebrow="Project media"
+        title="Walk through Aureum."
+        image={{ src: BRAND_FILM.poster, alt: BRAND_FILM.posterAlt }}
+        links={[
+          { href: '#virtual-tour', label: '360° tour' },
+          { href: '#film-heading-immersive_media', label: 'Project film' },
+          { href: '#media-workspace', label: 'Images' },
+          { href: '#media-floor-plans', label: 'Floor plans' },
+        ]}
+      />
 
       <BrandFilmSection placement="immersive_media" />
 
@@ -48,17 +44,14 @@ export function ImmersiveMediaExperience() {
         </div>
       </section>
 
-      <D5VirtualTours />
-
       <section className="section mediaWorkspace" id="media-workspace">
         <div className="container">
           <SectionHeading id="media-heading" eyebrow="Aureum project gallery" title="See the project clearly." description="Browse the project visuals and open any item for a larger view with its description and context." />
-          <div className="mediaRegisterMeta" aria-label="Project media status"><span><strong>{String(PROJECT_MEDIA.length).padStart(2, '0')}</strong> images and plans</span></div>
           <MediaRegister assets={visualAssets} onOpen={(asset) => setSelectedAssetId(asset.id)} />
         </div>
       </section>
 
-      <section className="section mediaFloorPlans">
+      <section className="section mediaFloorPlans" id="media-floor-plans">
         <div className="container">
           <SectionHeading eyebrow="Floor plans" title="Explore the building dimensions." description="Review the available floor plans alongside their labels, then contact the team for current details." />
           <MediaRegister assets={floorPlans} onOpen={(asset) => setSelectedAssetId(asset.id)} />

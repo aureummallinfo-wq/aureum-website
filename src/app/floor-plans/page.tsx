@@ -1,7 +1,7 @@
+import { ButtonLink } from '@/components/ui/ButtonLink';
 import { createRouteMetadata } from '@/features/content-seo/metadata';
 import { ArchitectureLanding } from '@/features/site-architecture/components/ArchitectureLanding';
 import { FloorPlanGallery, ShowcaseGallery } from '@/features/project-showcase/components/ProjectShowcase';
-import { BrochureDownloads } from '@/features/project-showcase/components/BrochureDownloads';
 import { CUTAWAY_IMAGES, FLOOR_PLAN_IMAGES } from '@/features/project-showcase/images';
 import { SectionHeading } from '@/components/ui/SectionHeading';
 
@@ -34,7 +34,7 @@ export default function Page() {
           <ShowcaseGallery images={CUTAWAY_IMAGES} />
         </div>
       </section>
-      <BrochureDownloads only={['master-catalogue', 'commercial']} />
+      <div className="container"><ButtonLink href="/about#brochures" variant="dark">Find the Aureum Catalogue and factsheet</ButtonLink></div>
     </ArchitectureLanding>
   );
 }

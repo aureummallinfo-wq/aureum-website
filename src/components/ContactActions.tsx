@@ -54,22 +54,31 @@ export function ContactActions() {
 
   const whatsapp = whatsappHref(interestForPath(pathname));
   const page = pathname || '/';
+  const residential = page === '/apartments' || page.startsWith('/apartments/');
 
   return (
     <>
-      <a
-        className="whatsappFloat"
-        href={whatsapp}
-        target="_blank"
-        rel="noopener"
-        aria-label="Chat with the Aureum sales team on WhatsApp (opens WhatsApp)"
-        onClick={() => track(ANALYTICS_EVENTS.whatsappClick, { page, placement: 'floating' })}
-      >
-        <ChatIcon />
-        <span>WhatsApp us</span>
-      </a>
+      <div className={residential ? 'residenceContact' : undefined}>
+        {residential && (
+          <nav aria-label="Residential enquiries">
+            <Link href="/contact?intent=site_visit#enquiry">Book a Visit</Link>
+            <Link href="/payment-plans/apartments">Get Payment Plan</Link>
+          </nav>
+        )}
+        <a
+          className="whatsappFloat"
+          href={whatsapp}
+          target="_blank"
+          rel="noopener"
+          aria-label="Chat with the Aureum sales team on WhatsApp (opens WhatsApp)"
+          onClick={() => track(ANALYTICS_EVENTS.whatsappClick, { page, placement: 'floating' })}
+        >
+          <ChatIcon />
+          <span>WhatsApp us</span>
+        </a>
+      </div>
 
-      <nav className="mobileCtaBar" aria-label="Quick contact">
+      <nav className={residential ? 'mobileCtaBar residenceMobileContact' : 'mobileCtaBar'} aria-label="Quick contact">
         <a href={callHref} onClick={() => track(ANALYTICS_EVENTS.callClick, { page, placement: 'mobile_bar' })}>
           <PhoneIcon />
           <span>Call</span>
@@ -86,8 +95,9 @@ export function ContactActions() {
         </a>
         <Link href="/contact?intent=site_visit#enquiry">
           <CalendarIcon />
-          <span>Book visit</span>
+          <span>{residential ? 'Book a Visit' : 'Book visit'}</span>
         </Link>
+        {residential && <Link href="/payment-plans/apartments">Get Payment Plan</Link>}
       </nav>
     </>
   );

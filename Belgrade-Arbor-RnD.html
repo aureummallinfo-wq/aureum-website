@@ -1,0 +1,1123 @@
+<title>Belgrade Arbor R&D</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Manrope:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+:root {
+  --bg: #FDFBEF; --fg: #2E3A26; --surface: #F4F0DB; --surface2: #EDE9D6;
+  --olive: #3D4A35; --olive-light: #60735C; --gold: #A68150;
+  --cream: #FFF4D6; --accent: #E7FD55; --navy: #314759; --slate: #536B7A;
+  --khaki: #CCBF99; --parchment: #F4F0DB;
+  --code-bg: #2B3226; --code-fg: #E8E4D6;
+  --code-kw: #E7FD55; --code-str: #C9A06A; --code-cmt: #6B7A64;
+  --line: rgba(46,58,38,0.12); --line2: rgba(46,58,38,0.06);
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body: 'Manrope', system-ui, sans-serif;
+  --font-code: 'JetBrains Mono', 'Consolas', monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #1A1E17; --fg: #E8E4D6; --surface: #252A20; --surface2: #2A3024;
+  --olive: #8A9A84; --olive-light: #8A9A84; --gold: #C9A06A;
+  --cream: #E8E0C8; --accent: #C8DD48; --navy: #3B5565; --slate: #7A9AAA;
+  --khaki: #978E72; --parchment: #252A20;
+  --code-bg: #1A1E17; --code-fg: #E8E4D6;
+  --line: rgba(232,228,214,0.1); --line2: rgba(232,228,214,0.05);
+  color-scheme: dark;
+}}
+:root[data-theme="dark"] {
+  --bg: #1A1E17; --fg: #E8E4D6; --surface: #252A20; --surface2: #2A3024;
+  --olive: #8A9A84; --olive-light: #8A9A84; --gold: #C9A06A;
+  --cream: #E8E0C8; --accent: #C8DD48; --navy: #3B5565; --slate: #7A9AAA;
+  --khaki: #978E72; --parchment: #252A20;
+  --code-bg: #1A1E17; --code-fg: #E8E4D6;
+  --line: rgba(232,228,214,0.1); --line2: rgba(232,228,214,0.05);
+  color-scheme: dark;
+}
+body {
+  background: var(--bg); color: var(--fg);
+  font-family: var(--font-body); font-size: 15px; line-height: 1.65; margin: 0;
+}
+body::before {
+  content: ""; position: fixed; inset: 0 0 auto;
+  height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg);
+}
+* { box-sizing: border-box; }
+.w {
+  max-width: min(980px, 100%); margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+
+/* ─── Cover ─── */
+.cover { background: var(--olive); color: var(--cream); padding: 72px 0 56px; }
+.cover .w { display: flex; flex-direction: column; gap: 16px; }
+.eyebrow {
+  font-size: 10px; font-weight: 700; letter-spacing: 3.5px;
+  text-transform: uppercase; color: var(--accent);
+}
+.cover h1 {
+  font-family: var(--font-display); font-size: clamp(36px, 5.5vw, 56px);
+  font-weight: 400; line-height: 1.08; margin: 0;
+}
+.cover h1 em { font-style: italic; color: var(--gold); }
+.cover-sub { font-size: 14px; color: var(--khaki); max-width: 560px; line-height: 1.6; }
+.cover-meta {
+  display: flex; flex-wrap: wrap; gap: 24px; margin-top: 8px;
+  font-size: 11px; color: var(--khaki); letter-spacing: 0.5px;
+}
+.cover-meta span { display: flex; align-items: center; gap: 6px; }
+
+/* ─── TOC ─── */
+.toc {
+  background: var(--surface); border-bottom: 1px solid var(--line);
+  padding: 28px 0; position: sticky; top: 0; z-index: 5;
+}
+.toc-inner { display: flex; flex-wrap: wrap; gap: 6px 16px; }
+.toc a {
+  font-size: 11px; font-weight: 600; letter-spacing: 1.5px;
+  text-transform: uppercase; color: var(--olive-light); text-decoration: none;
+  padding: 4px 0; border-bottom: 1.5px solid transparent;
+  transition: color 0.2s, border-color 0.2s;
+}
+.toc a:hover { color: var(--gold); border-color: var(--gold); }
+
+/* ─── Section ─── */
+.sec { padding: 56px 0 48px; border-bottom: 1px solid var(--line); }
+.sec-num {
+  font-family: var(--font-display); font-size: 11px;
+  color: var(--gold); letter-spacing: 1px; margin-bottom: 4px;
+}
+.sec h2 {
+  font-family: var(--font-display); font-size: clamp(24px, 3.5vw, 36px);
+  font-weight: 400; line-height: 1.12; margin: 0 0 6px; text-wrap: balance;
+}
+.sec-desc { font-size: 13px; color: var(--olive-light); margin: 0 0 32px; max-width: 640px; }
+
+/* ─── Cards ─── */
+.card {
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: 10px; padding: 24px; margin-bottom: 16px;
+}
+.card-label {
+  display: inline-block; font-size: 9px; font-weight: 700; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--accent); background: var(--olive);
+  padding: 3px 10px; border-radius: 4px; margin-bottom: 12px;
+}
+.card-title { font-weight: 700; font-size: 15px; margin: 0 0 8px; }
+.card p { font-size: 13px; color: var(--olive-light); margin: 0 0 12px; line-height: 1.6; }
+
+/* ─── Spec table ─── */
+.spec { width: 100%; border-collapse: collapse; font-size: 13px; margin: 12px 0; }
+.spec th {
+  text-align: left; font-size: 10px; font-weight: 700; letter-spacing: 1.5px;
+  text-transform: uppercase; color: var(--olive-light); padding: 8px 12px;
+  border-bottom: 2px solid var(--line); background: var(--surface2);
+}
+.spec td {
+  padding: 10px 12px; border-bottom: 1px solid var(--line2);
+  vertical-align: top;
+}
+.spec tr:last-child td { border-bottom: none; }
+.spec code {
+  font-family: var(--font-code); font-size: 11px;
+  background: var(--surface2); padding: 2px 6px; border-radius: 4px;
+}
+
+/* ─── Color swatches ─── */
+.swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 12px; margin: 16px 0; }
+.swatch {
+  border-radius: 10px; overflow: hidden;
+  border: 1px solid var(--line); background: var(--surface);
+}
+.swatch-color { height: 60px; }
+.swatch-info { padding: 10px 12px; }
+.swatch-name { font-size: 11px; font-weight: 700; letter-spacing: 0.5px; }
+.swatch-hex { font-family: var(--font-code); font-size: 11px; color: var(--olive-light); margin-top: 2px; }
+
+/* ─── Type scale ─── */
+.type-row {
+  display: flex; align-items: baseline; gap: 16px;
+  padding: 14px 0; border-bottom: 1px solid var(--line2);
+}
+.type-size {
+  font-family: var(--font-code); font-size: 11px; color: var(--gold);
+  min-width: 60px; flex-shrink: 0;
+}
+.type-sample { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.type-meta { font-size: 11px; color: var(--olive-light); margin-left: auto; flex-shrink: 0; }
+
+/* ─── Code blocks ─── */
+.code {
+  background: var(--code-bg); color: var(--code-fg);
+  font-family: var(--font-code); font-size: 11.5px; line-height: 1.7;
+  padding: 20px; border-radius: 8px; overflow-x: auto; margin: 12px 0;
+  border: 1px solid rgba(255,255,255,0.04);
+}
+.code .kw { color: var(--code-kw); }
+.code .s { color: var(--code-str); }
+.code .c { color: var(--code-cmt); font-style: italic; }
+
+/* ─── Diagram ─── */
+.diagram {
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: 10px; padding: 24px; margin: 16px 0; overflow-x: auto;
+}
+.diagram svg { display: block; margin: 0 auto; max-width: 100%; }
+
+/* ─── Grid for two-col ─── */
+.g2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+
+/* ─── Stats ─── */
+.stats { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 16px; margin: 20px 0; }
+.stat { text-align: center; padding: 20px 12px; background: var(--surface); border-radius: 10px; border: 1px solid var(--line); }
+.stat-val { font-family: var(--font-display); font-size: 32px; color: var(--gold); }
+.stat-label { font-size: 10px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--olive-light); margin-top: 4px; }
+
+/* ─── Section map ─── */
+.sec-map-row {
+  display: grid; grid-template-columns: 36px 1fr; gap: 12px;
+  padding: 14px 0; border-bottom: 1px solid var(--line2);
+  align-items: start;
+}
+.sec-map-num {
+  font-family: var(--font-display); font-size: 18px; color: var(--gold); text-align: right;
+}
+.sec-map-title { font-weight: 700; font-size: 14px; }
+.sec-map-desc { font-size: 12px; color: var(--olive-light); margin-top: 2px; }
+.sec-map-tags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
+.sec-map-tag {
+  font-size: 9px; font-weight: 600; letter-spacing: 1px;
+  text-transform: uppercase; padding: 2px 8px; border-radius: 4px;
+  background: var(--surface2); color: var(--olive-light);
+}
+
+/* ─── Live demos ─── */
+.demo-box {
+  background: var(--olive); border-radius: 10px; padding: 32px;
+  position: relative; overflow: hidden; min-height: 160px;
+  display: flex; align-items: center; justify-content: center;
+}
+.replay {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: var(--font-body); font-size: 11px; font-weight: 700;
+  letter-spacing: 1.5px; text-transform: uppercase;
+  color: var(--olive); background: var(--accent);
+  border: none; border-radius: 100px; padding: 7px 16px; cursor: pointer;
+  margin-top: 8px;
+}
+.replay:hover { opacity: 0.85; }
+
+/* ─── Callout ─── */
+.callout {
+  padding: 20px 24px; background: var(--surface);
+  border-left: 3px solid var(--gold); border-radius: 0 10px 10px 0;
+  font-size: 13px; line-height: 1.7; margin: 20px 0;
+}
+.callout strong { color: var(--gold); }
+
+/* ─── Print ─── */
+@media print {
+  .toc { position: static; }
+  .cover, .sec { break-inside: avoid; }
+  .demo-box, .replay { display: none; }
+}
+</style>
+
+<!-- ═══════════════ COVER ═══════════════ -->
+<div class="cover">
+  <div class="w">
+    <div class="eyebrow">Comprehensive Research &amp; Development</div>
+    <h1>Belgrade Arbor<br><em>Design System Analysis</em></h1>
+    <p class="cover-sub">A detailed deconstruction of every design decision — typography, color, layout, spacing, components, page architecture, imagery, and animation — extracted directly from the live site.</p>
+    <div class="cover-meta">
+      <span>&#9670; belgradearbor.rs/en</span>
+      <span>&#9670; Next.js + Tailwind CSS v4</span>
+      <span>&#9670; 14 Sections &middot; 21,382px total</span>
+      <span>&#9670; 44 Images &middot; 549 Scroll Transforms</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ TOC ═══════════════ -->
+<div class="toc">
+  <div class="w toc-inner">
+    <a href="#exec">Executive</a>
+    <a href="#typo">Typography</a>
+    <a href="#color">Color</a>
+    <a href="#layout">Layout</a>
+    <a href="#spacing">Spacing</a>
+    <a href="#components">Components</a>
+    <a href="#sections">Sections</a>
+    <a href="#imagery">Imagery</a>
+    <a href="#responsive">Responsive</a>
+    <a href="#animations">Animations</a>
+  </div>
+</div>
+
+<div class="w">
+
+<!-- ═══ 01 · EXECUTIVE SUMMARY ═══ -->
+<div class="sec" id="exec">
+  <div class="sec-num">01</div>
+  <h2>Executive Summary</h2>
+  <p class="sec-desc">Belgrade Arbor is a premium real-estate presentation site for a residential &amp; business complex in New Belgrade. It positions the property as an experience rather than a listing.</p>
+
+  <div class="callout">
+    <strong>Design Philosophy:</strong> Editorial luxury meets architectural precision. The site treats property marketing like a high-end editorial magazine — every scroll is choreographed, every transition is intentional. Content is revealed, never simply shown. The visual language draws from nature (arbor = trees), earth tones, and botanical elegance.
+  </div>
+
+  <div class="stats">
+    <div class="stat"><div class="stat-val">14</div><div class="stat-label">Sections</div></div>
+    <div class="stat"><div class="stat-val">21.4K</div><div class="stat-label">Page Height (px)</div></div>
+    <div class="stat"><div class="stat-val">44</div><div class="stat-label">Images</div></div>
+    <div class="stat"><div class="stat-val">6</div><div class="stat-label">Carousels</div></div>
+    <div class="stat"><div class="stat-val">1,185</div><div class="stat-label">Split-Text Chars</div></div>
+    <div class="stat"><div class="stat-val">549</div><div class="stat-label">Scroll Transforms</div></div>
+  </div>
+
+  <div class="g2" style="margin-top:24px;">
+    <div class="card">
+      <div class="card-title">Tech Stack</div>
+      <p><strong>Framework:</strong> Next.js (App Router)<br>
+      <strong>Styling:</strong> Tailwind CSS v4 (utility-first)<br>
+      <strong>Fonts:</strong> editorialOld (custom serif) + Work Sans<br>
+      <strong>Carousel:</strong> Keen Slider<br>
+      <strong>Animations:</strong> Custom JS (no GSAP)</p>
+    </div>
+    <div class="card">
+      <div class="card-title">Design Principles</div>
+      <p><strong>1.</strong> Reveal, don't show — everything animates in<br>
+      <strong>2.</strong> Editorial typography at cinematic scale<br>
+      <strong>3.</strong> Earth-tone palette rooted in nature<br>
+      <strong>4.</strong> Photography-first with architectural framing<br>
+      <strong>5.</strong> Scroll as narrative — each section is a chapter</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 02 · TYPOGRAPHY ═══ -->
+<div class="sec" id="typo">
+  <div class="sec-num">02</div>
+  <h2>Typography System</h2>
+  <p class="sec-desc">A two-font pairing: custom editorial serif for headings and display, sans-serif for interface and body text.</p>
+
+  <div class="g2">
+    <div class="card">
+      <div class="card-label">Display &amp; Headings</div>
+      <div class="card-title">editorialOld</div>
+      <p>Custom serif typeface, not publicly available. Elegant, high-contrast letterforms with a classical editorial character. Loaded via @font-face in WOFF2 format.</p>
+      <table class="spec">
+        <tr><th>Weight</th><th>Usage</th></tr>
+        <tr><td>300 (Light)</td><td>H2 headings, large body quotes, paragraph copy</td></tr>
+        <tr><td>400 (Regular)</td><td>H1 hero text, section titles, uppercase display</td></tr>
+        <tr><td>Italic</td><td>Accent text, navigation hover states</td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <div class="card-label">Interface &amp; Body</div>
+      <div class="card-title">Work Sans</div>
+      <p>Geometric sans-serif from Google Fonts. Clean, modern, and highly legible at small sizes. Provides neutral contrast to the editorial serif.</p>
+      <table class="spec">
+        <tr><th>Weight</th><th>Usage</th></tr>
+        <tr><td>300 (Light)</td><td>Body text fallback</td></tr>
+        <tr><td>400 (Regular)</td><td>Body copy, kicker text, navigation</td></tr>
+        <tr><td>500 (Medium)</td><td>Detail labels, progress steps</td></tr>
+        <tr><td>600 (SemiBold)</td><td>Button text, emphasis</td></tr>
+        <tr><td>700 (Bold)</td><td>Strong emphasis, footer headings</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <h3 style="font-family:var(--font-display); font-size:20px; font-weight:400; margin:32px 0 16px;">Type Scale</h3>
+  <p style="font-size:13px; color:var(--olive-light); margin-bottom:16px;">Sizes extracted from computed styles. Uses viewport-relative units on desktop, fixed fallbacks on mobile.</p>
+
+  <div style="overflow-x:auto;">
+    <div class="type-row">
+      <div class="type-size">238px</div>
+      <div class="type-sample" style="font-family:var(--font-display); font-size:28px; font-weight:300; text-transform:uppercase; letter-spacing:-0.5px;">YOUR ROOTS</div>
+      <div class="type-meta">editorialOld 300 · Massive display · Desktop only</div>
+    </div>
+    <div class="type-row">
+      <div class="type-size">124px</div>
+      <div class="type-sample" style="font-family:var(--font-display); font-size:26px; font-weight:400; text-transform:uppercase;">AMENITIES</div>
+      <div class="type-meta">editorialOld 400 · Section hero · Uppercase</div>
+    </div>
+    <div class="type-row">
+      <div class="type-size">102px</div>
+      <div class="type-sample" style="font-family:var(--font-display); font-size:24px; font-weight:400; text-transform:uppercase;">A NEW CHAPTER IN PRESTIGIOUS LIVING</div>
+      <div class="type-meta">editorialOld 400 · Hero h2 · line-height 1:1</div>
+    </div>
+    <div class="type-row">
+      <div class="type-size">96px</div>
+      <div class="type-sample" style="font-family:var(--font-display); font-size:22px; font-weight:400; text-transform:uppercase;">BELGRADE ARBOR</div>
+      <div class="type-meta">editorialOld 400 · H1 · 10.5vw · Split-text animated</div>
+    </div>
+    <div class="type-row">
+      <div class="type-size">90px</div>
+      <div class="type-sample" style="font-family:var(--font-display); font-size:20px; font-weight:300; text-transform:uppercase;">BELGRADE ARBOR</div>
+      <div class="type-meta">editorialOld 300 · Footer branding · light-weight</div>
+    </div>
+    <div class="type-row">
+      <div class="type-size">81px</div>
+      <div class="type-sample" style="font-family:var(--font-display); font-size:18px; font-weight:400; text-transform:uppercase;">View from above</div>
+      <div class="type-meta">editorialOld 400 · Gallery title</div>
+    </div>
+    <div class="type-row">
+      <div class="type-size">57px</div>
+      <div class="type-sample" style="font-family:var(--font-display); font-size:16px; font-weight:300;">The visual identity of Belgrade Arbor is defined by an elegant…</div>
+      <div class="type-meta">editorialOld 300 · H2 · letter-spacing: 1.14px</div>
+    </div>
+    <div class="type-row">
+      <div class="type-size">48px</div>
+      <div class="type-sample" style="font-family:var(--font-display); font-size:15px; font-weight:300;">In Belgrade Arbor, each residence…</div>
+      <div class="type-meta">editorialOld 300 · Large paragraph</div>
+    </div>
+    <div class="type-row">
+      <div class="type-size">38px</div>
+      <div class="type-sample" style="font-family:var(--font-display); font-size:14px; font-weight:300;">Navigation links</div>
+      <div class="type-meta">editorialOld 300 · Nav menu links</div>
+    </div>
+    <div class="type-row">
+      <div class="type-size">24px</div>
+      <div class="type-sample" style="font-family:var(--font-body); font-size:14px; font-weight:400; text-transform:uppercase; letter-spacing:0.5px;">BELGRADE ARBOR DESIGN</div>
+      <div class="type-meta">Work Sans 400 · Kicker/preheading · Uppercase</div>
+    </div>
+    <div class="type-row">
+      <div class="type-size">21px</div>
+      <div class="type-sample" style="font-family:var(--font-body); font-size:13px; font-weight:500;">Pre-contract · Zero level · Structure completed</div>
+      <div class="type-meta">Work Sans 500 · Detail labels</div>
+    </div>
+    <div class="type-row">
+      <div class="type-size">19px</div>
+      <div class="type-sample" style="font-family:var(--font-body); font-size:13px; font-weight:400;">Base body text throughout the site</div>
+      <div class="type-meta">Work Sans 400 · Base body · 167 elements</div>
+    </div>
+    <div class="type-row">
+      <div class="type-size">17px</div>
+      <div class="type-sample" style="font-family:var(--font-body); font-size:12px; font-weight:400; text-transform:uppercase; letter-spacing:0.33px;">MENU · INQUIRE</div>
+      <div class="type-meta">Work Sans 400 · Button/nav text · Uppercase</div>
+    </div>
+  </div>
+
+  <div class="callout" style="margin-top:24px;">
+    <strong>Typography Rules:</strong><br>
+    &bull; All hero/display text is <strong>uppercase</strong> with <strong>1:1 line-height</strong><br>
+    &bull; H2 body headings use <strong>weight 300</strong> (light), not bold — elegance over impact<br>
+    &bull; Kicker text (pre-headings) always <strong>Work Sans, uppercase, letter-spacing 0.48px</strong><br>
+    &bull; Hero text uses <strong>viewport-relative units</strong> (10.5vw desktop, 17vw mobile)<br>
+    &bull; <strong>No bold headings</strong> — the brand relies on size and weight contrast, not heaviness
+  </div>
+</div>
+
+<!-- ═══ 03 · COLOR ═══ -->
+<div class="sec" id="color">
+  <div class="sec-num">03</div>
+  <h2>Color Palette</h2>
+  <p class="sec-desc">An earth-tone palette inspired by nature — vanilla cream backgrounds, pine green text, gold accents, and a chartreuse highlight.</p>
+
+  <div class="swatches">
+    <div class="swatch">
+      <div class="swatch-color" style="background:#FDFBEF;"></div>
+      <div class="swatch-info">
+        <div class="swatch-name">Vanilla</div>
+        <div class="swatch-hex">#FDFBEF</div>
+        <div style="font-size:10px; color:var(--olive-light); margin-top:2px;">Page background</div>
+      </div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#2E3A26;"></div>
+      <div class="swatch-info">
+        <div class="swatch-name">Pine Green</div>
+        <div class="swatch-hex">#2E3A26</div>
+        <div style="font-size:10px; color:var(--olive-light); margin-top:2px;">Primary text · 2,897 uses</div>
+      </div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#F4F0DB;"></div>
+      <div class="swatch-info">
+        <div class="swatch-name">Parchment</div>
+        <div class="swatch-hex">#F4F0DB</div>
+        <div style="font-size:10px; color:var(--olive-light); margin-top:2px;">Text on dark · 2,020 uses</div>
+      </div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#FFF4D6;"></div>
+      <div class="swatch-info">
+        <div class="swatch-name">Cream</div>
+        <div class="swatch-hex">#FFF4D6</div>
+        <div style="font-size:10px; color:var(--olive-light); margin-top:2px;">Light text variant · 1,703 uses</div>
+      </div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#A68150;"></div>
+      <div class="swatch-info">
+        <div class="swatch-name">Gold</div>
+        <div class="swatch-hex">#A68150</div>
+        <div style="font-size:10px; color:var(--olive-light); margin-top:2px;">Accent · borders · 1,693 uses</div>
+      </div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#CCBF99;"></div>
+      <div class="swatch-info">
+        <div class="swatch-name">Khaki</div>
+        <div class="swatch-hex">#CCBF99</div>
+        <div style="font-size:10px; color:var(--olive-light); margin-top:2px;">Muted text · secondary · 667 uses</div>
+      </div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#E7FD55;"></div>
+      <div class="swatch-info">
+        <div class="swatch-name">Chartreuse</div>
+        <div class="swatch-hex">#E7FD55</div>
+        <div style="font-size:10px; color:var(--olive-light); margin-top:2px;">Highlight accent · 647 uses</div>
+      </div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#60735C;"></div>
+      <div class="swatch-info">
+        <div class="swatch-name">Olive</div>
+        <div class="swatch-hex">#60735C</div>
+        <div style="font-size:10px; color:var(--olive-light); margin-top:2px;">Backgrounds · dividers · 586 uses</div>
+      </div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#314759;"></div>
+      <div class="swatch-info">
+        <div class="swatch-name">Navy</div>
+        <div class="swatch-hex">#314759</div>
+        <div style="font-size:10px; color:var(--olive-light); margin-top:2px;">"Your Roots" section bg</div>
+      </div>
+    </div>
+  </div>
+
+  <h3 style="font-family:var(--font-display); font-size:18px; font-weight:400; margin:28px 0 12px;">Tailwind Custom Colors</h3>
+  <div class="code">
+<span class="c">/* tailwind.config — Custom color tokens */</span>
+colors: {
+  <span class="s">'vanilla'</span>:    <span class="s">'#FDFBEF'</span>,  <span class="c">// --color-vanilla (page bg)</span>
+  <span class="s">'pine-green'</span>: <span class="s">'#2E3A26'</span>,  <span class="c">// --color-pine-green (foreground)</span>
+  <span class="s">'cream'</span>:      <span class="s">'#FFF4D6'</span>,  <span class="c">// light text on dark sections</span>
+  <span class="s">'cream-dark'</span>: <span class="s">'#F4F0DB'</span>,  <span class="c">// parchment text variant</span>
+  <span class="s">'sand'</span>:       <span class="s">'#CCBF99'</span>,  <span class="c">// muted/secondary text</span>
+  <span class="s">'golden'</span>:     <span class="s">'#A68150'</span>,  <span class="c">// accent, borders, hovers</span>
+  <span class="s">'accent'</span>:     <span class="s">'#E7FD55'</span>,  <span class="c">// chartreuse highlight</span>
+  <span class="s">'green'</span>:      <span class="s">'#60735C'</span>,  <span class="c">// olive backgrounds</span>
+  <span class="s">'navy'</span>:       <span class="s">'#314759'</span>,  <span class="c">// special section (Your Roots)</span>
+  <span class="s">'dark-grey'</span>:  <span class="s">'...'</span>,      <span class="c">// dark surfaces</span>
+}
+  </div>
+
+  <div class="code">
+<span class="c">/* CSS Custom Properties */</span>
+:root {
+  <span class="kw">--radius</span>: <span class="s">0.625rem</span>;           <span class="c">/* 10px base radius */</span>
+  <span class="kw">--background</span>: var(<span class="s">--color-vanilla</span>);
+  <span class="kw">--foreground</span>: var(<span class="s">--color-pine-green</span>);
+}
+  </div>
+
+  <div class="callout">
+    <strong>Color Rules:</strong><br>
+    &bull; <strong>No pure white</strong> — background is warm vanilla #FDFBEF, never #FFFFFF<br>
+    &bull; <strong>No pure black text</strong> — all text is pine green #2E3A26 or parchment #F4F0DB<br>
+    &bull; Gold #A68150 is the <strong>workhorse accent</strong> — borders, hovers, icons, highlights<br>
+    &bull; Chartreuse #E7FD55 is the <strong>surprise accent</strong> — used sparingly for badges and kicker text<br>
+    &bull; <strong>Section alternation</strong>: vanilla cream → olive/dark → vanilla → navy → vanilla
+  </div>
+</div>
+
+<!-- ═══ 04 · LAYOUT ═══ -->
+<div class="sec" id="layout">
+  <div class="sec-num">04</div>
+  <h2>Layout System</h2>
+  <p class="sec-desc">Flexbox-dominant layout with minimal grid usage. Layered positioning creates parallax depth.</p>
+
+  <div class="stats">
+    <div class="stat"><div class="stat-val">197</div><div class="stat-label">Flex Containers</div></div>
+    <div class="stat"><div class="stat-val">1</div><div class="stat-label">Grid Container</div></div>
+    <div class="stat"><div class="stat-val">193</div><div class="stat-label">Absolute Elements</div></div>
+    <div class="stat"><div class="stat-val">3</div><div class="stat-label">Sticky Elements</div></div>
+    <div class="stat"><div class="stat-val">4</div><div class="stat-label">Fixed Elements</div></div>
+  </div>
+
+  <div class="g2">
+    <div class="card">
+      <div class="card-title">Page Structure</div>
+      <p>Full-viewport sections stacked vertically. No CSS Grid for page layout — everything is flex or absolute positioned.</p>
+      <table class="spec">
+        <tr><th>Pattern</th><th>Detail</th></tr>
+        <tr><td>Sections</td><td><code>min-h-screen</code> or <code>h-svh</code> (viewport height)</td></tr>
+        <tr><td>Content width</td><td>No visible max-width — content bleeds to edges</td></tr>
+        <tr><td>Text columns</td><td>~7/12 width for text blocks alongside images</td></tr>
+        <tr><td>Hero text</td><td>Full-width, centered, absolute-positioned overlays</td></tr>
+        <tr><td>Sticky nav</td><td><code>fixed top-6</code> centered, pointer-events-none wrapper</td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <div class="card-title">Z-Index Layers</div>
+      <p>Carefully managed z-index stack for parallax layering.</p>
+      <table class="spec">
+        <tr><th>Layer</th><th>z-index</th><th>Usage</th></tr>
+        <tr><td>Base content</td><td><code>z-0</code></td><td>Background images, parallax</td></tr>
+        <tr><td>Section content</td><td><code>z-1</code></td><td>Main section containers</td></tr>
+        <tr><td>Overlapping</td><td><code>z-2</code></td><td>Gallery overlays</td></tr>
+        <tr><td>UI elements</td><td><code>z-10</code></td><td>Buttons, navigation arrows</td></tr>
+        <tr><td>Fixed UI</td><td><code>z-20</code></td><td>Scroll indicator</td></tr>
+        <tr><td>Navigation</td><td><code>z-100</code></td><td>Header/menu bar</td></tr>
+        <tr><td>Full overlay</td><td><code>z-1000</code></td><td>Loading screen, mobile menu</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="diagram" style="margin-top:24px;">
+    <svg viewBox="0 0 700 300" xmlns="http://www.w3.org/2000/svg" style="width:100%; height:auto;">
+      <text x="350" y="18" text-anchor="middle" fill="#A68150" font-family="Manrope,sans-serif" font-size="10" font-weight="700" letter-spacing="2">SECTION ARCHITECTURE PATTERN</text>
+
+      <!-- Full-width parallax bg -->
+      <rect x="40" y="35" width="620" height="240" rx="6" fill="#3D4A35" opacity="0.15" stroke="#60735C" stroke-width="1" stroke-dasharray="4,3"/>
+      <text x="60" y="55" fill="#60735C" font-family="Manrope,sans-serif" font-size="9" font-weight="600">PARALLAX BACKGROUND (z-0) — full viewport, overflow: hidden</text>
+
+      <!-- Oversized image -->
+      <rect x="60" y="65" width="260" height="195" rx="4" fill="#60735C" opacity="0.3"/>
+      <text x="190" y="165" text-anchor="middle" fill="#CCBF99" font-family="Manrope,sans-serif" font-size="10">Oversized Image</text>
+      <text x="190" y="180" text-anchor="middle" fill="#60735C" font-family="Manrope,sans-serif" font-size="8">height: calc(100% + 20rem)</text>
+
+      <!-- Content overlay -->
+      <rect x="360" y="65" width="280" height="195" rx="6" fill="none" stroke="#A68150" stroke-width="1.5"/>
+      <text x="380" y="88" fill="#A68150" font-family="Manrope,sans-serif" font-size="9" font-weight="600">CONTENT LAYER (z-1)</text>
+
+      <!-- Kicker -->
+      <rect x="380" y="100" width="100" height="14" rx="2" fill="#E7FD55" opacity="0.3"/>
+      <text x="385" y="110" fill="#60735C" font-family="Manrope,sans-serif" font-size="7">KICKER TEXT</text>
+
+      <!-- H2 -->
+      <rect x="380" y="122" width="240" height="20" rx="2" fill="#2E3A26" opacity="0.15"/>
+      <text x="385" y="136" fill="#2E3A26" font-family="Playfair Display,serif" font-size="11" font-weight="300">Heading text — editorialOld 57px</text>
+
+      <!-- Body -->
+      <rect x="380" y="150" width="200" height="8" rx="1" fill="#2E3A26" opacity="0.08"/>
+      <rect x="380" y="164" width="220" height="8" rx="1" fill="#2E3A26" opacity="0.08"/>
+      <rect x="380" y="178" width="180" height="8" rx="1" fill="#2E3A26" opacity="0.08"/>
+
+      <!-- Button -->
+      <rect x="380" y="200" width="120" height="32" rx="16" fill="none" stroke="#60735C" stroke-width="1"/>
+      <text x="440" y="220" text-anchor="middle" fill="#60735C" font-family="Manrope,sans-serif" font-size="8">EXPLORE</text>
+
+      <!-- Arrow showing clip-path -->
+      <line x1="350" y1="270" x2="560" y2="270" stroke="#A68150" stroke-width="1" stroke-dasharray="3,2"/>
+      <text x="455" y="285" text-anchor="middle" fill="#A68150" font-family="Manrope,sans-serif" font-size="8">clip-path: inset() reveal on scroll →</text>
+    </svg>
+  </div>
+</div>
+
+<!-- ═══ 05 · SPACING ═══ -->
+<div class="sec" id="spacing">
+  <div class="sec-num">05</div>
+  <h2>Spacing System</h2>
+  <p class="sec-desc">Tailwind's default 4px base scale, extended with generous custom values for editorial breathing room.</p>
+
+  <div class="g2">
+    <div class="card">
+      <div class="card-title">Gap Scale (between elements)</div>
+      <table class="spec">
+        <tr><th>Class</th><th>Value</th><th>Usage</th></tr>
+        <tr><td><code>gap-1</code></td><td>4px</td><td>Tight inline elements</td></tr>
+        <tr><td><code>gap-3</code></td><td>12px</td><td>Button icon + text</td></tr>
+        <tr><td><code>gap-5</code></td><td>20px</td><td>Nav items</td></tr>
+        <tr><td><code>gap-10</code></td><td>40px</td><td>Section content groups</td></tr>
+        <tr><td><code>gap-15</code></td><td>60px</td><td>Major content blocks</td></tr>
+        <tr><td><code>gap-20</code></td><td>80px</td><td>Section-to-section</td></tr>
+        <tr><td><code>gap-30</code></td><td>120px</td><td>Hero spacing</td></tr>
+        <tr><td><code>gap-35</code></td><td>140px</td><td>Maximum gap</td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <div class="card-title">Padding Scale</div>
+      <table class="spec">
+        <tr><th>Class</th><th>Value</th><th>Usage</th></tr>
+        <tr><td><code>p-10</code></td><td>40px</td><td>Card/component padding</td></tr>
+        <tr><td><code>p-15</code></td><td>60px</td><td>Section inner padding</td></tr>
+        <tr><td><code>p-20</code></td><td>80px</td><td>Large section padding</td></tr>
+        <tr><td><code>p-25</code></td><td>100px</td><td>Hero content padding</td></tr>
+        <tr><td><code>p-35</code></td><td>140px</td><td>Extra generous</td></tr>
+        <tr><td><code>p-50</code></td><td>200px</td><td>Maximum padding</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="callout">
+    <strong>Spacing Philosophy:</strong> Generous whitespace is a luxury signal. Sections breathe with 80–200px padding. Text blocks never feel cramped. The gap between hero heading and body copy is 60–120px — far more than a typical site. This editorial spacing is central to the premium feel.
+  </div>
+</div>
+
+<!-- ═══ 06 · COMPONENTS ═══ -->
+<div class="sec" id="components">
+  <div class="sec-num">06</div>
+  <h2>UI Components</h2>
+  <p class="sec-desc">A minimal component library — buttons, navigation, sliders, and little else. The design avoids traditional component patterns in favor of bespoke layouts.</p>
+
+  <div class="g2">
+    <div class="card">
+      <div class="card-label">Primary CTA</div>
+      <div class="card-title">Pill Button</div>
+      <table class="spec">
+        <tr><th>Property</th><th>Value</th></tr>
+        <tr><td>Shape</td><td><code>border-radius: 9999px</code> (full pill)</td></tr>
+        <tr><td>Border</td><td><code>0.8px solid #60735C</code> (olive, thin)</td></tr>
+        <tr><td>Padding</td><td><code>24px</code> all around (generous)</td></tr>
+        <tr><td>Background</td><td>Transparent (outline style)</td></tr>
+        <tr><td>Text</td><td><code>17px Work Sans 400 uppercase</code></td></tr>
+        <tr><td>Color</td><td><code>#F4F0DB</code> (parchment)</td></tr>
+        <tr><td>Hover</td><td>Gold border + text color shift</td></tr>
+        <tr><td>Min-width</td><td><code>min-w-55</code> (220px) for CTA buttons</td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <div class="card-label">Navigation</div>
+      <div class="card-title">Fixed Header</div>
+      <table class="spec">
+        <tr><th>Property</th><th>Value</th></tr>
+        <tr><td>Position</td><td><code>fixed top-6 left-1/2 -translate-x-1/2</code></td></tr>
+        <tr><td>Z-index</td><td><code>z-100</code></td></tr>
+        <tr><td>Wrapper</td><td><code>pointer-events: none</code> (items restore individually)</td></tr>
+        <tr><td>Menu button</td><td>Left side: "Menu" with hamburger icon</td></tr>
+        <tr><td>CTA</td><td>Right side: "Inquire" pill button</td></tr>
+        <tr><td>Background</td><td>Transparent — floats over content</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="g2" style="margin-top:16px;">
+    <div class="card">
+      <div class="card-label">Carousel</div>
+      <div class="card-title">Keen Slider</div>
+      <table class="spec">
+        <tr><th>Property</th><th>Value</th></tr>
+        <tr><td>Instances</td><td>6 across the page</td></tr>
+        <tr><td>Transition</td><td><strong>Opacity fade</strong> (not horizontal slide)</td></tr>
+        <tr><td>Duration</td><td><code>700ms</code></td></tr>
+        <tr><td>Nav arrows</td><td>44px circular, 1px olive border</td></tr>
+        <tr><td>Active slide</td><td><code>opacity: 1</code></td></tr>
+        <tr><td>Inactive</td><td><code>opacity: 0</code></td></tr>
+        <tr><td>Mobile</td><td>All slides visible, stacked</td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <div class="card-label">Special</div>
+      <div class="card-title">Fullscreen Menu Overlay</div>
+      <table class="spec">
+        <tr><th>Property</th><th>Value</th></tr>
+        <tr><td>Z-index</td><td><code>z-1000</code></td></tr>
+        <tr><td>Background</td><td>Pine green / olive dark</td></tr>
+        <tr><td>Links</td><td>editorialOld 38px, light-weight serif</td></tr>
+        <tr><td>Hover effect</td><td>Text reveal with accent color translation</td></tr>
+        <tr><td>Animation</td><td>Clip-path or opacity fade on toggle</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <h3 style="font-family:var(--font-display); font-size:18px; font-weight:400; margin:28px 0 12px;">Border Radius</h3>
+  <table class="spec">
+    <tr><th>Class</th><th>Value</th><th>Usage</th></tr>
+    <tr><td><code>rounded-none</code></td><td>0px</td><td>Hero images, full-bleed sections</td></tr>
+    <tr><td><code>rounded-</code> (default)</td><td>10px</td><td>Location cards, image thumbnails (<code>--radius: .625rem</code>)</td></tr>
+    <tr><td><code>rounded-2xl</code></td><td>16px</td><td>Feature cards, highlighted areas</td></tr>
+    <tr><td><code>rounded-full</code></td><td>9999px</td><td>Pill buttons, circular nav arrows</td></tr>
+  </table>
+</div>
+
+<!-- ═══ 07 · SECTION MAP ═══ -->
+<div class="sec" id="sections">
+  <div class="sec-num">07</div>
+  <h2>Section Architecture</h2>
+  <p class="sec-desc">14 sections forming a narrative scroll — each section is a chapter in the property's story. Sections alternate between content-heavy and cinematic parallax breaks.</p>
+
+  <div class="sec-map-row">
+    <div class="sec-map-num">1</div>
+    <div>
+      <div class="sec-map-title">Hero &amp; Loading</div>
+      <div class="sec-map-desc">690px viewport-height. Blueprint → Render morph animation. Split-text "BELGRADE ARBOR" at 10.5vw.</div>
+      <div class="sec-map-tags"><span class="sec-map-tag">loading screen</span><span class="sec-map-tag">morph animation</span><span class="sec-map-tag">split text</span></div>
+    </div>
+  </div>
+
+  <div class="sec-map-row">
+    <div class="sec-map-num">2</div>
+    <div>
+      <div class="sec-map-title">Introduction (Scroll Narrative)</div>
+      <div class="sec-map-desc">6,206px (!). Scroll-pinned section with 900vh scroller. Text reveals synced to scroll position. editorialOld 57px headings. Clip-path reveals.</div>
+      <div class="sec-map-tags"><span class="sec-map-tag">sticky scroll</span><span class="sec-map-tag">clip-path</span><span class="sec-map-tag">900vh height</span><span class="sec-map-tag">parallax</span></div>
+    </div>
+  </div>
+
+  <div class="sec-map-row">
+    <div class="sec-map-num">3</div>
+    <div>
+      <div class="sec-map-title">Location</div>
+      <div class="sec-map-desc">1,220px. "LOCATION" hero heading at 102px. Video background with parallax image overlay. Zoom reveal.</div>
+      <div class="sec-map-tags"><span class="sec-map-tag">video bg</span><span class="sec-map-tag">parallax</span><span class="sec-map-tag">zoom reveal</span></div>
+    </div>
+  </div>
+
+  <div class="sec-map-row">
+    <div class="sec-map-num">4</div>
+    <div>
+      <div class="sec-map-title">Location Details (Nearby)</div>
+      <div class="sec-map-desc">2,047px. "What's around" kicker. 7 Keen Slider instances showing nearby landmarks with rounded cards. 8 images.</div>
+      <div class="sec-map-tags"><span class="sec-map-tag">keen slider</span><span class="sec-map-tag">location cards</span><span class="sec-map-tag">rounded-2xl</span></div>
+    </div>
+  </div>
+
+  <div class="sec-map-row">
+    <div class="sec-map-num">5</div>
+    <div>
+      <div class="sec-map-title">Residences (Hero)</div>
+      <div class="sec-map-desc">1,315px. "RESIDENCES" at 102px. Video + parallax image. Explore in 3D CTA button.</div>
+      <div class="sec-map-tags"><span class="sec-map-tag">video bg</span><span class="sec-map-tag">pill button</span><span class="sec-map-tag">parallax</span></div>
+    </div>
+  </div>
+
+  <div class="sec-map-row">
+    <div class="sec-map-num">6</div>
+    <div>
+      <div class="sec-map-title">Residences Gallery</div>
+      <div class="sec-map-desc">690px. 12 images in Keen Slider carousels. Apartment interior photos with fade transitions.</div>
+      <div class="sec-map-tags"><span class="sec-map-tag">keen slider</span><span class="sec-map-tag">13 sliders</span><span class="sec-map-tag">fade transition</span></div>
+    </div>
+  </div>
+
+  <div class="sec-map-row">
+    <div class="sec-map-num">7</div>
+    <div>
+      <div class="sec-map-title">Office &amp; Retail Spaces</div>
+      <div class="sec-map-desc">1,276px. "OFFICE SPACES AND RETAILS" at 102px. Same parallax + video pattern as residences.</div>
+      <div class="sec-map-tags"><span class="sec-map-tag">video bg</span><span class="sec-map-tag">parallax</span></div>
+    </div>
+  </div>
+
+  <div class="sec-map-row">
+    <div class="sec-map-num">8</div>
+    <div>
+      <div class="sec-map-title">Office Details</div>
+      <div class="sec-map-desc">690px. Business-focused content with Explore in 3D button. Single hero image.</div>
+      <div class="sec-map-tags"><span class="sec-map-tag">pill button</span><span class="sec-map-tag">clip-path</span></div>
+    </div>
+  </div>
+
+  <div class="sec-map-row">
+    <div class="sec-map-num">9</div>
+    <div>
+      <div class="sec-map-title">Your Roots</div>
+      <div class="sec-map-desc">1,314px. <strong style="color:var(--gold);">Navy blue (#314759) background</strong> — unique section. "YOUR ROOTS" at 238px (!) desktop. Roots paragraph at 48px serif. Botanically-inspired fullscreen imagery.</div>
+      <div class="sec-map-tags"><span class="sec-map-tag">navy bg</span><span class="sec-map-tag">238px heading</span><span class="sec-map-tag">editorial narrative</span></div>
+    </div>
+  </div>
+
+  <div class="sec-map-row">
+    <div class="sec-map-num">10</div>
+    <div>
+      <div class="sec-map-title">Construction Progress</div>
+      <div class="sec-map-desc">Installment timeline with progress steps: Pre-contract, Zero level, Structure completed. Work Sans 500 detail labels.</div>
+      <div class="sec-map-tags"><span class="sec-map-tag">timeline</span><span class="sec-map-tag">progress bar</span></div>
+    </div>
+  </div>
+
+  <div class="sec-map-row">
+    <div class="sec-map-num">11</div>
+    <div>
+      <div class="sec-map-title">Amenities</div>
+      <div class="sec-map-desc">1,186px. "AMENITIES" at 124px. Video + parallax hero. Leads to amenity detail carousels.</div>
+      <div class="sec-map-tags"><span class="sec-map-tag">video bg</span><span class="sec-map-tag">parallax</span><span class="sec-map-tag">124px heading</span></div>
+    </div>
+  </div>
+
+  <div class="sec-map-row">
+    <div class="sec-map-num">12</div>
+    <div>
+      <div class="sec-map-title">Amenities Gallery</div>
+      <div class="sec-map-desc">690px. 4 images in Keen Slider carousels with detail content blocks.</div>
+      <div class="sec-map-tags"><span class="sec-map-tag">keen slider</span><span class="sec-map-tag">fade transition</span></div>
+    </div>
+  </div>
+
+  <div class="sec-map-row">
+    <div class="sec-map-num">13</div>
+    <div>
+      <div class="sec-map-title">View from Above</div>
+      <div class="sec-map-desc">689px. "VIEW FROM ABOVE" at 81px, absolute-positioned. Drone/aerial photography gallery. 4 images.</div>
+      <div class="sec-map-tags"><span class="sec-map-tag">gallery</span><span class="sec-map-tag">absolute text</span><span class="sec-map-tag">overflow clip</span></div>
+    </div>
+  </div>
+
+  <div class="sec-map-row" style="border-bottom:none;">
+    <div class="sec-map-num">14</div>
+    <div>
+      <div class="sec-map-title">Footer &amp; Contact</div>
+      <div class="sec-map-desc">2,071px. Gradient background: <code>bg-linear-to-t from-[#8AB6D2] to-vanilla</code>. Full link navigation, social links (Instagram, LinkedIn, Facebook), phone number. editorialOld 90px branding.</div>
+      <div class="sec-map-tags"><span class="sec-map-tag">gradient bg</span><span class="sec-map-tag">contact form</span><span class="sec-map-tag">social links</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 08 · IMAGERY ═══ -->
+<div class="sec" id="imagery">
+  <div class="sec-num">08</div>
+  <h2>Photography &amp; Imagery</h2>
+  <p class="sec-desc">Photography is treated architecturally — images are framed, revealed, and scrolled, never simply placed.</p>
+
+  <div class="g2">
+    <div class="card">
+      <div class="card-title">Image Treatment</div>
+      <table class="spec">
+        <tr><th>Property</th><th>Value</th></tr>
+        <tr><td>Total images</td><td>44 across the page</td></tr>
+        <tr><td>Format</td><td>WebP throughout (optimized)</td></tr>
+        <tr><td>Dominant aspect</td><td>3:2 (1.50 ratio) for hero/landscape</td></tr>
+        <tr><td>Object-fit</td><td><code>cover</code> for all hero/section images</td></tr>
+        <tr><td>Location cards</td><td><code>border-radius: ~20px</code> (rounded-2xl)</td></tr>
+        <tr><td>Hero images</td><td>Full-bleed, no border-radius</td></tr>
+        <tr><td>Parallax offset</td><td><code>height: calc(100% + 20rem)</code></td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <div class="card-title">Video Usage</div>
+      <table class="spec">
+        <tr><th>Property</th><th>Value</th></tr>
+        <tr><td>Video sections</td><td>5 (Location, Residences, Office, Roots, Amenities)</td></tr>
+        <tr><td>Role</td><td>Background ambient — no controls shown</td></tr>
+        <tr><td>Playback</td><td>Autoplay, muted, loop</td></tr>
+        <tr><td>Position</td><td>Behind parallax image layer</td></tr>
+        <tr><td>Treatment</td><td>Revealed via clip-path or opacity transition</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="callout">
+    <strong>Imagery Rules:</strong><br>
+    &bull; Every image <strong>animates in</strong> — clip-path bottom-up reveal with zoom-out (scale 1.1→1.0)<br>
+    &bull; Images are always <strong>layered under content</strong> with <code>z-0</code>, content at <code>z-1</code><br>
+    &bull; <strong>No image borders</strong> on hero shots — only location cards get rounded corners<br>
+    &bull; SVG illustrations (map pins, tree logo) use brand colors, not photographic treatment
+  </div>
+</div>
+
+<!-- ═══ 09 · RESPONSIVE ═══ -->
+<div class="sec" id="responsive">
+  <div class="sec-num">09</div>
+  <h2>Responsive Strategy</h2>
+  <p class="sec-desc">Mobile-first with Tailwind's <code>max-*</code> breakpoint system. Key sections have entirely separate desktop/mobile markup.</p>
+
+  <table class="spec">
+    <tr><th>Breakpoint</th><th>Class</th><th>Strategy</th></tr>
+    <tr><td>&lt; 640px</td><td><code>max-sm:</code></td><td>Phone: stacked layouts, reduced typography, simplified animations</td></tr>
+    <tr><td>&lt; 768px</td><td><code>max-md:</code></td><td>Tablet small: mobile menu, sliders → stacked, separate section markup</td></tr>
+    <tr><td>&lt; 1024px</td><td><code>max-lg:</code></td><td>Tablet: reduced gaps, smaller hero text, repositioned elements</td></tr>
+    <tr><td>&lt; 1280px</td><td><code>max-xl:</code></td><td>Small desktop: hero text <code>7.5rem</code> instead of <code>10.5vw</code></td></tr>
+    <tr><td>&lt; 1536px</td><td><code>max-2xl:</code></td><td>Large desktop: minor adjustments</td></tr>
+  </table>
+
+  <div class="callout" style="margin-top:20px;">
+    <strong>Key responsive patterns:</strong><br>
+    &bull; <strong>Duplicate markup</strong>: Sections 2, 9 have entirely separate desktop (<code>max-md:hidden</code>) and mobile (<code>hidden max-md:block</code>) versions<br>
+    &bull; <strong>Hero text scaling</strong>: H1 <code>text-[10.5vw]</code> → <code>text-[17vw]</code> on mobile<br>
+    &bull; <strong>Slider → stack</strong>: All Keen Sliders show all slides on mobile (<code>max-md:opacity-100</code>)<br>
+    &bull; <strong>Sticky → static</strong>: Scroll-pinned sections become normal flow on mobile<br>
+    &bull; <strong>Paragraph headings</strong>: 57px → 43px on mobile (mobile-heading1/2 classes)
+  </div>
+</div>
+
+<!-- ═══ 10 · ANIMATIONS ═══ -->
+<div class="sec" id="animations" style="border-bottom:none;">
+  <div class="sec-num">10</div>
+  <h2>Animation Reference</h2>
+  <p class="sec-desc">Complete animation system — 8 core techniques, all custom JS (no GSAP). Every element on the page is either animated or serves as a trigger for animation.</p>
+
+  <div class="stats">
+    <div class="stat"><div class="stat-val">1,283</div><div class="stat-label">Animated Elements</div></div>
+    <div class="stat"><div class="stat-val">549</div><div class="stat-label">Scroll Transforms</div></div>
+    <div class="stat"><div class="stat-val">1,185</div><div class="stat-label">Split Characters</div></div>
+    <div class="stat"><div class="stat-val">6</div><div class="stat-label">Slider Instances</div></div>
+    <div class="stat"><div class="stat-val">3</div><div class="stat-label">Sticky Sections</div></div>
+  </div>
+
+  <!-- Animation 1: Loading -->
+  <div class="card" style="margin-top:24px;">
+    <div class="card-label">Animation 01</div>
+    <div class="card-title">Loading Screen</div>
+    <p>Branded preloader with progress bar and serif percentage counter. Sets the cinematic tone.</p>
+    <div class="demo-box" id="loader-preview">
+      <div style="text-align:center;">
+        <div style="font-size:28px; color:var(--gold); margin-bottom:20px;">&#9753;</div>
+        <div style="width:180px; height:2px; background:rgba(255,244,214,0.15); border-radius:1px; position:relative; overflow:hidden;">
+          <div id="loader-bar" style="width:0%; height:100%; background:var(--gold); border-radius:1px; transition:width 3s cubic-bezier(0.4,0,0.2,1);"></div>
+        </div>
+        <div id="loader-pct" style="font-family:var(--font-display); font-size:14px; color:var(--cream); margin-top:10px; opacity:0.6;">0%</div>
+      </div>
+    </div>
+    <button class="replay" onclick="replayLoader()">&#9654; Replay</button>
+    <div class="code" style="margin-top:12px;">
+<span class="c">/* Progress bar: width 0% → 100% */</span>
+<span class="kw">transition</span>: width <span class="s">3s</span> cubic-bezier(<span class="s">0.4, 0, 0.2, 1</span>);
+<span class="c">/* On complete: entire loader fades out */</span>
+<span class="kw">opacity</span>: <span class="s">0</span>; <span class="kw">transition</span>: opacity <span class="s">600ms</span> ease;
+    </div>
+  </div>
+
+  <!-- Animation 2: Blueprint Morph -->
+  <div class="card">
+    <div class="card-label">Animation 02</div>
+    <div class="card-title">Blueprint → Render Morph</div>
+    <p>Signature hero animation — architectural line drawing cross-fades into photorealistic 3D render through 3 layered screens.</p>
+    <div class="diagram">
+      <svg viewBox="0 0 680 140" xmlns="http://www.w3.org/2000/svg" style="width:100%; height:auto;">
+        <rect x="10" y="20" width="180" height="90" rx="6" fill="none" stroke="#A68150" stroke-width="1.5" stroke-dasharray="4,3"/>
+        <text x="100" y="60" text-anchor="middle" fill="#A68150" font-family="Manrope,sans-serif" font-size="10" font-weight="600">SCREEN 1</text>
+        <text x="100" y="75" text-anchor="middle" fill="#60735C" font-family="Manrope,sans-serif" font-size="8">Blueprint · opacity 1→0</text>
+        <line x1="205" y1="65" x2="240" y2="65" stroke="#A68150" stroke-width="1.5"/>
+        <polygon points="240,60 250,65 240,70" fill="#A68150"/>
+        <rect x="260" y="20" width="180" height="90" rx="6" fill="none" stroke="#A68150" stroke-width="1.5"/>
+        <text x="350" y="60" text-anchor="middle" fill="#A68150" font-family="Manrope,sans-serif" font-size="10" font-weight="600">SCREEN 2</text>
+        <text x="350" y="75" text-anchor="middle" fill="#60735C" font-family="Manrope,sans-serif" font-size="8">Partial · cross-fade</text>
+        <line x1="455" y1="65" x2="490" y2="65" stroke="#A68150" stroke-width="1.5"/>
+        <polygon points="490,60 500,65 490,70" fill="#A68150"/>
+        <rect x="510" y="20" width="160" height="90" rx="6" fill="#3D4A35" stroke="#A68150" stroke-width="1.5"/>
+        <text x="590" y="60" text-anchor="middle" fill="#FFF4D6" font-family="Manrope,sans-serif" font-size="10" font-weight="600">SCREEN 3</text>
+        <text x="590" y="75" text-anchor="middle" fill="#CCBF99" font-family="Manrope,sans-serif" font-size="8">Full Render · opacity 0→1</text>
+        <text x="340" y="130" text-anchor="middle" fill="#60735C" font-family="Manrope,sans-serif" font-size="9">~3s total · .morphs container · position: absolute; inset: 0 · pointer-events: none on completed</text>
+      </svg>
+    </div>
+  </div>
+
+  <!-- Animation 3: Clip-Path -->
+  <div class="card">
+    <div class="card-label">Animation 03 — Primary Technique</div>
+    <div class="card-title">Clip-Path Section Reveal</div>
+    <p>The core animation pattern used everywhere. Sections revealed by animating CSS clip-path: inset().</p>
+    <div class="demo-box" id="clip-preview" style="flex-direction:column; gap:16px;">
+      <div style="display:flex; gap:24px; width:100%; max-width:380px;">
+        <div style="flex:1; text-align:center;">
+          <div style="font-size:9px; color:var(--accent); letter-spacing:1px; margin-bottom:6px;">CONTENT (top→down)</div>
+          <div id="clip-content" style="background:var(--cream); color:var(--olive); padding:14px; border-radius:6px; font-family:var(--font-display); font-size:13px; clip-path:inset(100% 0% 0%); transition:clip-path 1s cubic-bezier(0.16,1,0.3,1);">A New Chapter<br>in Living</div>
+        </div>
+        <div style="flex:1; text-align:center;">
+          <div style="font-size:9px; color:var(--accent); letter-spacing:1px; margin-bottom:6px;">IMAGE (bottom→up)</div>
+          <div id="clip-image" style="background:var(--olive-light); height:70px; border-radius:6px; clip-path:inset(0% 0% 100%); transition:clip-path 1.2s cubic-bezier(0.16,1,0.3,1) 0.2s;"></div>
+        </div>
+      </div>
+    </div>
+    <button class="replay" onclick="replayClip()">&#9654; Replay</button>
+    <div class="code" style="margin-top:12px;">
+<span class="c">/* Content: wipes downward */</span>
+clip-path: <span class="kw">inset</span>(<span class="s">100% 0% 0%</span>) → <span class="kw">inset</span>(<span class="s">0%</span>)
+<span class="c">/* Image: wipes upward */</span>
+clip-path: <span class="kw">inset</span>(<span class="s">0% 0% 100%</span>) → <span class="kw">inset</span>(<span class="s">0%</span>)
+<span class="c">/* Section trigger: wipes from left */</span>
+clip-path: <span class="kw">inset</span>(<span class="s">0% 100% 0% 0%</span>) → <span class="kw">inset</span>(<span class="s">0%</span>)
+<span class="c">/* Easing: cubic-bezier(0.16, 1, 0.3, 1) · Duration: 800–1200ms */</span>
+    </div>
+  </div>
+
+  <!-- Animation 4: Text Split -->
+  <div class="card">
+    <div class="card-label">Animation 04</div>
+    <div class="card-title">Character-by-Character Text Reveal</div>
+    <p>Hero headings split into 1,185 individual &lt;div&gt; elements, each animated with staggered translate + opacity.</p>
+    <div class="demo-box" id="text-preview">
+      <div style="font-family:var(--font-display); font-size:clamp(24px, 5vw, 38px); color:var(--cream); text-transform:uppercase; display:flex; flex-wrap:wrap; justify-content:center; gap:1px;" id="split-text"></div>
+    </div>
+    <button class="replay" onclick="replayText()">&#9654; Replay</button>
+    <div class="code" style="margin-top:12px;">
+<span class="c">/* Each character wrapped in &lt;div style="display:inline-block"&gt; */</span>
+<span class="c">/* Initial: */</span> opacity: <span class="s">0</span>; transform: translate(<span class="s">0, 100%</span>);
+<span class="c">/* Final:   */</span> opacity: <span class="s">1</span>; transform: translate(<span class="s">0, 0</span>);
+<span class="c">/* Stagger: ~25ms per char · Duration: 600ms per char */</span>
+    </div>
+  </div>
+
+  <!-- Animation 5: Parallax -->
+  <div class="card">
+    <div class="card-label">Animation 05</div>
+    <div class="card-title">Scroll Parallax</div>
+    <p>Images scroll at 0.3–0.5x page speed. Achieved by animating the <code>top</code> property on oversized absolute images.</p>
+    <div class="code">
+<span class="c">/* Container clips the oversized image */</span>
+.parallax-container { <span class="kw">overflow</span>: hidden; <span class="kw">position</span>: relative; }
+.parallax-img {
+  <span class="kw">position</span>: absolute; <span class="kw">width</span>: <span class="s">100%</span>;
+  <span class="kw">height</span>: calc(<span class="s">100% + 20rem</span>); <span class="c">/* 320px extra */</span>
+  <span class="kw">top</span>: <span class="s">0</span>; <span class="c">/* JS updates on scroll via rAF */</span>
+}
+<span class="c">/* 5 parallax instances: intro, retail, amenities, installment, residence-gallery */</span>
+    </div>
+  </div>
+
+  <!-- Animation 6: Zoom -->
+  <div class="card">
+    <div class="card-label">Animation 06</div>
+    <div class="card-title">Zoom-Out Reveal</div>
+    <p>Images start at scale(1.1) and ease to scale(1.0) during clip-path reveal — cinematic "pull-back".</p>
+    <div class="demo-box" id="zoom-preview">
+      <div id="zoom-outer" style="width:180px; height:100px; border-radius:8px; overflow:hidden; clip-path:inset(0% 0% 100%); transition:clip-path 1.2s cubic-bezier(0.16,1,0.3,1);">
+        <div id="zoom-inner" style="width:100%; height:100%; background:var(--olive-light); transform:scale(1.15); transition:transform 1.8s cubic-bezier(0.16,1,0.3,1); display:flex; align-items:center; justify-content:center;">
+          <span style="font-family:var(--font-display); font-size:14px; color:var(--cream);">Image</span>
+        </div>
+      </div>
+    </div>
+    <button class="replay" onclick="replayZoom()">&#9654; Replay</button>
+    <div class="code" style="margin-top:12px;">
+<span class="c">/* Combined with clip-path reveal */</span>
+transform: <span class="kw">scale</span>(<span class="s">1.1, 1.1</span>) → <span class="kw">scale</span>(<span class="s">1.0, 1.0</span>)
+<span class="c">/* Duration: 1.8s (longer than clip-path for smooth settle) */</span>
+    </div>
+  </div>
+
+  <!-- Animation 7: Keen Slider -->
+  <div class="card">
+    <div class="card-label">Animation 07</div>
+    <div class="card-title">Keen Slider Carousels</div>
+    <p>6 instances. All use opacity fade, not horizontal slide. Active <code>opacity-100</code>, inactive <code>opacity-0</code>, <code>duration-700</code>.</p>
+  </div>
+
+  <!-- Animation 8: Tailwind micro -->
+  <div class="card">
+    <div class="card-label">Animation 08</div>
+    <div class="card-title">Micro-Interactions (Tailwind)</div>
+    <div style="display:grid; gap:10px; grid-template-columns:repeat(auto-fill, minmax(180px, 1fr)); margin-top:8px;">
+      <div style="background:var(--surface2); padding:12px; border-radius:8px; font-size:12px;"><strong>transition-all</strong><br><span style="color:var(--olive-light);">Buttons, links · 500ms</span></div>
+      <div style="background:var(--surface2); padding:12px; border-radius:8px; font-size:12px;"><strong>transition-opacity</strong><br><span style="color:var(--olive-light);">Slider fades · 700ms</span></div>
+      <div style="background:var(--surface2); padding:12px; border-radius:8px; font-size:12px;"><strong>transition-transform</strong><br><span style="color:var(--olive-light);">Hover scale · 300ms</span></div>
+      <div style="background:var(--surface2); padding:12px; border-radius:8px; font-size:12px;"><strong>transition-colors</strong><br><span style="color:var(--olive-light);">Color shifts · 300ms</span></div>
+      <div style="background:var(--surface2); padding:12px; border-radius:8px; font-size:12px;"><strong>transition-[height]</strong><br><span style="color:var(--olive-light);">Accordion · 600ms</span></div>
+      <div style="background:var(--surface2); padding:12px; border-radius:8px; font-size:12px;"><strong>transition-[width]</strong><br><span style="color:var(--olive-light);">Progress bar · ease-in-out</span></div>
+    </div>
+  </div>
+
+  <div class="callout" style="margin-top:24px;">
+    <strong>No GSAP.</strong> Despite the complexity, Belgrade Arbor uses NO external animation libraries. Everything is built with:<br>
+    &bull; Native <strong>CSS clip-path</strong> transitions (primary reveal)<br>
+    &bull; <strong>Inline style transforms</strong> via custom JS (translate, scale, opacity)<br>
+    &bull; <strong>IntersectionObserver</strong> for scroll triggers<br>
+    &bull; <strong>requestAnimationFrame</strong> for parallax<br>
+    &bull; <strong>Tailwind CSS</strong> transition utilities for micro-interactions<br>
+    &bull; <strong>Keen Slider</strong> library for carousels only<br><br>
+    <strong>Easing:</strong> <code>cubic-bezier(0.16, 1, 0.3, 1)</code> — fast start, gentle settle (all JS animations)<br>
+    <strong>Easing:</strong> <code>ease-in-out</code> — Tailwind utility transitions
+  </div>
+</div>
+
+</div><!-- /.w -->
+
+<!-- Footer -->
+<div style="margin-top:56px; padding:28px 0; border-top:1px solid var(--line); background:var(--surface);">
+  <div class="w" style="font-size:11px; color:var(--olive-light); display:flex; flex-wrap:wrap; justify-content:space-between; gap:12px;">
+    <span>Belgrade Arbor R&amp;D — Comprehensive Design System Analysis</span>
+    <span>For Aureum Mall &amp; Residences &middot; belgradearbor.rs/en</span>
+  </div>
+</div>
+
+<script>
+function replayLoader(){const b=document.getElementById('loader-bar'),p=document.getElementById('loader-pct');b.style.transition='none';b.style.width='0%';p.textContent='0%';requestAnimationFrame(()=>{requestAnimationFrame(()=>{b.style.transition='width 3s cubic-bezier(0.4,0,0.2,1)';b.style.width='100%';let s=performance.now();(function t(n){let r=Math.min((n-s)/3000,1);p.textContent=Math.round(r*100)+'%';if(r<1)requestAnimationFrame(t)})(s)})});}
+function replayClip(){const c=document.getElementById('clip-content'),i=document.getElementById('clip-image');c.style.transition='none';i.style.transition='none';c.style.clipPath='inset(100% 0% 0%)';i.style.clipPath='inset(0% 0% 100%)';requestAnimationFrame(()=>{requestAnimationFrame(()=>{c.style.transition='clip-path 1s cubic-bezier(0.16,1,0.3,1)';i.style.transition='clip-path 1.2s cubic-bezier(0.16,1,0.3,1) 0.2s';c.style.clipPath='inset(0%)';i.style.clipPath='inset(0%)'})});}
+function replayText(){const ct=document.getElementById('split-text');ct.innerHTML='';'BELGRADE ARBOR'.split('').forEach((c,i)=>{const d=document.createElement('div');d.style.cssText='display:inline-block;position:relative;opacity:0;transform:translateY(100%);transition:all 0.6s cubic-bezier(0.16,1,0.3,1);transition-delay:'+(i*25)+'ms;';d.textContent=c===' '?' ':c;ct.appendChild(d)});requestAnimationFrame(()=>{requestAnimationFrame(()=>{ct.querySelectorAll('div').forEach(d=>{d.style.opacity='1';d.style.transform='translateY(0)'})})});}
+function replayZoom(){const o=document.getElementById('zoom-outer'),n=document.getElementById('zoom-inner');o.style.transition='none';n.style.transition='none';o.style.clipPath='inset(0% 0% 100%)';n.style.transform='scale(1.15)';requestAnimationFrame(()=>{requestAnimationFrame(()=>{o.style.transition='clip-path 1.2s cubic-bezier(0.16,1,0.3,1)';n.style.transition='transform 1.8s cubic-bezier(0.16,1,0.3,1)';o.style.clipPath='inset(0%)';n.style.transform='scale(1)'})});}
+setTimeout(()=>{replayLoader();replayText();replayClip();replayZoom()},500);
+</script>

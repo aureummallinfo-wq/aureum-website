@@ -3,7 +3,6 @@ import Link from 'next/link';
 import type { ShowcaseImage } from '@/features/project-showcase/components/ProjectShowcase';
 import { EXTERIOR_NIGHT } from '@/features/project-showcase/images';
 import type { ReactNode } from 'react';
-import { LeadForm } from '@/components/LeadForm';
 import { ButtonLink } from '@/components/ui/ButtonLink';
 import { Eyebrow } from '@/components/ui/Eyebrow';
 import { SectionHeading } from '@/components/ui/SectionHeading';
@@ -119,11 +118,11 @@ export function FaqPage() {
 export function SiteVisitPage() {
   return (
     <>
-      <ArchitectureLanding eyebrow="Aureum / book a site visit" title="Plan a focused visit to Aureum." intro="Tell the sales team when you would like to visit and which space you are exploring. They will confirm the suitable next step." points={['Choose apartments, shops, offices or food court information.', 'Share a preferred day and time in the form.', 'Receive current visit and availability details from the team.']} ctaHref="#site-visit-form" ctaLabel="Book a visit" summaryTitle="Three steps to a visit." summaryText="Tell the team when you would like to come, and they will meet you at the Bahria Town Ring Road Interchange." summaryHref="/location" summaryLabel="See the location" />
+      <ArchitectureLanding eyebrow="Aureum / book a site visit" title="Plan a focused visit to Aureum." intro="Tell the sales team when you would like to visit and which space you are exploring. They will confirm the suitable next step." points={['Choose apartments, shops, offices or food court information.', 'Share a preferred day and time in the form.', 'Receive current visit and availability details from the team.']} ctaHref="/contact?intent=site_visit#enquiry" ctaLabel="Book a visit" summaryTitle="Three steps to a visit." summaryText="Tell the team when you would like to come, and they will meet you at the Bahria Town Ring Road Interchange." summaryHref="/location" summaryLabel="See the location" />
       <section className="section wpInquirySection" id="site-visit-form">
         <div className="container wpInquiryGrid">
-          <div><Eyebrow>Visit request</Eyebrow><h2>Let’s arrange the right conversation.</h2><p>Complete the form and the Aureum sales team will follow up about your visit request.</p><p><Link href="/location">Review the location information →</Link></p></div>
-          <div className="wpInquiryCard"><LeadForm intent="site_visit" /></div>
+          <div><Eyebrow>Visit request</Eyebrow><h2>Let’s arrange the right conversation.</h2><p>Use the contact form to share your preferred day and time. The Aureum sales team will follow up about your visit request.</p><p><Link href="/location">Review the location information →</Link></p></div>
+          <div><ButtonLink href="/contact?intent=site_visit#enquiry">Book a visit</ButtonLink></div>
         </div>
       </section>
     </>

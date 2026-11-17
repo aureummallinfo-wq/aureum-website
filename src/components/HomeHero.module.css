@@ -1,0 +1,88 @@
+.editorial:global(.heroCinema) {
+  min-height: 100svh;
+}
+
+.editorial :global(.heroCinemaShade) {
+  background:
+    linear-gradient(180deg, rgb(12 14 27 / 85%), transparent 128px),
+    linear-gradient(90deg, rgb(12 14 27 / 69%), transparent 78%),
+    linear-gradient(0deg, rgb(12 14 27 / 90%), transparent 68%);
+}
+
+.editorial :global(.heroCinemaInner) {
+  padding-top: clamp(116px, 19svh, 240px);
+}
+
+.editorial h1 {
+  max-width: 13ch;
+  font-family: var(--font-serif);
+  font-size: clamp(3.6rem, 9vw, 9rem);
+  font-weight: 400;
+  letter-spacing: -0.045em;
+}
+
+.editorial h1 span {
+  color: inherit;
+  font-style: normal;
+}
+
+.editorial :global(.actions) {
+  gap: 6px 26px;
+  margin-top: 18px;
+}
+
+.editorial :global(.actions .button) {
+  flex: 0 0 auto;
+  min-height: 44px;
+  padding: 0;
+  border: 0;
+  background: none;
+  box-shadow: none;
+  color: white;
+  font-size: 0.91rem;
+  letter-spacing: normal;
+  text-transform: none;
+  text-decoration: underline;
+  text-decoration-color: var(--gold-soft);
+  text-underline-offset: 5px;
+}
+
+.editorial :global(.actions .button):hover {
+  color: var(--gold-soft);
+  background: none;
+}
+
+.editorial :global(.heroCinemaFoot) {
+  margin-top: clamp(28px, 7svh, 82px);
+}
+
+.editorial :global(.heroCinemaNote) {
+  color: white;
+}
+
+@media (max-width: 760px) {
+  .editorial:global(.heroCinema) {
+    min-height: calc(100svh - 58px);
+  }
+
+  .editorial :global(.heroCinemaShade) {
+    background:
+      linear-gradient(180deg, rgb(12 14 27 / 88%), transparent 116px),
+      linear-gradient(0deg, rgb(12 14 27 / 94%), rgb(12 14 27 / 56%) 56%, transparent 83%);
+  }
+
+  .editorial h1 {
+    font-size: clamp(3.1rem, 11vw, 5.4rem);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .editorial :global(.heroCinemaInner) {
+    animation: enter 650ms ease-out both;
+  }
+
+  @keyframes enter {
+    from { opacity: 0.65; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+}

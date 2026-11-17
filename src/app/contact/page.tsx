@@ -1,3 +1,4 @@
+import { PROPERTY_INTERESTS } from '@/lib/lead-schema';
 import Link from 'next/link';
 import { LeadForm } from '@/components/LeadForm';
 import { Eyebrow } from '@/components/ui/Eyebrow';
@@ -15,7 +16,9 @@ const CONTACT_METHODS = [
   { label: 'Visit the site', value: SITE.location, href: SITE.directionsUrl, external: true },
 ] as const;
 
-export default function Page() {
+export default async function Page({ searchParams }: { searchParams: Promise<{ interest?: string | string[]; intent?: string | string[] }> }) {
+  const { interest, intent } = await searchParams;
+  const defaultInterest = PROPERTY_INTERESTS.find((value) => value === interest);
   return (
     <>
       <section className="wpInternalHero section contactHero">
@@ -39,7 +42,7 @@ export default function Page() {
           <div id="enquiry" className="enquiryAnchor wpInquiryCard contactFormCard">
             <p className="contactFormTitle">Request details</p>
             <p className="contactFormNote">Takes under a minute. The team replies by phone or WhatsApp.</p>
-            <LeadForm />
+            <LeadForm key={`${defaultInterest ?? ""}-${typeof intent === "string" ? intent : ""}`} defaultInterest={defaultInterest} />
           </div>
         </div>
       </section>

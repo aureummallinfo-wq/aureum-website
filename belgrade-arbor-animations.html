@@ -1,0 +1,673 @@
+<title>Belgrade Arbor — Animations</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Manrope:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+:root {
+  --bg: #FDFBEF;
+  --fg: #2E3A26;
+  --surface: #F4F0DB;
+  --olive: #3D4A35;
+  --olive-light: #60735C;
+  --gold: #A68150;
+  --cream: #FFF4D6;
+  --accent: #E7FD55;
+  --code-bg: #2B3226;
+  --code-fg: #E8E4D6;
+  --code-kw: #E7FD55;
+  --code-str: #C9A06A;
+  --code-comment: #6B7A64;
+  --line: rgba(46,58,38,0.12);
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body: 'Manrope', system-ui, sans-serif;
+  --font-code: 'JetBrains Mono', 'Consolas', monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #1A1E17; --fg: #E8E4D6; --surface: #252A20;
+    --olive: #2A3024; --olive-light: #8A9A84; --gold: #C9A06A;
+    --cream: #E8E0C8; --accent: #C8DD48;
+    --code-bg: #1A1E17; --code-fg: #E8E4D6;
+    --line: rgba(232,228,214,0.1);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #1A1E17; --fg: #E8E4D6; --surface: #252A20;
+  --olive: #2A3024; --olive-light: #8A9A84; --gold: #C9A06A;
+  --cream: #E8E0C8; --accent: #C8DD48;
+  --code-bg: #1A1E17; --code-fg: #E8E4D6;
+  --line: rgba(232,228,214,0.1);
+  color-scheme: dark;
+}
+body {
+  background: var(--bg); color: var(--fg);
+  font-family: var(--font-body); font-size: 15px; line-height: 1.6; margin: 0;
+}
+body::before {
+  content: ""; position: fixed; inset: 0 0 auto;
+  height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg);
+}
+* { box-sizing: border-box; }
+.inner {
+  max-width: min(960px, 100%); margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+
+/* Cover */
+.cover { background: var(--olive); color: var(--cream); padding-block: 64px 48px; }
+.cover-eyebrow {
+  font-size: 11px; font-weight: 600; letter-spacing: 3px;
+  text-transform: uppercase; color: var(--accent); margin-bottom: 24px;
+}
+.cover h1 {
+  font-family: var(--font-display); font-size: clamp(32px, 5vw, 52px);
+  font-weight: 400; line-height: 1.1; margin: 0;
+}
+.cover h1 em { font-style: italic; color: var(--gold); }
+
+/* Sections */
+.section { padding-block: 48px 40px; border-bottom: 1px solid var(--line); }
+.section-num {
+  font-family: var(--font-display); font-size: 12px;
+  color: var(--gold); letter-spacing: 1px; margin-bottom: 6px;
+}
+.section h2 {
+  font-family: var(--font-display); font-size: clamp(22px, 3.5vw, 32px);
+  font-weight: 400; line-height: 1.15; margin: 0 0 8px; text-wrap: balance;
+}
+.section-desc { font-size: 13px; color: var(--olive-light); margin: 0 0 28px; max-width: 640px; }
+
+/* Animation cards */
+.anim-block { margin-bottom: 40px; }
+.anim-block:last-child { margin-bottom: 0; }
+.anim-label {
+  display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--accent); background: var(--olive);
+  padding: 4px 10px; border-radius: 4px; margin-bottom: 12px;
+}
+.anim-title { font-weight: 700; font-size: 16px; margin-bottom: 8px; }
+.anim-desc { font-size: 13px; color: var(--olive-light); line-height: 1.6; margin-bottom: 16px; }
+
+/* Visual diagram */
+.diagram {
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: 8px; padding: 24px; margin-bottom: 16px; overflow-x: auto;
+}
+.diagram svg { display: block; margin: 0 auto; max-width: 100%; }
+
+/* Code blocks */
+.code-block {
+  background: var(--code-bg); color: var(--code-fg);
+  font-family: var(--font-code); font-size: 12px; line-height: 1.7;
+  padding: 20px; border-radius: 8px; overflow-x: auto; margin-bottom: 12px;
+  border: 1px solid rgba(255,255,255,0.05);
+}
+.code-block .kw { color: var(--code-kw); }
+.code-block .str { color: var(--code-str); }
+.code-block .cmt { color: var(--code-comment); font-style: italic; }
+.code-block .fn { color: #8AB6D2; }
+.code-block .num { color: #E7FD55; }
+
+/* Spec row */
+.spec-row {
+  display: grid; grid-template-columns: 140px 1fr; gap: 8px;
+  padding: 8px 0; border-bottom: 1px solid var(--line); font-size: 13px;
+}
+@media (max-width: 500px) { .spec-row { grid-template-columns: 1fr; gap: 2px; } }
+.spec-label { font-weight: 600; font-size: 12px; color: var(--olive-light); }
+
+/* Timeline */
+.timeline {
+  display: flex; gap: 4px; align-items: center; padding: 16px 0;
+  font-size: 11px; overflow-x: auto;
+}
+.timeline-step {
+  padding: 8px 14px; border-radius: 6px; text-align: center;
+  min-width: 0; flex-shrink: 0;
+}
+.timeline-arrow { color: var(--olive-light); flex-shrink: 0; font-size: 16px; }
+
+/* Live preview */
+.preview-box {
+  background: var(--olive); border-radius: 8px; padding: 32px;
+  position: relative; overflow: hidden; min-height: 180px;
+  display: flex; align-items: center; justify-content: center;
+}
+
+/* Replay button */
+.replay-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: var(--font-body); font-size: 12px; font-weight: 600;
+  letter-spacing: 1px; text-transform: uppercase;
+  color: var(--olive); background: var(--accent);
+  border: none; border-radius: 100px; padding: 8px 18px; cursor: pointer;
+  margin-top: 8px;
+}
+.replay-btn:hover { opacity: 0.85; }
+
+@media print {
+  .cover { break-after: page; }
+  .preview-box { break-inside: avoid; }
+}
+</style>
+
+<!-- ═══ COVER ═══ -->
+<div class="cover">
+  <div class="inner">
+    <div class="cover-eyebrow">Animation Reference Guide</div>
+    <h1>Belgrade Arbor <em>Animations</em></h1>
+    <p style="margin:16px 0 0; font-size:14px; color:var(--gold); max-width:540px;">
+      Complete animation system reference — every technique with visual diagrams, CSS/JS code, timing values, and live demos. 8 core animation patterns, 1,283 animated elements.
+    </p>
+  </div>
+</div>
+
+<!-- ═══ 01 · LOADING SCREEN ═══ -->
+<div class="inner">
+  <div class="section">
+    <div class="section-num">01</div>
+    <h2>Loading Screen</h2>
+    <p class="section-desc">A branded preloader that sets the pace — the first signal that this is an experience, not a webpage.</p>
+
+    <div class="anim-block">
+      <div class="preview-box" id="loader-preview">
+        <div style="text-align:center;">
+          <div style="font-size:32px; color:var(--gold); margin-bottom:24px;">&#9753;</div>
+          <div style="width:200px; height:2px; background:rgba(255,244,214,0.15); border-radius:1px; position:relative; overflow:hidden;">
+            <div id="loader-bar" style="width:0%; height:100%; background:var(--gold); border-radius:1px; transition:width 3s cubic-bezier(0.4,0,0.2,1);"></div>
+          </div>
+          <div id="loader-pct" style="font-family:var(--font-display); font-size:16px; color:var(--cream); margin-top:12px; opacity:0.6;">0%</div>
+        </div>
+      </div>
+      <button class="replay-btn" onclick="replayLoader()">&#9654; Replay</button>
+
+      <div style="margin-top:20px;">
+        <div class="spec-row"><div class="spec-label">Duration</div><div>3–5 seconds (asset-dependent)</div></div>
+        <div class="spec-row"><div class="spec-label">Elements</div><div>Centered tree logo + progress bar + serif percentage counter</div></div>
+        <div class="spec-row"><div class="spec-label">Background</div><div>#FDFBEF (Vanilla) — same as page bg for seamless transition</div></div>
+        <div class="spec-row"><div class="spec-label">Exit</div><div>Entire loader fades out with <code>opacity: 0</code> over 600ms, then <code>display: none</code></div></div>
+        <div class="spec-row"><div class="spec-label">Easing</div><div><code>cubic-bezier(0.4, 0, 0.2, 1)</code> — smooth deceleration</div></div>
+      </div>
+
+      <div class="code-block">
+<span class="cmt">/* Loading bar animates width from 0% → 100% */</span>
+.<span class="fn">loader-bar</span> {
+  <span class="kw">width</span>: <span class="num">0%</span>;
+  <span class="kw">transition</span>: width <span class="num">3s</span> <span class="fn">cubic-bezier</span>(<span class="num">0.4, 0, 0.2, 1</span>);
+}
+<span class="cmt">/* Percentage counter updates via JS requestAnimationFrame */</span>
+<span class="cmt">/* On complete: entire loader wrapper fades out */</span>
+.<span class="fn">loader-exit</span> {
+  <span class="kw">opacity</span>: <span class="num">0</span>;
+  <span class="kw">transition</span>: opacity <span class="num">600ms</span> ease;
+  <span class="kw">pointer-events</span>: none;
+}
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ 02 · BLUEPRINT → RENDER MORPH ═══ -->
+  <div class="section">
+    <div class="section-num">02</div>
+    <h2>Blueprint-to-Render Reveal</h2>
+    <p class="section-desc">The signature hero animation — an architectural line drawing morphs into a photorealistic 3D render. Three layered screens cross-fade sequentially.</p>
+
+    <div class="anim-block">
+      <div class="anim-label">Hero — Signature Animation</div>
+
+      <div class="diagram">
+        <svg viewBox="0 0 700 200" xmlns="http://www.w3.org/2000/svg" style="width:100%; height:auto;">
+          <!-- Screen 1: Blueprint -->
+          <rect x="20" y="30" width="180" height="120" rx="8" fill="none" stroke="#A68150" stroke-width="1.5" stroke-dasharray="4,3"/>
+          <text x="110" y="90" text-anchor="middle" fill="#A68150" font-family="Manrope,sans-serif" font-size="11" font-weight="600">SCREEN 1</text>
+          <text x="110" y="108" text-anchor="middle" fill="#60735C" font-family="Manrope,sans-serif" font-size="9">Blueprint Drawing</text>
+          <text x="110" y="170" text-anchor="middle" fill="#60735C" font-family="Manrope,sans-serif" font-size="9">opacity: 1 → 0</text>
+
+          <!-- Arrow -->
+          <line x1="220" y1="90" x2="260" y2="90" stroke="#A68150" stroke-width="1.5"/>
+          <polygon points="260,85 270,90 260,95" fill="#A68150"/>
+          <text x="245" y="78" text-anchor="middle" fill="#60735C" font-family="Manrope,sans-serif" font-size="8">~1.5s</text>
+
+          <!-- Screen 2: Transition -->
+          <rect x="280" y="30" width="180" height="120" rx="8" fill="none" stroke="#A68150" stroke-width="1.5"/>
+          <text x="370" y="90" text-anchor="middle" fill="#A68150" font-family="Manrope,sans-serif" font-size="11" font-weight="600">SCREEN 2</text>
+          <text x="370" y="108" text-anchor="middle" fill="#60735C" font-family="Manrope,sans-serif" font-size="9">Partial Render</text>
+          <text x="370" y="170" text-anchor="middle" fill="#60735C" font-family="Manrope,sans-serif" font-size="9">cross-fade blend</text>
+
+          <!-- Arrow -->
+          <line x1="480" y1="90" x2="520" y2="90" stroke="#A68150" stroke-width="1.5"/>
+          <polygon points="520,85 530,90 520,95" fill="#A68150"/>
+          <text x="505" y="78" text-anchor="middle" fill="#60735C" font-family="Manrope,sans-serif" font-size="8">~1.5s</text>
+
+          <!-- Screen 3: Final Render -->
+          <rect x="540" y="30" width="140" height="120" rx="8" fill="#3D4A35" stroke="#A68150" stroke-width="1.5"/>
+          <text x="610" y="90" text-anchor="middle" fill="#FFF4D6" font-family="Manrope,sans-serif" font-size="11" font-weight="600">SCREEN 3</text>
+          <text x="610" y="108" text-anchor="middle" fill="#CCBF99" font-family="Manrope,sans-serif" font-size="9">Full 3D Render</text>
+          <text x="610" y="170" text-anchor="middle" fill="#60735C" font-family="Manrope,sans-serif" font-size="9">opacity: 0 → 1</text>
+        </svg>
+      </div>
+
+      <div class="spec-row"><div class="spec-label">Technique</div><div>3 absolutely-positioned full-screen layers (<code>.screen1</code>, <code>.screen2</code>, <code>.screen3</code>) cross-fading via opacity</div></div>
+      <div class="spec-row"><div class="spec-label">Container</div><div><code>.morphs.absolute.inset-0</code> — parent of all 3 screens inside <code>.intro-parallax</code></div></div>
+      <div class="spec-row"><div class="spec-label">Trigger</div><div>Fires after loading bar reaches 100%, chained with <code>pointer-events: none</code> on completed screens</div></div>
+      <div class="spec-row"><div class="spec-label">Duration</div><div>~3s total (1–1.5s per screen transition)</div></div>
+
+      <div class="code-block">
+<span class="cmt">/* 3 layered screens stacked absolutely */</span>
+.<span class="fn">morphs</span> { <span class="kw">position</span>: absolute; <span class="kw">inset</span>: <span class="num">0</span>; }
+.<span class="fn">screen1</span>, .<span class="fn">screen2</span>, .<span class="fn">screen3</span> {
+  <span class="kw">position</span>: absolute; <span class="kw">inset</span>: <span class="num">0</span>;
+  <span class="kw">width</span>: <span class="num">100%</span>; <span class="kw">height</span>: <span class="num">100%</span>;
+}
+<span class="cmt">/* JS tweens opacity sequentially:
+   screen1 (blueprint): 1 → 0  at t=0–1.5s
+   screen2 (partial):   0 → 1 → 0  at t=0.5–2.5s
+   screen3 (render):    0 → 1  at t=1.5–3s
+   Each completed screen gets pointer-events: none */</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ 03 · CLIP-PATH REVEAL ═══ -->
+  <div class="section">
+    <div class="section-num">03</div>
+    <h2>Clip-Path Section Reveal</h2>
+    <p class="section-desc">The primary scroll animation — entire sections revealed by animating CSS <code>clip-path: inset()</code>. Content wipes in from top, images wipe in from bottom.</p>
+
+    <div class="anim-block">
+      <div class="anim-label">Core Technique — Used Everywhere</div>
+
+      <div class="preview-box" id="clip-preview" style="flex-direction:column; gap:16px;">
+        <div style="display:flex; gap:24px; width:100%; max-width:400px;">
+          <div style="flex:1; text-align:center;">
+            <div style="font-size:10px; color:var(--accent); letter-spacing:1px; margin-bottom:8px;">CONTENT (top→down)</div>
+            <div id="clip-content" style="background:var(--cream); color:var(--olive); padding:16px; border-radius:6px; font-family:var(--font-display); font-size:14px; clip-path:inset(100% 0% 0%); transition:clip-path 1s cubic-bezier(0.16,1,0.3,1);">
+              A New Chapter<br>in Living
+            </div>
+          </div>
+          <div style="flex:1; text-align:center;">
+            <div style="font-size:10px; color:var(--accent); letter-spacing:1px; margin-bottom:8px;">IMAGE (bottom→up)</div>
+            <div id="clip-image" style="background:var(--olive-light); height:80px; border-radius:6px; clip-path:inset(0% 0% 100%); transition:clip-path 1.2s cubic-bezier(0.16,1,0.3,1) 0.2s;"></div>
+          </div>
+        </div>
+      </div>
+      <button class="replay-btn" onclick="replayClip()">&#9654; Replay</button>
+
+      <div style="margin-top:20px;">
+        <div class="spec-row"><div class="spec-label">Content reveal</div><div><code>clip-path: inset(100% 0% 0%)</code> → <code>inset(0% 0% 0%)</code> — wipes downward</div></div>
+        <div class="spec-row"><div class="spec-label">Image reveal</div><div><code>clip-path: inset(0% 0% 100%)</code> → <code>inset(0% 0% 0%)</code> — wipes upward</div></div>
+        <div class="spec-row"><div class="spec-label">Section wipe</div><div><code>clip-path: inset(0% 100% 0% 0%)</code> → <code>inset(0%)</code> — wipes from left</div></div>
+        <div class="spec-row"><div class="spec-label">Duration</div><div>800ms–1200ms</div></div>
+        <div class="spec-row"><div class="spec-label">Easing</div><div><code>cubic-bezier(0.16, 1, 0.3, 1)</code> — fast start, gentle settle</div></div>
+        <div class="spec-row"><div class="spec-label">Stagger</div><div>Image delayed ~200ms after content</div></div>
+        <div class="spec-row"><div class="spec-label">Trigger</div><div>IntersectionObserver on <code>.trigger</code> elements at ~15% threshold</div></div>
+      </div>
+
+      <div class="code-block">
+<span class="cmt">/* Initial state — hidden */</span>
+.<span class="fn">reveal-content</span> {
+  <span class="kw">clip-path</span>: <span class="fn">inset</span>(<span class="num">100% 0% 0%</span>); <span class="cmt">/* hidden from top */</span>
+}
+.<span class="fn">reveal-image</span> {
+  <span class="kw">clip-path</span>: <span class="fn">inset</span>(<span class="num">0% 0% 100%</span>); <span class="cmt">/* hidden from bottom */</span>
+}
+.<span class="fn">trigger</span> {
+  <span class="kw">clip-path</span>: <span class="fn">inset</span>(<span class="num">0% 100% 0% 0%</span>); <span class="cmt">/* hidden from right */</span>
+}
+
+<span class="cmt">/* JS tweens clip-path to inset(0%) on scroll
+   using IntersectionObserver + requestAnimationFrame
+   Easing: cubic-bezier(0.16, 1, 0.3, 1)
+   Duration: 800–1200ms */</span>
+
+<span class="cmt">/* Revealed state */</span>
+.<span class="fn">reveal-content</span>.<span class="fn">visible</span>,
+.<span class="fn">reveal-image</span>.<span class="fn">visible</span> {
+  <span class="kw">clip-path</span>: <span class="fn">inset</span>(<span class="num">0%</span>);
+}
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ 04 · TEXT SPLIT ═══ -->
+  <div class="section">
+    <div class="section-num">04</div>
+    <h2>Character-by-Character Text Reveal</h2>
+    <p class="section-desc">Hero headings split into individual characters, each wrapped in its own <code>&lt;div&gt;</code>, then animated with staggered translate + opacity.</p>
+
+    <div class="anim-block">
+      <div class="anim-label">Typography Animation</div>
+
+      <div class="preview-box" id="text-preview">
+        <div style="font-family:var(--font-display); font-size:clamp(28px, 5vw, 42px); color:var(--cream); text-transform:uppercase; display:flex; flex-wrap:wrap; justify-content:center; gap:2px;" id="split-text"></div>
+      </div>
+      <button class="replay-btn" onclick="replayText()">&#9654; Replay</button>
+
+      <div style="margin-top:20px;">
+        <div class="spec-row"><div class="spec-label">Total chars</div><div>1,185 individually animated <code>&lt;div&gt;</code> elements across the page</div></div>
+        <div class="spec-row"><div class="spec-label">Initial state</div><div><code>opacity: 0; transform: translate(0, 100%)</code> — chars start below baseline</div></div>
+        <div class="spec-row"><div class="spec-label">Final state</div><div><code>opacity: 1; transform: translate(0, 0)</code></div></div>
+        <div class="spec-row"><div class="spec-label">Stagger</div><div>~20–30ms between each character</div></div>
+        <div class="spec-row"><div class="spec-label">Duration</div><div>~600ms per character</div></div>
+        <div class="spec-row"><div class="spec-label">Hero class</div><div><code>.heading.huge</code> — 10.5vw on desktop, 17vw on mobile</div></div>
+        <div class="spec-row"><div class="spec-label">Wrapper style</div><div><code>position: relative; display: inline-block;</code></div></div>
+      </div>
+
+      <div class="code-block">
+<span class="cmt">/* Each character is wrapped in an individual div */</span>
+.<span class="fn">char-wrapper</span> {
+  <span class="kw">position</span>: relative;
+  <span class="kw">display</span>: inline-block;
+  <span class="kw">translate</span>: none; <span class="kw">rotate</span>: none; <span class="kw">scale</span>: none;
+}
+
+<span class="cmt">/* Initial: hidden below baseline */</span>
+.<span class="fn">char-wrapper</span> {
+  <span class="kw">opacity</span>: <span class="num">0</span>;
+  <span class="kw">transform</span>: <span class="fn">translate</span>(<span class="num">0px</span>, <span class="num">100%</span>);
+}
+
+<span class="cmt">/* Animated to: visible at origin */</span>
+.<span class="fn">char-wrapper</span>.<span class="fn">visible</span> {
+  <span class="kw">opacity</span>: <span class="num">1</span>;
+  <span class="kw">transform</span>: <span class="fn">translate</span>(<span class="num">0px</span>, <span class="num">0px</span>);
+}
+
+<span class="cmt">/* JS stagger: forEach(char, i) => delay = i * 25ms
+   Applied via inline style transform tween */</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ 05 · PARALLAX ═══ -->
+  <div class="section">
+    <div class="section-num">05</div>
+    <h2>Scroll Parallax</h2>
+    <p class="section-desc">Images scroll at a slower rate than content, creating cinematic depth. Achieved by animating the <code>top</code> property on oversized images.</p>
+
+    <div class="anim-block">
+      <div class="diagram">
+        <svg viewBox="0 0 700 220" xmlns="http://www.w3.org/2000/svg" style="width:100%; height:auto;">
+          <!-- Container -->
+          <rect x="50" y="40" width="250" height="140" rx="8" fill="none" stroke="#A68150" stroke-width="1.5"/>
+          <text x="175" y="25" text-anchor="middle" fill="#60735C" font-family="Manrope,sans-serif" font-size="10" font-weight="600">CONTAINER (overflow: hidden)</text>
+
+          <!-- Oversized image -->
+          <rect x="50" y="10" width="250" height="200" rx="6" fill="#3D4A35" opacity="0.3" stroke="#E7FD55" stroke-width="1" stroke-dasharray="4,3"/>
+          <text x="175" y="110" text-anchor="middle" fill="#CCBF99" font-family="Manrope,sans-serif" font-size="11">IMAGE</text>
+          <text x="175" y="128" text-anchor="middle" fill="#60735C" font-family="Manrope,sans-serif" font-size="9">height: calc(100% + 20rem)</text>
+
+          <!-- Arrow showing scroll direction -->
+          <line x1="330" y1="80" x2="330" y2="140" stroke="#A68150" stroke-width="1.5"/>
+          <polygon points="325,140 330,150 335,140" fill="#A68150"/>
+          <text x="350" y="115" fill="#60735C" font-family="Manrope,sans-serif" font-size="9">scroll ↓</text>
+          <text x="350" y="130" fill="#A68150" font-family="Manrope,sans-serif" font-size="9" font-weight="600">top: Xrem</text>
+
+          <!-- Code box -->
+          <rect x="420" y="40" width="260" height="140" rx="6" fill="#2B3226"/>
+          <text x="440" y="65" fill="#6B7A64" font-family="JetBrains Mono,monospace" font-size="9">/* Parallax technique */</text>
+          <text x="440" y="85" fill="#E8E4D6" font-family="JetBrains Mono,monospace" font-size="9">.parallax-img {</text>
+          <text x="440" y="100" fill="#E7FD55" font-family="JetBrains Mono,monospace" font-size="9">  position: absolute;</text>
+          <text x="440" y="115" fill="#E7FD55" font-family="JetBrains Mono,monospace" font-size="9">  height: calc(100% + 20rem);</text>
+          <text x="440" y="130" fill="#E7FD55" font-family="JetBrains Mono,monospace" font-size="9">  top: 0; /* JS updates */</text>
+          <text x="440" y="145" fill="#E8E4D6" font-family="JetBrains Mono,monospace" font-size="9">}</text>
+          <text x="440" y="165" fill="#6B7A64" font-family="JetBrains Mono,monospace" font-size="9">// top changes on scroll</text>
+        </svg>
+      </div>
+
+      <div class="spec-row"><div class="spec-label">Technique</div><div>Image is <code>20rem</code> taller than container, <code>position: absolute</code>, <code>top</code> animated via JS on scroll</div></div>
+      <div class="spec-row"><div class="spec-label">Container</div><div><code>overflow: hidden</code> clips the oversized image — viewer only sees container-height portion</div></div>
+      <div class="spec-row"><div class="spec-label">Speed ratio</div><div>~0.3–0.5x page scroll speed (image moves slower than page)</div></div>
+      <div class="spec-row"><div class="spec-label">Classes</div><div><code>intro-parallax</code>, <code>retail-spaces-parallax</code>, <code>amenities-parallaxWrap</code>, <code>installment-parallax</code>, <code>residence-gallery-parallaxWrap</code></div></div>
+      <div class="spec-row"><div class="spec-label">Gallery variant</div><div><code>-translate-y-[10%] scale-120</code> — starts shifted up and zoomed, settles on scroll</div></div>
+    </div>
+  </div>
+
+  <!-- ═══ 06 · ZOOM REVEAL ═══ -->
+  <div class="section">
+    <div class="section-num">06</div>
+    <h2>Zoom-Out Reveal</h2>
+    <p class="section-desc">Images start slightly zoomed in (scale 1.1) and ease to 1.0 during the clip-path reveal, creating a cinematic "pull-back" effect.</p>
+
+    <div class="anim-block">
+      <div class="preview-box" id="zoom-preview">
+        <div id="zoom-outer" style="width:200px; height:120px; border-radius:8px; overflow:hidden; clip-path:inset(0% 0% 100%); transition:clip-path 1.2s cubic-bezier(0.16,1,0.3,1);">
+          <div id="zoom-inner" style="width:100%; height:100%; background:var(--olive-light); transform:scale(1.15); transition:transform 1.8s cubic-bezier(0.16,1,0.3,1); display:flex; align-items:center; justify-content:center;">
+            <span style="font-family:var(--font-display); font-size:16px; color:var(--cream);">Image</span>
+          </div>
+        </div>
+      </div>
+      <button class="replay-btn" onclick="replayZoom()">&#9654; Replay</button>
+
+      <div style="margin-top:20px;">
+        <div class="spec-row"><div class="spec-label">Class</div><div><code>.reveal-image-zoom</code></div></div>
+        <div class="spec-row"><div class="spec-label">Initial scale</div><div><code>transform: scale(1.1, 1.1)</code></div></div>
+        <div class="spec-row"><div class="spec-label">Final scale</div><div><code>transform: scale(1.0, 1.0)</code></div></div>
+        <div class="spec-row"><div class="spec-label">Combined with</div><div>Clip-path reveal — zoom happens during the unmasking</div></div>
+        <div class="spec-row"><div class="spec-label">Duration</div><div>~1.8s (longer than clip-path for smooth deceleration)</div></div>
+      </div>
+
+      <div class="code-block">
+<span class="cmt">/* Outer: clip-path reveals the image */</span>
+.<span class="fn">reveal-image</span> {
+  <span class="kw">clip-path</span>: <span class="fn">inset</span>(<span class="num">0% 0% 100%</span>); <span class="cmt">/* hidden */</span>
+}
+<span class="cmt">/* Inner: slightly zoomed, scales down during reveal */</span>
+.<span class="fn">reveal-image-zoom</span> {
+  <span class="kw">transform</span>: <span class="fn">scale</span>(<span class="num">1.1</span>, <span class="num">1.1</span>);
+}
+<span class="cmt">/* On trigger — both animate together */</span>
+.<span class="fn">reveal-image</span>.<span class="fn">visible</span> {
+  <span class="kw">clip-path</span>: <span class="fn">inset</span>(<span class="num">0%</span>); <span class="cmt">/* 1.2s */</span>
+}
+.<span class="fn">reveal-image-zoom</span>.<span class="fn">visible</span> {
+  <span class="kw">transform</span>: <span class="fn">scale</span>(<span class="num">1</span>, <span class="num">1</span>); <span class="cmt">/* 1.8s — lingers */</span>
+}
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ 07 · KEEN SLIDER ═══ -->
+  <div class="section">
+    <div class="section-num">07</div>
+    <h2>Carousel (Keen Slider)</h2>
+    <p class="section-desc">6 slider instances across the page, all using opacity fade transitions instead of the typical horizontal slide.</p>
+
+    <div class="anim-block">
+      <div class="spec-row"><div class="spec-label">Library</div><div><strong>Keen Slider</strong> — lightweight touch slider</div></div>
+      <div class="spec-row"><div class="spec-label">Instances</div><div>6 sliders (residences, location details, apartment photos, etc.)</div></div>
+      <div class="spec-row"><div class="spec-label">Transition type</div><div><strong>Opacity fade</strong> — NOT horizontal slide. Active: <code>opacity-100</code>, inactive: <code>opacity-0</code></div></div>
+      <div class="spec-row"><div class="spec-label">Duration</div><div><code>duration-700</code> (700ms) via Tailwind class</div></div>
+      <div class="spec-row"><div class="spec-label">Navigation</div><div>Circular outlined arrows (44px, 1px border), gold on hover</div></div>
+      <div class="spec-row"><div class="spec-label">Mobile</div><div>All slides visible stacked (<code>max-md:opacity-100</code>)</div></div>
+
+      <div class="code-block">
+<span class="cmt">/* Keen Slider with opacity fade transition */</span>
+.<span class="fn">keen-slider__slide</span> {
+  <span class="kw">transition</span>: opacity <span class="num">700ms</span>;
+}
+.<span class="fn">keen-slider__slide</span>.<span class="fn">active</span> {
+  <span class="kw">opacity</span>: <span class="num">1</span>;
+}
+.<span class="fn">keen-slider__slide</span>:not(.<span class="fn">active</span>) {
+  <span class="kw">opacity</span>: <span class="num">0</span>;
+}
+<span class="cmt">/* Mobile: all visible, stacked vertically */</span>
+<span class="kw">@media</span> (<span class="fn">max-width</span>: <span class="num">768px</span>) {
+  .<span class="fn">keen-slider__slide</span> { <span class="kw">opacity</span>: <span class="num">1</span> !important; }
+}
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ 08 · TAILWIND TRANSITIONS ═══ -->
+  <div class="section">
+    <div class="section-num">08</div>
+    <h2>Micro-Interactions &amp; Tailwind Transitions</h2>
+    <p class="section-desc">Hover states and UI transitions using Tailwind's utility classes.</p>
+
+    <div class="anim-block">
+      <div style="display:grid; gap:16px; grid-template-columns:repeat(auto-fill, minmax(200px, 1fr));">
+        <div style="background:var(--surface); border:1px solid var(--line); border-radius:8px; padding:16px;">
+          <div style="font-size:11px; font-weight:600; letter-spacing:1px; text-transform:uppercase; color:var(--olive-light); margin-bottom:8px;">transition-all</div>
+          <div style="font-size:12px;">General-purpose. Buttons, links, icons. <code>duration-500</code></div>
+        </div>
+        <div style="background:var(--surface); border:1px solid var(--line); border-radius:8px; padding:16px;">
+          <div style="font-size:11px; font-weight:600; letter-spacing:1px; text-transform:uppercase; color:var(--olive-light); margin-bottom:8px;">transition-opacity</div>
+          <div style="font-size:12px;">Slider slides, fade reveals. <code>duration-700</code></div>
+        </div>
+        <div style="background:var(--surface); border:1px solid var(--line); border-radius:8px; padding:16px;">
+          <div style="font-size:11px; font-weight:600; letter-spacing:1px; text-transform:uppercase; color:var(--olive-light); margin-bottom:8px;">transition-transform</div>
+          <div style="font-size:12px;">Hover scale, parallax elements. <code>duration-300</code></div>
+        </div>
+        <div style="background:var(--surface); border:1px solid var(--line); border-radius:8px; padding:16px;">
+          <div style="font-size:11px; font-weight:600; letter-spacing:1px; text-transform:uppercase; color:var(--olive-light); margin-bottom:8px;">transition-colors</div>
+          <div style="font-size:12px;">Button/link hover color shifts. <code>duration-300</code></div>
+        </div>
+        <div style="background:var(--surface); border:1px solid var(--line); border-radius:8px; padding:16px;">
+          <div style="font-size:11px; font-weight:600; letter-spacing:1px; text-transform:uppercase; color:var(--olive-light); margin-bottom:8px;">transition-[height]</div>
+          <div style="font-size:12px;">Accordion expand/collapse. <code>duration-600</code></div>
+        </div>
+        <div style="background:var(--surface); border:1px solid var(--line); border-radius:8px; padding:16px;">
+          <div style="font-size:11px; font-weight:600; letter-spacing:1px; text-transform:uppercase; color:var(--olive-light); margin-bottom:8px;">transition-[width]</div>
+          <div style="font-size:12px;">Progress bar, loading indicator. <code>ease-in-out</code></div>
+        </div>
+      </div>
+
+      <div style="margin-top:24px;">
+        <div class="spec-row"><div class="spec-label">Default easing</div><div><code>ease-in-out</code> for Tailwind utilities</div></div>
+        <div class="spec-row"><div class="spec-label">Custom easing</div><div><code>cubic-bezier(0.16, 1, 0.3, 1)</code> for JS-driven reveals</div></div>
+        <div class="spec-row"><div class="spec-label">Delay class</div><div><code>delay-500</code> used for staggered element entrance</div></div>
+        <div class="spec-row"><div class="spec-label">Keyframes</div><div><code>spin</code> (loader), <code>enter</code>/<code>exit</code> (Tailwind animate-in/out)</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ SUMMARY ═══ -->
+  <div class="section" style="border-bottom:none;">
+    <div class="section-num">Summary</div>
+    <h2>Animation System at a Glance</h2>
+
+    <div style="background:var(--surface); border:1px solid var(--line); border-radius:8px; padding:24px; margin-top:20px;">
+      <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(160px, 1fr)); gap:20px; text-align:center;">
+        <div>
+          <div style="font-family:var(--font-display); font-size:32px; color:var(--gold);">1,283</div>
+          <div style="font-size:11px; color:var(--olive-light); letter-spacing:1px; text-transform:uppercase;">Animated Elements</div>
+        </div>
+        <div>
+          <div style="font-family:var(--font-display); font-size:32px; color:var(--gold);">549</div>
+          <div style="font-size:11px; color:var(--olive-light); letter-spacing:1px; text-transform:uppercase;">Scroll-Linked Transforms</div>
+        </div>
+        <div>
+          <div style="font-family:var(--font-display); font-size:32px; color:var(--gold);">1,185</div>
+          <div style="font-size:11px; color:var(--olive-light); letter-spacing:1px; text-transform:uppercase;">Split Text Characters</div>
+        </div>
+        <div>
+          <div style="font-family:var(--font-display); font-size:32px; color:var(--gold);">6</div>
+          <div style="font-size:11px; color:var(--olive-light); letter-spacing:1px; text-transform:uppercase;">Keen Slider Instances</div>
+        </div>
+        <div>
+          <div style="font-family:var(--font-display); font-size:32px; color:var(--gold);">3</div>
+          <div style="font-size:11px; color:var(--olive-light); letter-spacing:1px; text-transform:uppercase;">Sticky Elements</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:24px; padding:20px; background:var(--surface); border-left:3px solid var(--gold); border-radius:0 8px 8px 0; font-size:13px; line-height:1.7;">
+      <strong style="color:var(--gold);">No GSAP.</strong> Despite the complexity, Belgrade Arbor does NOT use GSAP, Framer Motion, or Locomotive Scroll. All animations are built with:<br>
+      &bull; Native <strong>CSS clip-path</strong> transitions (the primary reveal technique)<br>
+      &bull; <strong>Inline style transforms</strong> via custom JS (translate, scale, opacity)<br>
+      &bull; <strong>IntersectionObserver</strong> for scroll triggers<br>
+      &bull; <strong>requestAnimationFrame</strong> for smooth scroll-linked parallax<br>
+      &bull; <strong>Tailwind CSS</strong> utility transitions for micro-interactions<br>
+      &bull; <strong>Keen Slider</strong> library for carousels only
+    </div>
+  </div>
+</div>
+
+<div style="margin-top:48px; padding-block:24px; border-top:1px solid var(--line);">
+  <div class="inner" style="font-size:12px; color:var(--olive-light); display:flex; flex-wrap:wrap; justify-content:space-between; gap:12px;">
+    <span>Belgrade Arbor Animation Reference — For Aureum Mall &amp; Residences</span>
+    <span>belgradearbor.rs/en</span>
+  </div>
+</div>
+
+<script>
+// Live animation demos
+function replayLoader() {
+  const bar = document.getElementById('loader-bar');
+  const pct = document.getElementById('loader-pct');
+  bar.style.transition = 'none';
+  bar.style.width = '0%';
+  pct.textContent = '0%';
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      bar.style.transition = 'width 3s cubic-bezier(0.4,0,0.2,1)';
+      bar.style.width = '100%';
+      let start = performance.now();
+      function tick(now) {
+        let p = Math.min((now - start) / 3000, 1);
+        pct.textContent = Math.round(p * 100) + '%';
+        if (p < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    });
+  });
+}
+
+function replayClip() {
+  const c = document.getElementById('clip-content');
+  const i = document.getElementById('clip-image');
+  c.style.transition = 'none'; i.style.transition = 'none';
+  c.style.clipPath = 'inset(100% 0% 0%)';
+  i.style.clipPath = 'inset(0% 0% 100%)';
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      c.style.transition = 'clip-path 1s cubic-bezier(0.16,1,0.3,1)';
+      i.style.transition = 'clip-path 1.2s cubic-bezier(0.16,1,0.3,1) 0.2s';
+      c.style.clipPath = 'inset(0%)';
+      i.style.clipPath = 'inset(0%)';
+    });
+  });
+}
+
+const splitWord = 'BELGRADE ARBOR';
+function replayText() {
+  const container = document.getElementById('split-text');
+  container.innerHTML = '';
+  splitWord.split('').forEach((char, i) => {
+    const d = document.createElement('div');
+    d.style.cssText = 'display:inline-block; position:relative; opacity:0; transform:translateY(100%); transition:all 0.6s cubic-bezier(0.16,1,0.3,1); transition-delay:' + (i * 25) + 'ms;';
+    d.textContent = char === ' ' ? ' ' : char;
+    container.appendChild(d);
+  });
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      container.querySelectorAll('div').forEach(d => {
+        d.style.opacity = '1';
+        d.style.transform = 'translateY(0)';
+      });
+    });
+  });
+}
+
+function replayZoom() {
+  const outer = document.getElementById('zoom-outer');
+  const inner = document.getElementById('zoom-inner');
+  outer.style.transition = 'none'; inner.style.transition = 'none';
+  outer.style.clipPath = 'inset(0% 0% 100%)';
+  inner.style.transform = 'scale(1.15)';
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      outer.style.transition = 'clip-path 1.2s cubic-bezier(0.16,1,0.3,1)';
+      inner.style.transition = 'transform 1.8s cubic-bezier(0.16,1,0.3,1)';
+      outer.style.clipPath = 'inset(0%)';
+      inner.style.transform = 'scale(1)';
+    });
+  });
+}
+
+// Auto-play demos on load
+setTimeout(() => { replayLoader(); replayText(); replayClip(); replayZoom(); }, 500);
+</script>

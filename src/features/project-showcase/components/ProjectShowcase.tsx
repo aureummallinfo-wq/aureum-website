@@ -6,6 +6,7 @@ import { Eyebrow } from '@/components/ui/Eyebrow';
 import { SectionHeading } from '@/components/ui/SectionHeading';
 import { ACCESS, AMENITIES, APARTMENT_TYPES, BUILDING_LEVELS, DEVELOPER, IMAGE_DISCLAIMER, LEADERSHIP, PROJECT_DISCLAIMERS, visibleTeam, type TeamMember } from '@/lib/project-facts';
 import { ButtonLink } from '@/components/ui/ButtonLink';
+import { CUTAWAY_IMAGES } from '../images';
 import { personWhatsappHref } from '@/lib/whatsapp';
 
 /** `note` replaces the default "Artist’s impression" caption (e.g. for drawings and maps). */
@@ -225,7 +226,13 @@ export function AmenitiesSection({ images = [] }: { images?: readonly ShowcaseIm
 }
 
 /** Every apartment type from the catalogue, with its sizes, category, rate, prices, layout and a link to the calculator. */
-export function ApartmentTypesSection() {
+const residencePreviews = {
+  studio: { href: '/apartments/studio', label: 'Studio', image: CUTAWAY_IMAGES[0] },
+  'one-bedroom': { href: '/apartments/1-bed', label: '1 Bed', image: { src: '/assets/aureum/approved/floor-plans/aureum-1-bed-apartment-render.webp', alt: 'Representative render of an Aureum one-bedroom apartment', label: 'One bedroom · representative render' } },
+  'two-bedroom': { href: '/apartments/2-bed', label: '2 Bed', image: CUTAWAY_IMAGES[1] },
+} as const;
+
+export function ApartmentTypesSection({ editorial = false }: { editorial?: boolean }) {
   const types = APARTMENT_TYPES.map((type) => {
     const units = PRICED_UNITS.filter((unit) => unit.table.id === 'apartments' && unit.row.type === type.rowType);
     const rates = [...new Set(units.map((unit) => unit.row.ratePerSqFt))];
@@ -235,53 +242,75 @@ export function ApartmentTypesSection() {
   }).filter((type) => type.units.length > 0);
 
   return (
-    <section className="section apartmentTypesSection" aria-labelledby="apartment-types-heading">
+    <section className={`section apartmentTypesSection${editorial ? ' residenceTypes' : ''}`} aria-labelledby="apartment-types-heading">
       <div className="container">
-        <SectionHeading id="apartment-types-heading" eyebrow="The apartments" title="Space for your lifestyle." description="Five apartment types on the 6th to 12th floors, from a 426 sq ft studio to the premium Signature Glass Apartments, with a private residential entrance, three dedicated lifts and a 28 × 50 ft lobby." />
+        <SectionHeading id="apartment-types-heading" eyebrow="The apartments" title={editorial ? 'Find your apartment.' : 'Space for your lifestyle.'} description={editorial ? 'Compare layouts and see the payment plan for each size. The apartments are offered on a 4.5-year plan with 10% booking.' : 'Five apartment types on the 6th to 12th floors, from a 426 sq ft studio to the premium Signature Glass Apartments, with a private residential entrance, three dedicated lifts and a 28 × 50 ft lobby.'} />
+        {editorial && (
+          <ul className="residencePreviews">
+            {Object.values(residencePreviews).map((preview) => (
+              <li key={preview.href}>
+                <ShowcaseFigure image={preview.image} sizes="(max-width: 760px) 94vw, 32vw" />
+                <Link href={preview.href}>{preview.label} <span aria-hidden="true">→</span></Link>
+              </li>
+            ))}
+          </ul>
+        )}
         <div className="aptTypes">
-          {types.map((type, index) => (
-            <article className={`aptType${type.premium ? ' isPremium' : ''}`} key={type.id} aria-labelledby={`apt-${type.id}`}>
-              <header className="aptTypeHead">
-                <p className="aptTypeKicker">
-                  <span aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
-                  {type.premium ? <strong className="premiumTag">Premium</strong> : 'Apartment type'}
-                </p>
-                <h3 id={`apt-${type.id}`}>{type.name}</h3>
-                <p className="aptTypeSummary">{type.summary}</p>
-              </header>
+          {types.map((type, index) => {
+            const specifications = (
+              <>
+                <dl className="aptSpecs">
+                  <div><dt>Size</dt><dd>{type.units.map((unit) => formatSqFt(unit.row.sizeSqFt)).join(' · ')}</dd></div>
+                  <div><dt>Category</dt><dd>{type.premium ? `Premium · ${type.categories.join(' / ')}` : type.categories.join(' / ')}</dd></div>
+                  <div><dt>Rate</dt><dd>{type.rates.map((rate) => formatPKR(rate)).join(' / ')} per sq ft</dd></div>
+                  <div><dt>Starting price</dt><dd>{formatPKR(type.cheapest.row.totalPrice)}<small>≈ {formatLakhCrore(type.cheapest.row.totalPrice)}</small></dd></div>
+                  <div><dt>Booking 10%</dt><dd>{formatPKR(type.cheapest.row.booking)}</dd></div>
+                  <div><dt>Monthly from</dt><dd>{formatPKR(type.cheapest.row.monthlyInstallment)}<small>× {type.cheapest.table.monthlyCount} months</small></dd></div>
+                  </dl>
 
-              <dl className="aptSpecs">
-                <div><dt>Size</dt><dd>{type.units.map((unit) => formatSqFt(unit.row.sizeSqFt)).join(' · ')}</dd></div>
-                <div><dt>Category</dt><dd>{type.premium ? `Premium · ${type.categories.join(' / ')}` : type.categories.join(' / ')}</dd></div>
-                <div><dt>Rate</dt><dd>{type.rates.map((rate) => formatPKR(rate)).join(' / ')} per sq ft</dd></div>
-                <div><dt>Starting price</dt><dd>{formatPKR(type.cheapest.row.totalPrice)}<small>≈ {formatLakhCrore(type.cheapest.row.totalPrice)}</small></dd></div>
-                <div><dt>Booking 10%</dt><dd>{formatPKR(type.cheapest.row.booking)}</dd></div>
-                <div><dt>Monthly from</dt><dd>{formatPKR(type.cheapest.row.monthlyInstallment)}<small>× {type.cheapest.table.monthlyCount} months</small></dd></div>
-              </dl>
+                  <div className="aptTypeDetail">
+                    <div>
+                      <p className="aptTypeLabel">Representative layout</p>
+                      <ul className="aptLayout">{type.layout.map((item) => <li key={item}>{item}</li>)}</ul>
+                    </div>
+                    <div>
+                      <p className="aptTypeLabel">Ideal for</p>
+                      <p className="aptIdeal">{type.idealFor}</p>
+                    </div>
+                  </div>
+              </>
+            );
+            return (
+              <article className={`aptType${type.premium ? ' isPremium' : ''}`} key={type.id} aria-labelledby={`apt-${type.id}`}>
+                <header className="aptTypeHead">
+                  {!editorial && <p className="aptTypeKicker">
+                    <span aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+                    {type.premium ? <strong className="premiumTag">Premium</strong> : 'Apartment type'}
+                  </p>}
+                  <h3 id={`apt-${type.id}`}>{type.name}</h3>
+                  <p className="aptTypeSummary">{type.summary}</p>
+                </header>
 
-              <div className="aptTypeDetail">
-                <div>
-                  <p className="aptTypeLabel">Representative layout</p>
-                  <ul className="aptLayout">{type.layout.map((item) => <li key={item}>{item}</li>)}</ul>
-                </div>
-                <div>
-                  <p className="aptTypeLabel">Ideal for</p>
-                  <p className="aptIdeal">{type.idealFor}</p>
-                </div>
-              </div>
+                {editorial ? (
+                  <details className="residenceSpecs">
+                    <summary>Layout and specifications</summary>
+                    {specifications}
+                  </details>
+                ) : specifications}
 
-              <footer className="aptTypeFoot">
-                <p className="aptTypeLabel">Calculate the payment plan</p>
-                <div className="aptUnitLinks">
-                  {type.units.map((unit) => (
-                    <Link key={unit.id} href={`/payment-plans/apartments${calcHref(unit.id)}`}>
-                      {formatSqFt(unit.row.sizeSqFt)} · {formatPKR(unit.row.totalPrice)}<span aria-hidden="true">→</span>
-                    </Link>
-                  ))}
-                </div>
-              </footer>
-            </article>
-          ))}
+                <footer className="aptTypeFoot">
+                  <p className="aptTypeLabel">Calculate the payment plan</p>
+                  <div className="aptUnitLinks">
+                    {type.units.map((unit) => (
+                      <Link key={unit.id} href={`/payment-plans/apartments${calcHref(unit.id)}`}>
+                        {formatSqFt(unit.row.sizeSqFt)} · {formatPKR(unit.row.totalPrice)}<span aria-hidden="true">→</span>
+                      </Link>
+                    ))}
+                  </div>
+                </footer>
+              </article>
+            );
+          })}
         </div>
         <p className="aptTypesNote">Prices are starting base prices from the Aureum Catalogue, November 2026. Inner and outer categories are as per the official price list; applicable 10% category charges are additional. Layouts are representative and subject to final approved drawings.</p>
       </div>
