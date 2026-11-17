@@ -64,5 +64,11 @@ export const ARCHITECTURE_AERIAL: ShowcaseImage = { src: `${base}/renders/aureum
 export const ARCHITECTURE_DUSK: ShowcaseImage = { src: `${base}/renders/aureum-architecture-dusk.webp`, alt: 'Aureum Mall & Residences at dusk with the glass atrium glowing', label: 'Aureum at dusk' };
 export const ARCHITECTURE_CONTEXT: ShowcaseImage = { src: `${base}/renders/aureum-architecture-context.webp`, alt: 'Aerial context view of Aureum Mall & Residences at the Bahria Town Ring Road Interchange', label: 'The address from above' };
 
-export const EXTERIOR_NIGHT: ShowcaseImage = { src: `${base}/renders/aureum-exterior-night.webp`, alt: 'Aureum Mall & Residences at night', label: 'Aureum at night' };
-export const EXTERIOR_NIGHT_WIDE: ShowcaseImage = { src: `${base}/renders/aureum-exterior-night-wide.webp`, alt: 'Aureum Mall & Residences at night from the Ring Road', label: 'Visible from Ring Road' };
+export const EXTERIOR_EVENING: ShowcaseImage = { src: `${base}/renders/aureum-exterior-evening.jpg`, alt: 'Aureum Mall & Residences in the evening with warm lighting', label: 'Aureum in the evening' };
+export const EXTERIOR_NIGHT: ShowcaseImage = EXTERIOR_EVENING;
+export const EXTERIOR_DAY_WIDE: ShowcaseImage = { src: `${base}/renders/aureum-exterior-day-wide.jpg`, alt: 'Aureum Mall & Residences during the day, showing the full building with residences, hotel and mall', label: 'The complete destination' };
+export const EXTERIOR_NIGHT_WIDE: ShowcaseImage = EXTERIOR_DAY_WIDE;
+export const RING_ROAD_SUNSET: ShowcaseImage = { src: `${base}/renders/aureum-ring-road-sunset.jpg`, alt: 'Aureum Mall & Residences at sunset viewed from Ring Road', label: 'From Ring Road' };
+export const MAIN_ROAD_VIEW: ShowcaseImage = { src: `${base}/renders/aureum-main-road-view.jpg`, alt: 'Aureum Mall & Residences viewed from the main road underpass', label: 'From the main road' };
+export const GLASS_ATRIUM_AERIAL: ShowcaseImage = { src: `${base}/renders/aureum-glass-atrium-aerial.jpg`, alt: 'Aerial view of the Aureum Mall glass atrium entrance with fountain', label: 'The glass atrium' };
+export const GLASS_ATRIUM_CLOSE: ShowcaseImage = { src: `${base}/renders/aureum-glass-atrium-close.jpg`, alt: 'Close-up of the Aureum Mall geometric glass atrium structure', label: 'Atrium detail' };
