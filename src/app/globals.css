@@ -5096,13 +5096,33 @@ h2:not(.srOnly) {
 }
 
 .heroCinemaImage {
+  z-index: 0;
   object-fit: cover;
   object-position: 50% 45%;
+}
+
+/* The local sketch film overlays the poster while the poster remains the loading fallback. */
+.heroCinemaVideo {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  background: var(--navy-deep);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .heroCinemaVideo {
+    display: none;
+  }
 }
 
 .heroCinemaShade {
   position: absolute;
   inset: 0;
+  z-index: 2;
   background:
     linear-gradient(90deg, rgba(17, 18, 50, 0.82) 0%, rgba(17, 18, 50, 0.45) 45%, rgba(17, 18, 50, 0) 75%),
     linear-gradient(0deg, rgba(17, 18, 50, 0.9) 0%, rgba(17, 18, 50, 0) 45%);
@@ -5111,7 +5131,7 @@ h2:not(.srOnly) {
 .heroCinemaInner,
 .heroCinemaFoot {
   position: relative;
-  z-index: 1;
+  z-index: 3;
 }
 
 .heroCinemaInner {
