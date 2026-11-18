@@ -6,6 +6,7 @@ import { ContactActions } from '@/components/ContactActions';
 import { SITE } from '@/lib/site';
 import { SiteSchema } from '@/features/content-seo/components/SiteSchema';
 import { AnalyticsScripts } from '@/components/AnalyticsScripts';
+import { AnimationToggle } from '@/components/ui/AnimationToggle';
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
@@ -38,6 +39,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <main id="main-content">{children}</main>
         <SiteFooter />
         <ContactActions />
+        <AnimationToggle />
       </body>
     </html>
   );

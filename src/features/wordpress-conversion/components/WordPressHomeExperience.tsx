@@ -11,6 +11,7 @@ import { PriceCalculator } from '@/features/payment-plans/components/PriceCalcul
 import { AMENITIES, DEVELOPER, PROJECT_STATS } from '@/lib/project-facts';
 import { ShowcaseFigure } from '@/features/project-showcase/components/ProjectShowcase';
 import { EXTERIOR_NIGHT_WIDE, FOOD_COURT_IMAGE, GLASS_ATRIUM_AERIAL, GLASS_ATRIUM_CLOSE, MALL_IMAGES, MAIN_ROAD_VIEW, OFFICE_IMAGES, RESIDENCE_IMAGES, RING_ROAD_SUNSET } from '@/features/project-showcase/images';
+import { AnimatedCounter } from '@/components/ui/AnimatedCounter';
 
 import { ResidenceGallery } from '@/app/apartments/ResidenceGallery';
 import { ResidenceSequence } from '@/app/apartments/ResidenceSequence';
@@ -119,7 +120,7 @@ export function WordPressHomeExperience() {
             <ButtonLink href="/about" variant="dark">About the project</ButtonLink>
           </div>
           <div className="wpIntroStats" aria-label="Project statistics">
-            {PROJECT_STATS.map(([value, label]) => <div className="wpStat" key={label}><strong>{value}</strong><span>{label}</span></div>)}
+            {PROJECT_STATS.map(([value, label]) => <div className="wpStat" key={label}><AnimatedCounter value={value} /><span>{label}</span></div>)}
           </div>
         </div>
       </section>
@@ -182,6 +183,18 @@ export function WordPressHomeExperience() {
             <h2 id="wp-location-heading">At the gateway to Bahria Town.</h2>
             <p>On the Ring Road Interchange, 0 minutes from Bahria Town and about 25 minutes from Lahore airport.</p>
             <ButtonLink href="/location">Explore the location</ButtonLink>
+            <ul className="nearbyLandmarks">
+              {[
+                ['Bahria Town Main Gate', '0 min'],
+                ['Ring Road Interchange', '0 min'],
+                ['Packages Mall', '15 min'],
+                ['Allama Iqbal Airport', '25 min'],
+                ['Lahore Motorway (M-2)', '20 min'],
+                ['DHA Phase 6', '18 min'],
+              ].map(([name, time]) => (
+                <li key={name}><strong>{name}</strong><span>{time} drive</span></li>
+              ))}
+            </ul>
           </div>
         </div>
       </section>
