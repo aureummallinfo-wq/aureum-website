@@ -7298,8 +7298,20 @@ h2:not(.srOnly) {
 }
 
 @media (max-width: 520px) {
-  .calcFigures {
+  .calcFigures:not(.calcFiguresCondensed) {
     grid-template-columns: minmax(0, 1fr);
+  }
+
+  .calcFiguresCondensed {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .calcFiguresCondensed dd {
+    font-size: 15px;
+  }
+
+  .calcFiguresCondensed small {
+    font-size: 11px;
   }
 
   .calcProActions > * {
