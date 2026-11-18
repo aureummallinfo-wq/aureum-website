@@ -1,0 +1,547 @@
+/* =========================================================================
+   Aureum Route Animation (Harsukh-Style Sticky 3D Route Engine)
+   ========================================================================= */
+
+.routeSection {
+  position: relative;
+  background: #060b0e;
+  height: 450vh; /* 4.5 screens of smooth scroll track */
+  contain: paint layout;
+}
+
+.stickyStage {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: #f7fafc;
+  font-family: inherit;
+}
+
+/* 1. Media Stage (Video / Canvas / Satellite Imagery) */
+.mediaStage {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: #060b0e;
+}
+
+.routeVideo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.fallbackPoster {
+  object-fit: cover;
+  pointer-events: none;
+}
+
+.vignetteOverlay {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 60% 45%, rgba(6, 11, 14, 0.15) 35%, rgba(6, 11, 14, 0.75) 85%),
+    linear-gradient(to bottom, rgba(6, 11, 14, 0.85) 0%, transparent 20%, transparent 80%, rgba(6, 11, 14, 0.95) 100%);
+  pointer-events: none;
+}
+
+/* 2. Top Header HUD */
+.topHud {
+  position: relative;
+  z-index: 10;
+  padding: 36px 48px 16px;
+  max-width: 900px;
+  pointer-events: auto;
+}
+
+.routeBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(0, 230, 118, 0.12);
+  border: 1px solid rgba(0, 230, 118, 0.35);
+  padding: 5px 12px;
+  border-radius: 999px;
+  margin-bottom: 12px;
+  backdrop-filter: blur(8px);
+}
+
+.pulseDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #00e676;
+  box-shadow: 0 0 10px #00e676;
+  animation: pulseGlow 2s infinite ease-in-out;
+}
+
+@keyframes pulseGlow {
+  0%, 100% { transform: scale(1); opacity: 0.9; }
+  50% { transform: scale(1.35); opacity: 1; box-shadow: 0 0 16px #00e676; }
+}
+
+.badgeText {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: #00e676;
+  text-transform: uppercase;
+}
+
+.mainTitle {
+  font-size: clamp(24px, 3.2vw, 42px);
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  margin: 0 0 8px 0;
+  line-height: 1.15;
+  color: #ffffff;
+}
+
+.titleSub {
+  color: #e2e8f0;
+}
+
+.titleArrow {
+  color: #00e676;
+  margin: 0 6px;
+}
+
+.titleMain {
+  background: linear-gradient(135deg, #00e5ff 0%, #00e676 60%, #ffd700 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.tagline {
+  font-size: 14px;
+  color: #94a3b8;
+  margin: 0;
+  max-width: 650px;
+}
+
+/* 3. Milestone Tabs Navigation */
+.milestoneTabs {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  gap: 8px;
+  padding: 0 48px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  pointer-events: auto;
+}
+
+.milestoneTabs::-webkit-scrollbar {
+  display: none;
+}
+
+.tabBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  background: rgba(15, 23, 42, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  color: #94a3b8;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  backdrop-filter: blur(10px);
+  transition: all 0.25s ease;
+}
+
+.tabBtn:hover {
+  background: rgba(30, 41, 59, 0.85);
+  border-color: rgba(0, 230, 118, 0.4);
+  color: #ffffff;
+}
+
+.tabPassed {
+  border-color: rgba(0, 230, 118, 0.3);
+  color: #e2e8f0;
+}
+
+.tabActive {
+  background: rgba(0, 230, 118, 0.2);
+  border-color: #00e676;
+  color: #ffffff;
+  box-shadow: 0 0 16px rgba(0, 230, 118, 0.3);
+}
+
+.tabIcon {
+  font-size: 13px;
+}
+
+.tabNum {
+  font-weight: 700;
+  font-size: 11px;
+  opacity: 0.85;
+}
+
+/* 4. Left Narrative Story Card */
+.storyCard {
+  position: absolute;
+  top: 36%;
+  left: 48px;
+  z-index: 12;
+  width: min(380px, 88vw);
+  background: rgba(10, 17, 24, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 18px;
+  padding: 24px 28px;
+  backdrop-filter: blur(16px);
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.6);
+  pointer-events: auto;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.cardTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.stepIndicator {
+  display: flex;
+  align-items: baseline;
+  gap: 3px;
+}
+
+.stepNum {
+  font-size: 20px;
+  font-weight: 800;
+  color: #00e676;
+}
+
+.stepTotal {
+  font-size: 12px;
+  color: #64748b;
+  font-weight: 600;
+}
+
+.driveBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(0, 229, 255, 0.15);
+  border: 1px solid rgba(0, 229, 255, 0.3);
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #00e5ff;
+}
+
+.clockIcon {
+  font-size: 13px;
+}
+
+.milestoneSubtitle {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: #94a3b8;
+  margin-bottom: 4px;
+}
+
+.milestoneTitle {
+  font-size: 20px;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 10px 0;
+  line-height: 1.25;
+}
+
+.milestoneDesc {
+  font-size: 13px;
+  line-height: 1.6;
+  color: #cbd5e1;
+  margin: 0 0 18px 0;
+}
+
+.highlightsBox {
+  background: rgba(15, 23, 42, 0.6);
+  border-left: 3px solid #00e676;
+  padding: 10px 14px;
+  border-radius: 4px 8px 8px 4px;
+}
+
+.highlightsHeader {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  color: #00e676;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-bottom: 6px;
+}
+
+.highlightsList {
+  margin: 0;
+  padding-left: 16px;
+  font-size: 12px;
+  color: #94a3b8;
+  line-height: 1.5;
+}
+
+.highlightsList li {
+  margin-bottom: 2px;
+}
+
+/* 5. Destination 3D Callout Card */
+.destinationCard {
+  position: absolute;
+  top: 24%;
+  right: 48px;
+  z-index: 14;
+  width: min(340px, 86vw);
+  background: #0c141a;
+  border: 2px solid #ff3d00;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 0 35px rgba(255, 61, 0, 0.35);
+  opacity: 0;
+  transform: translateY(24px) scale(0.92);
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+
+.destinationVisible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+.destinationImage {
+  position: relative;
+  width: 100%;
+  height: 175px;
+}
+
+.mallImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.destinationTag {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: #ff3d00;
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 999px;
+  box-shadow: 0 4px 12px rgba(255, 61, 0, 0.4);
+}
+
+.destinationBody {
+  padding: 18px;
+}
+
+.destinationBody h4 {
+  font-size: 18px;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 4px 0;
+}
+
+.destSub {
+  font-size: 12px;
+  color: #94a3b8;
+  margin: 0 0 12px 0;
+}
+
+.destinationMeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.destinationMeta span {
+  font-size: 11px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 3px 8px;
+  border-radius: 4px;
+  color: #e2e8f0;
+}
+
+.destinationActions {
+  display: flex;
+  gap: 10px;
+}
+
+.primaryCta {
+  flex: 1;
+  display: inline-block;
+  text-align: center;
+  background: #ff3d00;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 10px 14px;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+
+.primaryCta:hover {
+  background: #d83200;
+}
+
+.secondaryCta {
+  display: inline-block;
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #e2e8f0;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 10px 14px;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+
+.secondaryCta:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* 6. Bottom Controls Bar */
+.bottomControls {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 20px 48px;
+  background: linear-gradient(to top, rgba(6, 11, 14, 0.95), transparent);
+  pointer-events: auto;
+}
+
+.playBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 230, 118, 0.15);
+  border: 1px solid rgba(0, 230, 118, 0.4);
+  color: #00e676;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 8px 18px;
+  border-radius: 999px;
+  cursor: pointer;
+  white-space: nowrap;
+  backdrop-filter: blur(8px);
+  transition: all 0.2s;
+}
+
+.playBtn:hover {
+  background: rgba(0, 230, 118, 0.28);
+  border-color: #00e676;
+  box-shadow: 0 0 15px rgba(0, 230, 118, 0.4);
+}
+
+.scrubberTrack {
+  flex: 1;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 999px;
+  position: relative;
+  cursor: pointer;
+}
+
+.scrubberFill {
+  height: 100%;
+  background: linear-gradient(90deg, #00e676, #00e5ff, #ffd700);
+  border-radius: 999px;
+}
+
+.scrubberThumb {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 16px;
+  height: 16px;
+  background: #ffffff;
+  border: 3px solid #00e5ff;
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(0, 229, 255, 0.8);
+  pointer-events: none;
+}
+
+.skipLink {
+  font-size: 12px;
+  color: #94a3b8;
+  text-decoration: none;
+  white-space: nowrap;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.2s;
+}
+
+.skipLink:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* =========================================================================
+   Mobile & Tablet Responsiveness
+   ========================================================================= */
+@media (max-width: 900px) {
+  .routeSection {
+    height: 400vh;
+  }
+
+  .topHud {
+    padding: 24px 20px 12px;
+  }
+
+  .milestoneTabs {
+    padding: 0 20px;
+  }
+
+  .storyCard {
+    left: 20px;
+    right: 20px;
+    top: auto;
+    bottom: 84px;
+    width: auto;
+    padding: 18px 20px;
+  }
+
+  .destinationCard {
+    right: 20px;
+    left: 20px;
+    top: auto;
+    bottom: 84px;
+    width: auto;
+  }
+
+  .bottomControls {
+    padding: 12px 20px;
+    gap: 12px;
+  }
+
+  .skipLink {
+    display: none;
+  }
+}

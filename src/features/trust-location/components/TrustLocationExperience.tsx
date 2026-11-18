@@ -8,6 +8,7 @@ import { MediaOpening } from '@/features/immersive-media/components/MediaOpening
 import { VIRTUAL_TOUR } from '@/features/immersive-media/data';
 import { LOCATION_MAP } from '@/features/project-showcase/images';
 import { LiveMap } from './LiveMap';
+import { AureumRouteAnimation } from './AureumRouteAnimation';
 import { SiteUpdates } from './SiteUpdates';
 import { GROUNDBREAKING, SITE_UPDATES } from '../site-updates';
 import styles from './LocationEditorial.module.css';
@@ -72,11 +73,13 @@ export function TrustLocationExperience() {
         title="Where Aureum meets Ring Road."
         image={{ src: VIRTUAL_TOUR.poster, alt: VIRTUAL_TOUR.posterAlt }}
         links={[
+          { href: '#location-route-animation', label: 'Ring Road route animation' },
           { href: '#trust-location-workspace', label: 'Location and directions' },
           { href: '#location-live-map', label: 'Live map' },
           { href: '#construction-register', label: 'Site progress' },
         ]}
       />
+      <AureumRouteAnimation />
       <LocationSection />
       <ConstructionUpdatesSection />
       <TrustFaqSection />

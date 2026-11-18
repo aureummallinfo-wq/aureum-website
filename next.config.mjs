@@ -10,6 +10,9 @@ const securityHeaders = [
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  experimental: {
+    agentUpgrade: false,
+  },
   // Let the authored redirect map control legacy trailing-slash URLs so they return 301.
   skipTrailingSlashRedirect: true,
   allowedDevOrigins: ['127.0.0.1'],
