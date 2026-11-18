@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Aureum Mall & Residences — Brand design tokens
  * Navy blue, cornflower, coral accent, Manrope + Playfair Display
  * Based on the Aureum Visual Identity mood board
@@ -12,9 +12,9 @@
   --ink:         #163473;
   --muted:       #5A6580;
   --brown:       #163473;
-  --gold:        #1B63AD;
-  --gold-soft:   #3694CF;
-  --gold-light:  #A8C4E0;
+  --accent:        #1B63AD;
+  --accent-soft:   #3694CF;
+  --accent-light:  #A8C4E0;
   --accent:      #1B63AD;
   --dark:        #163473;
   --dark-surface:#1A3A7A;

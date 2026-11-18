@@ -1,4 +1,4 @@
-.residences {
+﻿.residences {
   padding-block: clamp(56px, 9vw, 132px);
   background: var(--soft);
 }
@@ -50,13 +50,13 @@
   letter-spacing: normal;
   text-transform: none;
   text-decoration: underline;
-  text-decoration-color: var(--gold);
+  text-decoration-color: var(--accent);
   text-underline-offset: 4px;
 }
 
 .spaceLinks :global(.button):hover {
   background: transparent;
-  color: var(--gold);
+  color: var(--accent);
 }
 
 .editorial {
@@ -417,7 +417,7 @@
 
 .architectureScenes nav a[aria-current="step"],
 .architectureScenes nav a:hover {
-  color: var(--gold-soft);
+  color: var(--accent-soft);
 }
 
 .architectureScenes :not([data-enhanced]) > div > [data-residence-chapter] + [data-residence-chapter] {

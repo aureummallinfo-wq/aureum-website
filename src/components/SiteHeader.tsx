@@ -5,6 +5,7 @@ import { useEffect, useRef, useState, useSyncExternalStore } from 'react';
 import { PRIMARY_NAV } from '@/lib/site';
 import { BrandMark } from '@/components/ui/BrandMark';
 import { PaymentPlansMenu } from '@/components/PaymentPlansMenu';
+import { ExploreMenu } from '@/components/ExploreMenu';
 import { ButtonLink } from '@/components/ui/ButtonLink';
 import { SITE } from '@/lib/site';
 import { track } from '@/lib/analytics';
@@ -45,9 +46,19 @@ export function SiteHeader() {
           <span className="srOnly">{isOpen ? 'Close' : 'Open'} navigation</span><span aria-hidden="true">{isOpen ? '×' : '☰'}</span>
         </button>
         <nav id="primary-navigation" aria-label="Primary navigation" className={`navLinks ${isOpen ? 'isOpen' : ''}`}>
-          {PRIMARY_NAV.map((item) => item.href === '/payment-plans'
-            ? <PaymentPlansMenu key={item.href} onNavigate={() => setIsOpen(false)} />
-            : <Link key={item.href} href={item.href} onClick={() => setIsOpen(false)}>{item.label}</Link>)}
+          {PRIMARY_NAV.map((item) => {
+            if (item.href === '/payment-plans') {
+              return <PaymentPlansMenu key={item.href} onNavigate={() => setIsOpen(false)} />;
+            }
+            if (item.href === '/explore') {
+              return <ExploreMenu key={item.href} onNavigate={() => setIsOpen(false)} />;
+            }
+            return (
+              <Link key={item.href} href={item.href} onClick={() => setIsOpen(false)}>
+                {item.label}
+              </Link>
+            );
+          })}
           <span className="headerCall"><small>Call the experts</small><a href={`tel:${SITE.phoneE164}`} onClick={() => track(ANALYTICS_EVENTS.callClick, { placement: 'header' })}>{SITE.phoneDisplay}</a></span>
           <ButtonLink variant="nav" href="/contact?intent=site_visit#enquiry" onClick={() => setIsOpen(false)}>Book a visit</ButtonLink>
         </nav>

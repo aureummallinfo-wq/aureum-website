@@ -1,0 +1,875 @@
+﻿/* ---------- Price calculator: payment plan as a horizontal timeline ---------- */
+.calc {
+  display: grid;
+  gap: 28px;
+  margin: 8px 0 36px;
+  scroll-margin-top: 100px;
+}
+
+.calcControls {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  gap: 20px 48px;
+}
+
+.calcControls fieldset {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.calcControls legend {
+  padding: 0;
+  color: var(--accent);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.calcPills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.calcPills button {
+  padding: 10px 14px;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  background: var(--surface);
+  color: var(--ink);
+  cursor: pointer;
+  font-size: 13px;
+  transition: background var(--motion-fast), color var(--motion-fast), border-color var(--motion-fast);
+}
+
+.calcPills button:hover {
+  border-color: var(--indigo);
+}
+
+.calcPills button[aria-pressed='true'] {
+  border-color: var(--indigo);
+  background: var(--indigo);
+  color: var(--surface);
+}
+
+.calcCard {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(24px, 3.6vw, 48px);
+  border-radius: var(--radius-sm);
+  background:
+    radial-gradient(120% 140% at 100% 0%, rgba(216, 191, 142, 0.13), transparent 55%),
+    linear-gradient(160deg, var(--indigo) 0%, var(--navy-deep) 100%);
+  color: var(--surface);
+}
+
+.calcHead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px 40px;
+  padding-bottom: 30px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.calcUnit {
+  margin: 0;
+  color: var(--accent-soft);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.calcTotal {
+  margin: 14px 0 0;
+}
+
+.calcTotal span,
+.calcTotal small {
+  display: block;
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 13px;
+}
+
+.calcTotal strong {
+  display: block;
+  margin: 2px 0 6px;
+  font-family: var(--font-serif);
+  font-size: clamp(40px, 5vw, 64px);
+  font-variant-numeric: lining-nums tabular-nums;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.calcDue {
+  min-width: 250px;
+  padding: 18px 22px;
+  border: 1px solid rgba(216, 191, 142, 0.35);
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.calcDue span,
+.calcDue small {
+  display: block;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+}
+
+.calcDue span {
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.calcDue strong {
+  display: block;
+  margin: 6px 0 4px;
+  color: var(--accent-soft);
+  font-family: var(--font-serif);
+  font-size: 30px;
+  font-variant-numeric: lining-nums tabular-nums;
+  font-weight: 600;
+  line-height: 1.1;
+}
+
+.calcTimeline {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(var(--steps), minmax(0, 1fr));
+  margin: 40px 0 8px;
+  padding: 0;
+  list-style: none;
+}
+
+/* Track and gold fill run from the first stage's dot to the last. */
+.calcTimeline::before,
+.calcTimeline::after {
+  position: absolute;
+  top: 6px;
+  right: calc(50% / var(--steps));
+  left: calc(50% / var(--steps));
+  height: 2px;
+  content: '';
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.calcTimeline::after {
+  background: linear-gradient(90deg, var(--accent-soft), #f1e2bf);
+  transform-origin: left center;
+}
+
+.calcStep {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 10px;
+  text-align: center;
+}
+
+.calcNode {
+  position: relative;
+  z-index: 1;
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--accent-soft);
+  border-radius: 50%;
+  background: var(--accent-soft);
+  box-shadow: 0 0 0 6px rgba(216, 191, 142, 0.14);
+}
+
+.calcWhen {
+  margin: 20px 0 8px;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.calcPct {
+  margin: 0;
+  color: var(--accent-soft);
+  font-family: var(--font-serif);
+  font-size: clamp(32px, 3.2vw, 44px);
+  font-weight: 600;
+  line-height: 1;
+}
+
+.calcAmount {
+  margin: 10px 0 4px;
+  font-size: 15px;
+  font-variant-numeric: lining-nums tabular-nums;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.calcLabel {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.calcLabel small {
+  display: block;
+  margin-top: 2px;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.calcFoot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px 32px;
+  margin-top: 36px;
+  padding-top: 26px;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.calcFoot .actions {
+  margin: 0;
+}
+
+.calcNote {
+  max-width: 440px;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+@keyframes calcLine {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+@keyframes calcLineDown {
+  from { transform: scaleY(0); }
+  to { transform: scaleY(1); }
+}
+
+@keyframes calcNodeOn {
+  from { background: var(--navy-deep); box-shadow: 0 0 0 0 rgba(216, 191, 142, 0); transform: scale(0.7); }
+  60% { box-shadow: 0 0 0 12px rgba(216, 191, 142, 0.22); transform: scale(1.25); }
+  to { background: var(--accent-soft); box-shadow: 0 0 0 6px rgba(216, 191, 142, 0.14); transform: none; }
+}
+
+@keyframes calcRise {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* Runs once the card is on screen, and again whenever a new unit is picked (the timeline remounts). */
+@media (prefers-reduced-motion: no-preference) {
+  .calcCard.isInView .calcTimeline::after {
+    animation: calcLine 1.5s cubic-bezier(0.65, 0, 0.35, 1) both;
+  }
+
+  .calcCard.isInView .calcNode {
+    animation: calcNodeOn 0.55s ease both;
+    animation-delay: calc(var(--i) * 1.5s / (var(--steps) - 1));
+  }
+
+  .calcCard.isInView .calcStep > p {
+    animation: calcRise 0.6s ease both;
+    animation-delay: calc(var(--i) * 1.5s / (var(--steps) - 1) + 0.1s);
+  }
+}
+
+@media (max-width: 900px) {
+  .calcControls {
+    grid-template-columns: 1fr;
+  }
+
+  .calcDue {
+    min-width: 0;
+    width: 100%;
+  }
+}
+
+/* Phones: the timeline runs top to bottom. */
+@media (max-width: 760px) {
+  .calcTimeline {
+    grid-template-columns: 1fr;
+    row-gap: 26px;
+    margin-top: 30px;
+  }
+
+  .calcTimeline::before,
+  .calcTimeline::after {
+    top: 7px;
+    right: auto;
+    bottom: 7px;
+    left: 6px;
+    width: 2px;
+    height: auto;
+  }
+
+  .calcTimeline::after {
+    background: linear-gradient(180deg, var(--accent-soft), #f1e2bf);
+    transform-origin: center top;
+  }
+
+  .calcCard.isInView .calcTimeline::after {
+    animation-name: calcLineDown;
+  }
+
+  .calcStep {
+    display: grid;
+    grid-template-columns: 14px minmax(0, 1fr) auto;
+    align-items: baseline;
+    column-gap: 16px;
+    padding: 0;
+    text-align: left;
+  }
+
+  .calcNode {
+    grid-row: 1 / span 3;
+    align-self: start;
+    margin-top: 1px;
+  }
+
+  .calcWhen {
+    grid-column: 2;
+    margin: 0;
+  }
+
+  .calcPct {
+    grid-column: 3;
+    grid-row: 1 / span 2;
+    font-size: 30px;
+  }
+
+  .calcAmount {
+    grid-column: 2;
+    margin: 4px 0 2px;
+    font-size: 17px;
+  }
+
+  .calcLabel {
+    grid-column: 2;
+  }
+
+  .calcFoot .actions .button {
+    flex: 1 1 100%;
+  }
+}
+
+/* ---------- Professional payment calculator: options, result, dated schedule, printable sheet ---------- */
+.calcPro {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 20px;
+}
+
+.calcPro > * {
+  min-width: 0;
+}
+
+.calcProGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: 20px;
+  align-items: start;
+}
+
+.calcProControls {
+  display: grid;
+  gap: 26px;
+  padding: clamp(22px, 2.6vw, 32px);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+}
+
+.calcProControls fieldset {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.calcProControls legend {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0;
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.calcProControls legend span {
+  display: inline-grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--indigo);
+  color: var(--surface);
+  font-size: 12px;
+}
+
+.calcSwitch {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-top: 14px;
+  color: var(--ink);
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.calcSwitch input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+.calcSwitchTrack {
+  position: relative;
+  flex: 0 0 auto;
+  width: 40px;
+  height: 22px;
+  margin-top: 1px;
+  border-radius: 999px;
+  background: #c9c6d6;
+  transition: background var(--motion-fast);
+}
+
+.calcSwitchTrack::after {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 16px;
+  height: 16px;
+  content: '';
+  border-radius: 50%;
+  background: var(--surface);
+  transition: transform var(--motion-fast);
+}
+
+.calcSwitch input:checked + .calcSwitchTrack {
+  background: var(--indigo);
+}
+
+.calcSwitch input:checked + .calcSwitchTrack::after {
+  transform: translateX(18px);
+}
+
+.calcSwitch input:focus-visible + .calcSwitchTrack {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.calcSwitch small {
+  display: block;
+  margin-top: 2px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.calcSelect {
+  display: grid;
+  gap: 6px;
+  margin-top: 16px;
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.calcSelect select {
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  background: var(--surface);
+  color: var(--ink);
+  font: inherit;
+  font-weight: 500;
+}
+
+.calcProResult .calcTotal strong {
+  font-size: clamp(38px, 4.4vw, 58px);
+}
+
+.calcFigures {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  margin: 26px 0 0;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.calcFigures div {
+  display: grid;
+  gap: 3px;
+  padding: 16px 18px;
+  background: var(--navy-deep);
+}
+
+.calcFigures dt {
+  color: var(--accent-soft);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.calcFigures dd {
+  margin: 0;
+  font-size: clamp(18px, 1.8vw, 22px);
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+}
+
+.calcFigures small {
+  color: rgba(255, 255, 255, 0.58);
+  font-size: 12px;
+}
+
+.calcFigureHighlight {
+  border-left: 3px solid var(--accent-soft);
+  background: rgba(54, 148, 207, 0.08) !important;
+}
+
+.calcFigureHighlight dd {
+  font-size: clamp(20px, 2.2vw, 26px);
+  color: var(--accent-soft);
+}
+
+.calcSplit {
+  margin-top: 24px;
+}
+
+.calcSplitBar {
+  display: flex;
+  gap: 3px;
+  height: 12px;
+}
+
+.calcSplitBar span {
+  flex-basis: 0;
+  border-radius: 2px;
+  transition: flex-grow 500ms ease;
+}
+
+.calcSplitLegend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+  margin: 12px 0 0;
+  padding: 0;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 12px;
+  list-style: none;
+}
+
+.calcSplitLegend li {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.calcSplitLegend span {
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+}
+
+.calcProActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 26px;
+}
+
+.calcPrintButton {
+  cursor: pointer;
+  font: inherit;
+}
+
+.calcPlanLine {
+  margin: 16px 0 0;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 12px;
+}
+
+.calcPlanLine a {
+  color: var(--accent-soft);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.calcSchedule {
+  padding: clamp(22px, 2.6vw, 32px);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+}
+
+.calcScheduleHead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px 24px;
+  margin-bottom: 18px;
+}
+
+.calcScheduleHead h3 {
+  margin: 0;
+  color: var(--ink);
+  font-size: 20px;
+}
+
+.calcScheduleHead p {
+  margin: 4px 0 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.calcScheduleHead .calcScheduleTotal {
+  display: grid;
+  margin: 0;
+  color: var(--indigo);
+  font-size: 20px;
+  font-weight: 700;
+  text-align: right;
+}
+
+.calcScheduleTotal span {
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.calcScheduleTable {
+  width: 100%;
+  min-width: 620px;
+  border-collapse: collapse;
+  font-size: 14px;
+  font-variant-numeric: tabular-nums;
+}
+
+.calcScheduleTable th,
+.calcScheduleTable td {
+  padding: 11px 12px;
+  border-bottom: 1px solid var(--line);
+  text-align: right;
+  white-space: nowrap;
+}
+
+.calcScheduleTable thead th {
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.calcScheduleTable th:first-child,
+.calcScheduleTable td:nth-child(2) {
+  text-align: left;
+}
+
+.calcScheduleTable tbody th {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.calcScheduleTable td:nth-child(2) span {
+  display: block;
+}
+
+.calcScheduleTable td:nth-child(3) {
+  color: var(--indigo);
+  font-weight: 700;
+}
+
+.calcScheduleTable td:last-child {
+  color: var(--muted);
+}
+
+.calcScheduleTable tr.isMilestone {
+  background: var(--soft);
+}
+
+.calcScheduleMore {
+  margin-top: 16px;
+  padding: 10px 16px;
+  border: 1px solid var(--indigo);
+  border-radius: 2px;
+  background: var(--surface);
+  color: var(--indigo);
+  cursor: pointer;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.calcScheduleMore:hover {
+  background: var(--indigo);
+  color: var(--surface);
+}
+
+.calcSchedule .calcNote {
+  max-width: none;
+  margin-top: 16px;
+  color: var(--muted);
+}
+
+.calcPrintSheet {
+  display: none;
+}
+
+@media (max-width: 960px) {
+  .calcProGrid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 520px) {
+  .calcFigures:not(.calcFiguresCondensed) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .calcFiguresCondensed {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .calcFiguresCondensed dd {
+    font-size: 15px;
+  }
+
+  .calcFiguresCondensed small {
+    font-size: 11px;
+  }
+
+  .calcProActions > * {
+    width: 100%;
+    text-align: center;
+  }
+
+  .calcScheduleHead .calcScheduleTotal {
+    text-align: left;
+  }
+}
+
+/* ---------- PriceCalculator: mobile fixes (≤ 760px) ---------- */
+@media (max-width: 760px) {
+  /* Price figure: shrink the large serif number so it never overflows the card
+     at 375 px where clamp(38px, 4.4vw, 58px) would otherwise produce 38 px
+     on a card whose usable width is only ~327 px. */
+  .calcProResult .calcTotal strong {
+    font-size: clamp(26px, 7.5vw, 36px);
+  }
+
+  /* Unit/plan pill buttons: allow long labels (e.g. "Studio · 450 sq ft · Corner")
+     to wrap within their button rather than forcing the container to widen. */
+  .calcPills button {
+    word-break: break-word;
+    hyphens: auto;
+  }
+
+  /* Payment-plan selector: ensure the dropdown never overflows the panel. */
+  .calcSelect select {
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* Schedule table: hide the "Paid so far" column (4th) on small screens.
+     The user can still see Amount and Balance left, which is sufficient. */
+  .calcScheduleTable th:nth-child(4),
+  .calcScheduleTable td:nth-child(4) {
+    display: none;
+  }
+
+  /* Schedule table: reduce column padding so more content fits before scrolling. */
+  .calcScheduleTable th,
+  .calcScheduleTable td {
+    padding: 9px 8px;
+    font-size: 13px;
+  }
+
+  /* Controls panel: tighten padding on very small screens. */
+  .calcProControls {
+    padding: clamp(16px, 4vw, 22px);
+  }
+
+  /* Schedule panel: tighten padding on very small screens. */
+  .calcSchedule {
+    padding: clamp(16px, 4vw, 22px);
+  }
+
+  /* "Show all N payments" button: go full-width so it's easy to tap. */
+  .calcScheduleMore {
+    width: 100%;
+  }
+}
+
+/* "Download schedule (PDF)": only the schedule sheet of the calculator that was used is printed. */
+@media print {
+  .isPrintingSchedule body > :not(#calcPrintRoot) {
+    display: none !important;
+  }
+
+  #calcPrintRoot .calcPrintSheet {
+    display: block;
+    width: 100%;
+    color: #000;
+    font-size: 11px;
+  }
+
+  .calcPrintSheet h2 {
+    margin: 4px 0;
+    font-size: 20px;
+  }
+
+  .calcPrintBrand {
+    margin: 0;
+    color: #555;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .calcPrintSheet table {
+    width: 100%;
+    margin: 10px 0;
+    border-collapse: collapse;
+  }
+
+  .calcPrintSheet th,
+  .calcPrintSheet td {
+    padding: 3px 6px;
+    border-bottom: 1px solid #ccc;
+    text-align: left;
+  }
+
+  .calcPrintSheet thead {
+    display: table-header-group;
+  }
+
+  .calcPrintSheet tr {
+    break-inside: avoid;
+  }
+}

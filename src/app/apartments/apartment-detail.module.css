@@ -1,4 +1,4 @@
-.detail {
+﻿.detail {
   background: var(--page);
 }
 
@@ -77,7 +77,7 @@
   min-height: 44px;
   color: var(--indigo);
   text-decoration: underline;
-  text-decoration-color: var(--gold);
+  text-decoration-color: var(--accent);
   text-underline-offset: 4px;
 }
 

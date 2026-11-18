@@ -1,4 +1,4 @@
-.residences {
+﻿.residences {
   color: var(--ink);
   background: var(--page);
 }
@@ -79,7 +79,7 @@
 .heroCopy > p,
 .tourCopy > p,
 .storyLead > p {
-  color: var(--gold-soft);
+  color: var(--accent-soft);
 }
 
 .heroLinks {
@@ -100,7 +100,7 @@
   min-height: 44px;
   color: var(--indigo);
   text-decoration: underline;
-  text-decoration-color: var(--gold);
+  text-decoration-color: var(--accent);
   text-underline-offset: 0.32em;
 }
 
@@ -108,7 +108,7 @@
 .tourCopy a,
 .storyLead a {
   color: white;
-  text-decoration-color: var(--gold-soft);
+  text-decoration-color: var(--accent-soft);
 }
 
 .chapterCopy p {
@@ -381,7 +381,7 @@
   .chapterLinks a[aria-current='step'],
   .chapterLinks a:hover {
     color: var(--indigo);
-    border-color: var(--gold);
+    border-color: var(--accent);
   }
 
   .sequence[data-enhanced] .sequenceChapters .chapter {
@@ -588,7 +588,7 @@
 }
 
 .story :global(.showcaseFigure) figcaption span {
-  color: var(--gold-soft);
+  color: var(--accent-soft);
 }
 
 .story .stageImages {
@@ -601,7 +601,7 @@
 
 .story .chapterLinks a[aria-current='step'],
 .story .chapterLinks a:hover {
-  color: var(--gold-soft);
+  color: var(--accent-soft);
 }
 
 .tour {

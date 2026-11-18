@@ -16,7 +16,7 @@ const EXPLORE = [
   { label: 'Blogs', href: '/news', detail: 'Stories and project updates' },
 ] as const;
 
-const SECONDARY_ROUTES = new Set(['/gallery', '/immersive-media#virtual-tour', '/news', '/payment-plans']);
+const SECONDARY_ROUTES = new Set(['/gallery', '/immersive-media#virtual-tour', '/news', '/payment-plans', '/explore']);
 
 export function AureumFloatingNav() {
   const pathname = usePathname();

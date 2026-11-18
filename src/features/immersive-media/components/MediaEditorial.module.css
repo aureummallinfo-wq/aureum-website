@@ -1,4 +1,4 @@
-.opening {
+﻿.opening {
   position: relative;
   isolation: isolate;
   display: grid;
@@ -46,7 +46,7 @@
   min-height: 44px;
   color: white;
   text-decoration: underline;
-  text-decoration-color: var(--gold-soft);
+  text-decoration-color: var(--accent-soft);
   text-underline-offset: 4px;
 }
 

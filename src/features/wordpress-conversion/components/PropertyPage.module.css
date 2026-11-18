@@ -1,4 +1,4 @@
-.hero {
+﻿.hero {
   position: relative;
   isolation: isolate;
   display: grid;
@@ -66,7 +66,7 @@
 }
 
 .heroCopy > p {
-  color: var(--gold-soft);
+  color: var(--accent-soft);
 }
 
 .factGrid p,
@@ -95,13 +95,13 @@
   letter-spacing: normal;
   text-transform: none;
   text-decoration: underline;
-  text-decoration-color: var(--gold);
+  text-decoration-color: var(--accent);
   text-underline-offset: 4px;
 }
 
 .enquiryLink:global(.button):hover {
   background: transparent;
-  color: var(--gold);
+  color: var(--accent);
 }
 
 .heroLink:global(.button) {
@@ -114,13 +114,13 @@
   letter-spacing: normal;
   text-transform: none;
   text-decoration: underline;
-  text-decoration-color: var(--gold-soft);
+  text-decoration-color: var(--accent-soft);
   text-underline-offset: 5px;
 }
 
 .heroLink:global(.button):hover {
   background: none;
-  color: var(--gold-soft);
+  color: var(--accent-soft);
 }
 
 .facts {

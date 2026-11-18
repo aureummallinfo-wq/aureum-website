@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useEffect, useId, useRef, useState, useSyncExternalStore, type CSSProperties } from 'react';
 import Link from 'next/link';
@@ -52,7 +52,7 @@ function currentMonthKey(): MonthKey {
 }
 
 const STAGE_COLORS: Record<string, string> = {
-  booking: 'var(--gold-soft)',
+  booking: 'var(--accent-soft)',
   confirmation: '#b99766',
   monthly: '#8f91c9',
   halfYearly: '#5b5ea6',

@@ -32,9 +32,10 @@ export function AnimationToggle() {
       onClick={toggle}
       aria-pressed={disabled}
       title={disabled ? 'Enable animations' : 'Reduce animations'}
+      suppressHydrationWarning
     >
       <span aria-hidden="true">{disabled ? '▶' : '❚❚'}</span>
-      <span className="srOnly">{disabled ? 'Enable animations' : 'Reduce animations'}</span>
+      <span className="animationToggleLabel">{disabled ? 'Enable' : 'Pause'} animations</span>
     </button>
   );
 }

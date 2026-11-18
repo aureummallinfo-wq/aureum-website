@@ -24,13 +24,29 @@ export const SITE = {
   directionsUrl: 'https://www.google.com/maps/dir/?api=1&destination=Aureum+Mall+And+Residencies+Bahria+Town+Lahore',
 } as const;
 
+export const EXPLORE_NAV = [
+  {
+    href: '/gallery',
+    label: 'Gallery',
+    detail: 'Visual gallery and architectural renders',
+  },
+  {
+    href: '/immersive-media#virtual-tour',
+    label: '360° Tour',
+    detail: 'Interactive virtual walkthrough of Aureum',
+  },
+  {
+    href: '/news',
+    label: 'Blogs',
+    detail: 'Project updates, construction news and articles',
+  },
+] as const;
+
 export const PRIMARY_NAV = [
   { href: '/', label: 'Home' },
   { href: '/about', label: 'About' },
   { href: '/team', label: 'Team' },
   { href: '/payment-plans', label: 'Payment Plans' },
-  { href: '/gallery', label: 'Gallery' },
-  { href: '/immersive-media#virtual-tour', label: '360° Tour' },
-  { href: '/news', label: 'Blogs' },
+  { href: '/explore', label: 'Explore' },
   { href: '/contact', label: 'Contact' },
 ] as const;
