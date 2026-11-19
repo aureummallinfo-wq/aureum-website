@@ -3,7 +3,7 @@ import { Eyebrow } from '@/components/ui/Eyebrow';
 import { createRouteMetadata } from '@/features/content-seo/metadata';
 import { MediaOpening } from '@/features/immersive-media/components/MediaOpening';
 import { AccessSection, ShowcaseFigure } from '@/features/project-showcase/components/ProjectShowcase';
-import { FOOD_COURT_IMAGE, LEISURE_IMAGES } from '@/features/project-showcase/images';
+import { AMENITIES_VIDEO, FOOD_COURT_IMAGE, LEISURE_IMAGES } from '@/features/project-showcase/images';
 import type { AMENITIES } from '@/lib/project-facts';
 import styles from './amenities.module.css';
 
@@ -38,6 +38,19 @@ export default function Page() {
             <Link href="/food-court">Explore the Food Court →</Link>
           </div>
           <ShowcaseFigure image={LEISURE_IMAGES[0]} sizes="(max-width: 780px) 94vw, 60vw" />
+        </div>
+      </section>
+      <section className={styles.video} aria-labelledby="amenities-video-heading">
+        <div className={`container ${styles.videoGrid}`}>
+          <div>
+            <Eyebrow>See the experience</Eyebrow>
+            <h2 id="amenities-video-heading">A closer look at life at Aureum.</h2>
+            <p>Explore a short visual preview of the planned amenities and shared spaces.</p>
+          </div>
+          <video className={styles.videoPlayer} controls playsInline preload="metadata" poster={AMENITIES_VIDEO.poster} aria-label={AMENITIES_VIDEO.label}>
+            <source src={AMENITIES_VIDEO.src} type="video/mp4" />
+            Your browser does not support embedded video.
+          </video>
         </div>
       </section>
       <section className={styles.directory} id="planned-amenities" aria-labelledby="amenities-heading">

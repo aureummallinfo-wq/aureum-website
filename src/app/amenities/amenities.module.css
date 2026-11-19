@@ -3,6 +3,11 @@
   padding-block: clamp(50px, 8vw, 112px);
 }
 
+.video {
+  padding-block: clamp(50px, 8vw, 112px);
+  background: var(--page);
+}
+
 .story,
 .directory,
 .access {
@@ -10,6 +15,7 @@
 }
 
 .storyGrid,
+.videoGrid,
 .themes {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1.45fr);
@@ -17,12 +23,25 @@
   gap: clamp(24px, 6vw, 86px);
 }
 
+.videoGrid {
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.5fr);
+}
+
 .story h2,
+.video h2,
 .directory h2 {
   margin: 10px 0 20px;
   color: var(--indigo);
   font: 400 clamp(2.65rem, 6vw, 6rem)/0.98 var(--font-serif);
   letter-spacing: -0.04em;
+}
+
+.videoPlayer {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: var(--navy-deep);
+  object-fit: cover;
 }
 
 .story p:not(:first-child),
@@ -90,7 +109,8 @@
 }
 
 @media (max-width: 780px) {
-  .storyGrid {
+  .storyGrid,
+  .videoGrid {
     grid-template-columns: 1fr;
   }
 
