@@ -60,6 +60,33 @@
   color: white;
 }
 
+.nextTeaser {
+  position: absolute;
+  right: 40px;
+  bottom: 28px;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: rgb(255 255 255 / 60%);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: color 0.2s ease;
+}
+
+.nextTeaser:hover {
+  color: rgb(255 255 255 / 92%);
+}
+
+.nextDivider {
+  width: 1px;
+  height: 14px;
+  background: rgb(255 255 255 / 32%);
+}
+
 @media (max-width: 760px) {
   .editorial:global(.heroCinema) {
     min-height: calc(100svh - 58px);
@@ -73,6 +100,13 @@
 
   .editorial h1 {
     font-size: clamp(3.1rem, 11vw, 5.4rem);
+  }
+
+  .nextTeaser {
+    right: 20px;
+    bottom: 20px;
+    left: 20px;
+    font-size: 10px;
   }
 }
 

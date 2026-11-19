@@ -39,6 +39,12 @@ export function Hero() {
         </dl>
         <span className="heroCinemaNote">Artist’s impression</span>
       </div>
+      <a className={styles.nextTeaser} href="#location-route-animation">
+        <span>NEXT</span>
+        <span className={styles.nextDivider} aria-hidden="true" />
+        <span>10 MINUTES FROM LAHORE AIRPORT</span>
+        <span aria-hidden="true">↓</span>
+      </a>
     </section>
   );
 }
