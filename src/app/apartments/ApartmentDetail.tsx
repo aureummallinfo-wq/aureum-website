@@ -20,7 +20,7 @@ const layouts = {
   '1-bed': {
     name: '1 Bed',
     title: 'A room of your own.',
-    intro: 'A separate bedroom and living area give these outer-facing apartments distinct spaces for resting and entertaining.',
+    intro: 'A separate bedroom and living area give these Inner and Outer apartments distinct spaces for resting and entertaining.',
     hero: RESIDENCE_IMAGES[1],
     plan: {
       src: '/assets/aureum/approved/floor-plans/aureum-1-bed-apartment-floor-plan.webp',
@@ -83,7 +83,7 @@ export function ApartmentDetail({ type }: { type: keyof typeof layouts }) {
             <Eyebrow>{layout.name}</Eyebrow>
             <h2 id="unit-layout">Inside the layout.</h2>
             <p>{type === '1-bed'
-              ? 'The drawing shows the 658 sq ft configuration. Ask the sales team for the 622 sq ft plan.'
+              ? 'The drawing shows the 658 sq ft configuration. Ask the sales team for the 622 sq ft plan and the Inner category availability.'
               : 'Explore the representative cutaway. Ask the sales team for the final plan and dimensions for your chosen unit.'}</p>
             <Link href="/floor-plans">Explore building floor plans →</Link>
           </div>

@@ -60,7 +60,7 @@ const STAGE_COLORS: Record<string, string> = {
 };
 
 function unitLabel(item: PricedUnit) {
-  const category = item.row.premium ? 'Premium' : item.row.unitCategory;
+  const category = item.row.unitCategory ?? (item.row.premium ? 'Premium' : undefined);
   return `${item.row.type} · ${formatSqFt(item.row.sizeSqFt)}${category ? ` · ${category}` : ''}`;
 }
 

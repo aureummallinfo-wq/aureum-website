@@ -9,9 +9,11 @@ describe('price list', () => {
     expect(SOURCE_PAYMENT_TABLES.map((table) => table.id)).toEqual(['apartments', 'offices', 'first-floor-shops', 'second-floor-shops', 'food-court']);
   });
 
-  it('lists the seven catalogue residences, with the 1,316 sq ft unit as 2 bedrooms + servant quarter', () => {
+  it('lists the nine catalogue residences, with Inner, Outer and Glass categories', () => {
     const apartments = SOURCE_PAYMENT_TABLES.find((table) => table.id === 'apartments')!;
-    expect(apartments.rows.map((row) => row.sizeSqFt)).toEqual([426, 622, 658, 1103, 1316, 1491, 1727]);
+    expect(apartments.rows.map((row) => row.sizeSqFt)).toEqual([426, 658, 622, 658, 1381, 1103, 1316, 1491, 1727]);
+    expect(apartments.rows.filter((row) => row.unitCategory === 'Inner').map((row) => row.sizeSqFt)).toEqual([426, 658, 1381]);
+    expect(apartments.rows.filter((row) => row.unitCategory === 'Glass').map((row) => row.sizeSqFt)).toEqual([1491, 1727]);
     expect(apartments.rows.find((row) => row.sizeSqFt === 1316)?.type).toBe('2 Bedrooms + Servant Quarter');
     expect(apartments.rows.filter((row) => row.premium).map((row) => row.sizeSqFt)).toEqual([1491, 1727]);
   });
@@ -27,6 +29,8 @@ describe('price list', () => {
   it('matches the catalogue prices for key units', () => {
     const price = (tableId: string, size: number) => SOURCE_PAYMENT_TABLES.find((t) => t.id === tableId)!.rows.find((r) => r.sizeSqFt === size)!.totalPrice;
     expect(price('apartments', 426)).toBe(8_733_000);
+    expect(price('apartments', 658)).toBe(13_489_000);
+    expect(price('apartments', 1381)).toBe(28_310_500);
     expect(price('apartments', 1316)).toBe(28_294_000);
     expect(price('apartments', 1727)).toBe(39_721_000);
     expect(price('offices', 2595)).toBe(64_875_000);

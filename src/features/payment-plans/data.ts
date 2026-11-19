@@ -27,7 +27,7 @@ export const APPROVED_PAYMENT_PLANS: PaymentPlan[] = [];
 export type SourcePaymentRow = {
   type: string;
   sizeSqFt: number;
-  unitCategory?: 'Inner' | 'Outer';
+  unitCategory?: 'Inner' | 'Outer' | 'Glass';
   /** Premium homes (the Signature Glass Apartments), sold as a category of their own. */
   premium?: boolean;
   ratePerSqFt: number;
@@ -83,8 +83,9 @@ function unit(type: string, sizeSqFt: number, ratePerSqFt: number, options: Unit
 }
 
 // Transcribed from the updated November 2026 Aureum Catalogue (the official price list). The residences
-// follow its seven listed units: the 1,316 sq ft two-bedroom includes a servant quarter, and the Signature
-// Glass Apartments are the premium category. The Commercial & Food Court brochure and factsheet set
+// follow its nine listed units: the 1,316 sq ft two-bedroom includes a servant quarter, the 658 sq ft
+// one-bedroom and 1,381 sq ft two-bedroom are Inner category, and Signature Glass Apartments are the
+// premium Glass category. The Commercial & Food Court brochure and factsheet set
 // first-floor shops at PKR 50,000/sq ft. Base prices exclude 10% category charges.
 export const SOURCE_PAYMENT_TABLES: readonly SourcePaymentTable[] = [
   {
@@ -95,15 +96,17 @@ export const SOURCE_PAYMENT_TABLES: readonly SourcePaymentTable[] = [
     installmentLabel: '4.5-year plan · 55 monthly installments',
     possessionLabel: 'Indicative possession 3.5 years',
     monthlyCount: 55,
-    note: 'Inner and outer categories as per the official price list; Signature Glass Apartments are the premium category.',
+    note: 'Inner, outer and Glass categories as per the official price list; Signature Glass Apartments are the premium category.',
     rows: [
       unit('Studio', 426, 20500, { unitCategory: 'Inner' }),
+      unit('1 Bedroom', 658, 20500, { unitCategory: 'Inner' }),
       unit('1 Bedroom', 622, 21500, { unitCategory: 'Outer' }),
       unit('1 Bedroom', 658, 21500, { unitCategory: 'Outer' }),
+      unit('2 Bedrooms', 1381, 20500, { unitCategory: 'Inner' }),
       unit('2 Bedrooms', 1103, 21500, { unitCategory: 'Outer' }),
       unit('2 Bedrooms + Servant Quarter', 1316, 21500, { unitCategory: 'Outer' }),
-      unit('Signature Glass', 1491, 23000, { unitCategory: 'Outer', premium: true }),
-      unit('Signature Glass', 1727, 23000, { unitCategory: 'Outer', premium: true }),
+      unit('Signature Glass', 1491, 23000, { unitCategory: 'Glass', premium: true }),
+      unit('Signature Glass', 1727, 23000, { unitCategory: 'Glass', premium: true }),
     ],
   },
   {

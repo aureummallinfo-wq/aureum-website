@@ -76,8 +76,10 @@ function pricedUnit(seed: UnitSeed): UnitPlan {
  */
 export const UNIT_PLANS: UnitPlan[] = [
   pricedUnit({ id: 'apartment-studio-426-inner', category: 'apartment', unitType: 'Studio', floor: '6th-12th floors', bedrooms: 0, sizeSqFt: 426, orientation: 'inner', ratePerSqFt: 20500, monthlyCount: 55 }),
+  pricedUnit({ id: 'apartment-1-bed-658-inner', category: 'apartment', unitType: '1 Bedroom', floor: '6th-12th floors', bedrooms: 1, sizeSqFt: 658, orientation: 'inner', ratePerSqFt: 20500, monthlyCount: 55 }),
   pricedUnit({ id: 'apartment-1-bed-622-outer', category: 'apartment', unitType: '1 Bedroom', floor: '6th-12th floors', bedrooms: 1, sizeSqFt: 622, orientation: 'outer', ratePerSqFt: 21500, monthlyCount: 55 }),
   pricedUnit({ id: 'apartment-1-bed-658-outer', category: 'apartment', unitType: '1 Bedroom', floor: '6th-12th floors', bedrooms: 1, sizeSqFt: 658, orientation: 'outer', ratePerSqFt: 21500, monthlyCount: 55 }),
+  pricedUnit({ id: 'apartment-2-bed-1381-inner', category: 'apartment', unitType: '2 Bedrooms', floor: '6th-12th floors', bedrooms: 2, sizeSqFt: 1381, orientation: 'inner', ratePerSqFt: 20500, monthlyCount: 55 }),
   pricedUnit({ id: 'apartment-2-bed-1103-outer', category: 'apartment', unitType: '2 Bedrooms', floor: '6th-12th floors', bedrooms: 2, sizeSqFt: 1103, orientation: 'outer', ratePerSqFt: 21500, monthlyCount: 55 }),
   pricedUnit({ id: 'apartment-2-bed-servant-1316-outer', category: 'apartment', unitType: '2 Bedrooms + Servant Quarter', floor: '6th-12th floors', bedrooms: 2, sizeSqFt: 1316, orientation: 'outer', ratePerSqFt: 21500, monthlyCount: 55 }),
   pricedUnit({ id: 'apartment-signature-glass-1491', category: 'apartment', unitType: 'Signature Glass Apartment', floor: '6th-12th floors', sizeSqFt: 1491, orientation: 'outer', ratePerSqFt: 23000, monthlyCount: 55 }),
