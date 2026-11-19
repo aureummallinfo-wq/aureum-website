@@ -4,6 +4,7 @@
 
 .hero,
 .plan,
+.video,
 .options,
 .interiors,
 .enquiry {
@@ -94,8 +95,18 @@
 }
 
 .plan,
+.video,
 .enquiry {
   background: var(--soft);
+}
+
+.videoPlayer {
+  display: block;
+  width: min(100%, 1120px);
+  margin-top: 28px;
+  aspect-ratio: 16 / 9;
+  background: var(--navy-deep);
+  object-fit: cover;
 }
 
 .planImage :global(.showcaseFigureImage) {

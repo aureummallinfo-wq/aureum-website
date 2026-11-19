@@ -4,7 +4,7 @@ import { ButtonLink } from '@/components/ui/ButtonLink';
 import { Eyebrow } from '@/components/ui/Eyebrow';
 import { calcHref, formatPKR, formatSqFt, unitsForTables } from '@/features/payment-plans/units';
 import { ShowcaseFigure, ShowcaseGallery, type ShowcaseImage } from '@/features/project-showcase/components/ProjectShowcase';
-import { CUTAWAY_IMAGES, RESIDENCE_IMAGES } from '@/features/project-showcase/images';
+import { CUTAWAY_IMAGES, ONE_BEDROOM_VIRTUAL_TOUR, RESIDENCE_IMAGES } from '@/features/project-showcase/images';
 import styles from './apartment-detail.module.css';
 
 const layouts = {
@@ -90,6 +90,20 @@ export function ApartmentDetail({ type }: { type: keyof typeof layouts }) {
           <ShowcaseFigure className={styles.planImage} image={layout.plan} zoomable sizes="(max-width: 760px) 94vw, 55vw" />
         </div>
       </section>
+
+      {type === '1-bed' ? (
+        <section className={styles.video} aria-labelledby="one-bedroom-tour">
+          <div className="container">
+            <Eyebrow>Residential walkthrough</Eyebrow>
+            <h2 id="one-bedroom-tour">Step inside the 1-bedroom home.</h2>
+            <p>Take a short virtual tour of the living space, presented as an artist’s impression.</p>
+            <video className={styles.videoPlayer} controls playsInline preload="metadata" poster={ONE_BEDROOM_VIRTUAL_TOUR.poster} aria-label={ONE_BEDROOM_VIRTUAL_TOUR.label}>
+              <source src={ONE_BEDROOM_VIRTUAL_TOUR.src} type="video/mp4" />
+              Your browser does not support embedded video.
+            </video>
+          </div>
+        </section>
+      ) : null}
 
       <section className={`container ${styles.options}`} aria-labelledby="unit-options">
         <h2 id="unit-options">Sizes and payment plans.</h2>

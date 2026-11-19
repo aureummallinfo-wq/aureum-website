@@ -39,6 +39,12 @@ export const RESIDENCE_CLIPS = [
   { src: '/video/aureum-lounge-clip.mp4', label: 'Living & dining', detail: 'Open kitchen, dining and lounge with floor-to-ceiling glazing.' },
 ] as const;
 
+export const ONE_BEDROOM_VIRTUAL_TOUR = {
+  src: '/video/aureum-1-bedroom-virtual-tour.mp4',
+  poster: '/video/posters/aureum-1-bedroom-virtual-tour.webp',
+  label: '1-bedroom virtual tour',
+} as const;
+
 export const CUTAWAY_IMAGES: readonly ShowcaseImage[] = [
   { src: `${base}/residences/aureum-studio-cutaway.webp`, alt: 'Representative 3D layout of an Aureum studio apartment', label: 'Studio · representative layout' },
   { src: `${base}/residences/aureum-two-bed-cutaway.webp`, alt: 'Representative 3D layout of an Aureum two-bedroom apartment', label: 'Two bedrooms · representative layout' },
