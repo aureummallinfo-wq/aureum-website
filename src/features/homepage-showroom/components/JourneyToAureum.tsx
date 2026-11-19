@@ -70,7 +70,7 @@ export function JourneyToAureum() {
   }
 
   return (
-    <section ref={sectionRef} className="journeySection" style={{ '--journey-stops': JOURNEY_TO_AUREUM.length } as CSSProperties} aria-labelledby="journey-heading">
+    <section id="location-route-animation" ref={sectionRef} className="journeySection" style={{ '--journey-stops': JOURNEY_TO_AUREUM.length } as CSSProperties} aria-labelledby="journey-heading">
       <div className="journeySticky">
         <div className="journeyVisual" aria-hidden="true">
           {JOURNEY_TO_AUREUM.map((stop, index) => {
