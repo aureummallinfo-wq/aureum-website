@@ -1,18 +1,16 @@
 import { SectionHeading } from '@/components/ui/SectionHeading';
-import { RESIDENCE_CLIPS, RESIDENCE_IMAGES } from '../images';
-
-const posters = [RESIDENCE_IMAGES[2], RESIDENCE_IMAGES[5], RESIDENCE_IMAGES[5], RESIDENCE_IMAGES[0]];
+import { RESIDENCE_FEATURED_VIDEOS } from '../images';
 
 export function ResidenceWalkthrough() {
   return (
     <section className="section walkthroughSection" aria-labelledby="walkthrough-heading">
       <div className="container">
-        <SectionHeading id="walkthrough-heading" eyebrow="Step inside" title="From the corridor to your living room." description="Four short, silent interior clips. Choose a clip to play it." />
+        <SectionHeading id="walkthrough-heading" eyebrow="Step inside" title="Choose your residence walkthrough." description="Select one of the latest residential videos to preview a Studio or 1-bedroom home." />
         <ol className="walkthroughGrid">
-          {RESIDENCE_CLIPS.map((clip, index) => (
+          {RESIDENCE_FEATURED_VIDEOS.map((clip) => (
             <li key={clip.src} className="walkthroughItem">
               <div className="walkthroughMedia">
-                <video src={clip.src} poster={posters[index].src} controls playsInline preload="none" aria-label={clip.label} />
+                <video src={clip.src} poster={clip.poster} controls playsInline preload="metadata" aria-label={clip.label} />
               </div>
               <h3>{clip.label}</h3>
               <p>{clip.detail}</p>

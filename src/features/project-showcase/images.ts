@@ -57,6 +57,21 @@ export const AMENITIES_VIDEO = {
   label: 'Aureum amenities video',
 } as const;
 
+export const RESIDENCE_FEATURED_VIDEOS = [
+  {
+    src: STUDIO_VIRTUAL_TOUR.src,
+    poster: STUDIO_VIRTUAL_TOUR.poster,
+    label: 'Studio apartment virtual tour',
+    detail: 'A compact studio layout with the living, sleeping and kitchen zones brought together.',
+  },
+  {
+    src: ONE_BEDROOM_VIRTUAL_TOUR.src,
+    poster: ONE_BEDROOM_VIRTUAL_TOUR.poster,
+    label: '1-bedroom apartment virtual tour',
+    detail: 'A separate bedroom, living space and kitchen arranged for everyday life.',
+  },
+] as const;
+
 export const CUTAWAY_IMAGES: readonly ShowcaseImage[] = [
   { src: `${base}/residences/aureum-studio-cutaway.webp`, alt: 'Representative 3D layout of an Aureum studio apartment', label: 'Studio · representative layout' },
   { src: `${base}/residences/aureum-two-bed-cutaway.webp`, alt: 'Representative 3D layout of an Aureum two-bedroom apartment', label: 'Two bedrooms · representative layout' },
