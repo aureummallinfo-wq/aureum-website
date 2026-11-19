@@ -22,7 +22,7 @@ const WAYPOINTS: Waypoint[] = [
     title: 'LAHORE\nAIRPORT',
     subtitle: 'Where the drive begins. Allama Iqbal International Airport, direct onto Ring Road.',
     progress: 0.0,
-    image: `${SAT}/01_Airport_Wide.jpg`,
+    image: `${SAT}/01_Airport_Wide.webp`,
   },
   {
     id: 'dha',
@@ -30,7 +30,7 @@ const WAYPOINTS: Waypoint[] = [
     title: 'DHA\nLAHORE',
     subtitle: 'Bypassing central city traffic via the eastern ring expressway.',
     progress: 0.2,
-    image: `${SAT}/03_DHA_Phase5_Interchange.jpg`,
+    image: `${SAT}/03_DHA_Phase5_Interchange.webp`,
   },
   {
     id: 'kalma',
@@ -38,7 +38,7 @@ const WAYPOINTS: Waypoint[] = [
     title: 'KALMA\nCHOWK',
     subtitle: 'Connectivity to Gulberg, Ferozepur Road and Liberty via Ring Road flyovers.',
     progress: 0.4,
-    image: `${SAT}/04_Kalma_Chowk_FullZoom.jpg`,
+    image: `${SAT}/04_Kalma_Chowk_FullZoom.webp`,
   },
   {
     id: 'adda',
@@ -46,7 +46,7 @@ const WAYPOINTS: Waypoint[] = [
     title: 'ADDA\nPLOT',
     subtitle: 'Entrance to the Southern Loop SL-3, toward Bahria Town.',
     progress: 0.6,
-    image: `${SAT}/06_Adda_Plot_Southern_Loop.jpg`,
+    image: `${SAT}/06_Adda_Plot_Southern_Loop.webp`,
   },
   {
     id: 'interchange',
@@ -54,7 +54,7 @@ const WAYPOINTS: Waypoint[] = [
     title: 'BAHRIA TOWN\nINTERCHANGE',
     subtitle: 'Dedicated interchange exit descending into Bahria Town Main Boulevard.',
     progress: 0.8,
-    image: `${SAT}/07_Bahria_Interchange_Wide.jpg`,
+    image: `${SAT}/07_Bahria_Interchange_Wide.webp`,
   },
   {
     id: 'aureum',
@@ -62,7 +62,7 @@ const WAYPOINTS: Waypoint[] = [
     title: 'AUREUM MALL\n& RESIDENCES',
     subtitle: 'Bahria Town Ring Road Interchange, Lahore.',
     progress: 1.0,
-    image: `${SAT}/09_Aureum_Approach.jpg`,
+    image: `${SAT}/09_Aureum_Approach.webp`,
   },
 ];
 
