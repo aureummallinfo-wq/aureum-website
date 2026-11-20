@@ -734,6 +734,138 @@ textarea:focus-visible {
   margin-top: 36px;
 }
 
+.paymentRouterSection {
+  padding: clamp(30px, 5vw, 62px) 0;
+  background: var(--page);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.paymentRouter {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 390px);
+  gap: 40px;
+  align-items: center;
+}
+
+.paymentRouterEyebrow {
+  margin: 0 0 10px;
+  color: var(--accent);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.paymentRouter h2 {
+  margin: 0 0 10px;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: clamp(30px, 4vw, 48px);
+  font-weight: 400;
+  letter-spacing: -0.045em;
+  line-height: 1;
+}
+
+.paymentRouter p:not(.paymentRouterEyebrow) {
+  max-width: 580px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.paymentRouterDropdown {
+  position: relative;
+}
+
+.paymentRouterDropdown summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 17px 20px;
+  border: 1px solid var(--line-gold);
+  background: var(--surface);
+  color: var(--ink);
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 700;
+  list-style: none;
+}
+
+.paymentRouterDropdown summary::-webkit-details-marker {
+  display: none;
+}
+
+.paymentRouterDropdown summary::after {
+  content: '+';
+  color: var(--accent);
+  font-size: 17px;
+}
+
+.paymentRouterDropdown[open] summary::after {
+  content: '-';
+}
+
+.paymentRouterMenu {
+  position: absolute;
+  z-index: 4;
+  right: 0;
+  left: 0;
+  display: grid;
+  margin-top: 8px;
+  padding: 8px;
+  border: 1px solid var(--line-gold);
+  background: var(--surface);
+  box-shadow: var(--shadow-card);
+}
+
+.paymentRouterMenu a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 12px;
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.paymentRouterMenu a:hover {
+  background: var(--page);
+  color: var(--indigo);
+}
+
+.paymentRouterMenu a span:first-child {
+  display: grid;
+  gap: 3px;
+}
+
+.paymentRouterMenu small {
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.paymentRouterMenu a > span:last-child {
+  color: var(--accent);
+  font-size: 18px;
+}
+
+@media (max-width: 760px) {
+  .paymentRouter {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .paymentRouterDropdown {
+    width: 100%;
+  }
+}
+
 .snapshotSection {
   background: var(--surface);
 }

@@ -11,6 +11,7 @@ import { AMENITIES, DEVELOPER, PROJECT_STATS } from '@/lib/project-facts';
 import { ShowcaseFigure } from '@/features/project-showcase/components/ProjectShowcase';
 import { EXTERIOR_NIGHT_WIDE, FOOD_COURT_IMAGE, GLASS_ATRIUM_AERIAL, GLASS_ATRIUM_CLOSE, MALL_IMAGES, MAIN_ROAD_VIEW, OFFICE_IMAGES, RESIDENCE_IMAGES, RING_ROAD_SUNSET } from '@/features/project-showcase/images';
 import { AnimatedCounter } from '@/components/ui/AnimatedCounter';
+import { PaymentPlanRouter } from '@/features/payment-plans/components/PaymentPlanRouter';
 
 import { ResidenceGallery } from '@/app/apartments/ResidenceGallery';
 import { ResidenceSequence } from '@/app/apartments/ResidenceSequence';
@@ -63,8 +64,8 @@ export function WordPressHomeExperience() {
             <Image src={EXTERIOR_NIGHT_WIDE.src} alt={EXTERIOR_NIGHT_WIDE.alt} fill sizes="100vw" />
           </figure>
           <div className={`container ${styles.gatewayCaption}`}>
-            <div><Eyebrow>Aureum Mall &amp; Residences � Artist's impression</Eyebrow><h2 id="architecture-heading">Explore the architecture.</h2></div>
-            <Link href="#architecture-scenes">See the views <span aria-hidden="true"></span></Link>
+            <div><Eyebrow>Aureum Mall &amp; Residences · Artist’s impression</Eyebrow><h2 id="architecture-heading">Explore the architecture.</h2></div>
+            <Link href="#architecture-scenes">See the views <span aria-hidden="true">↓</span></Link>
           </div>
         </div>
       </section>
@@ -105,7 +106,7 @@ export function WordPressHomeExperience() {
             <Eyebrow>Aureum Residences</Eyebrow>
             <h2 id="home-residences-heading">A home above the city.</h2>
             <p>Come inside the residences, from the private arrival to the living spaces, and explore Studio, 1 Bed and 2 Bed layouts.</p>
-            <ButtonLink href="/apartments" variant="dark">Experience the residences <span aria-hidden="true"></span></ButtonLink>
+            <ButtonLink href="/apartments" variant="dark">Experience the residences <span aria-hidden="true">→</span></ButtonLink>
           </div>
         </div>
       </section>
@@ -131,14 +132,7 @@ export function WordPressHomeExperience() {
         </div>
       </section>
 
-      <section className="section calcSection" aria-labelledby="wp-prices-heading">
-        <div className="container">
-          <SectionHeading id="wp-prices-heading" eyebrow="Payment plans" title="Clear plans for every category." description="Explore the complete prices, instalments and possession schedule on the dedicated Payment Plans page." />
-          <div className="sectionAction">
-            <ButtonLink href="/payment-plans" variant="dark">Explore payment plans</ButtonLink>
-          </div>
-        </div>
-      </section>
+      <PaymentPlanRouter />
 
       <section className="section trustUpdatesSection" aria-labelledby="wp-site-heading">
         <div className="container">
@@ -151,7 +145,7 @@ export function WordPressHomeExperience() {
       <section className="wpTourSection section" aria-labelledby="wp-tour-heading">
         <div className="container wpTourGrid">
           <div>
-            <SectionHeading id="wp-tour-heading" eyebrow="360� virtual tour" title="Walk through Aureum before you visit." description="Step inside an interactive 360� concept tour of the development: look around the arrival, the mall, the residences and lifestyle spaces." />
+            <SectionHeading id="wp-tour-heading" eyebrow="360° virtual tour" title="Walk through Aureum before you visit." description="Step inside an interactive 360° concept tour of the development: look around the arrival, the mall, the residences and lifestyle spaces." />
             <div className={styles.spaceLinks}>
               <ButtonLink href="/immersive-media#virtual-tour" variant="dark">See all project media</ButtonLink>
               <ButtonLink href="/immersive-media#film-heading-immersive_media" variant="dark">Watch the project film</ButtonLink>
@@ -200,4 +194,3 @@ export function WordPressHomeExperience() {
     </>
   );
 }
-

@@ -13,7 +13,7 @@ import { clamp01, getHeaderMotion } from '@/lib/navigation-motion';
 const EXPLORE = [
   { label: 'Gallery', href: '/gallery', detail: 'Discover our spaces' },
   { label: '360° Tour', href: '/immersive-media#virtual-tour', detail: 'Explore virtually' },
-  { label: '1 Bed Apartments', href: '/apartments/1-bed', detail: 'Explore one-bedroom residences' },
+  { label: 'Apartments', href: '/apartments', detail: 'Explore Studio, 1 Bed, 2 Bed and Signature Glass residences' },
   { label: 'Corporate Offices', href: '/corporate-offices', detail: 'Explore office spaces' },
   { label: 'Blogs', href: '/news', detail: 'Stories and project updates' },
 ] as const;

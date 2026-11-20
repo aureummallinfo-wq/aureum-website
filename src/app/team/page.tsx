@@ -2,7 +2,7 @@ import Image from 'next/image';
 import { ButtonLink } from '@/components/ui/ButtonLink';
 import { Eyebrow } from '@/components/ui/Eyebrow';
 import { createRouteMetadata } from '@/features/content-seo/metadata';
-import { salesTeam, TeamDirectory } from '@/features/project-showcase/components/ProjectShowcase';
+import { LeadershipSection, salesTeam, TeamDirectory } from '@/features/project-showcase/components/ProjectShowcase';
 import { SITE } from '@/lib/site';
 import { callHref } from '@/lib/whatsapp';
 
@@ -21,7 +21,7 @@ export default function TeamPage() {
             <h1>People who make your next move clearer.</h1>
             <p>Meet the Aureum sales advisors who can answer your questions, explain your options and arrange a personal site visit.</p>
             <div className="actions">
-              <ButtonLink href="#team">Meet the team <span aria-hidden="true"></span></ButtonLink>
+              <ButtonLink href="#team">Meet the team <span aria-hidden="true">↓</span></ButtonLink>
               <ButtonLink href="/contact?intent=site_visit#enquiry" variant="secondary">Book a visit</ButtonLink>
             </div>
           </div>
@@ -34,6 +34,7 @@ export default function TeamPage() {
           </div>
         </div>
       </section>
+      <LeadershipSection />
       <TeamDirectory />
       <section className="section teamCta" aria-labelledby="team-cta-heading">
         <div className="container teamCtaInner">
@@ -51,4 +52,3 @@ export default function TeamPage() {
     </>
   );
 }
-

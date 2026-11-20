@@ -32,7 +32,7 @@ export const EXPLORE_NAV = [
   },
   {
     href: '/immersive-media#virtual-tour',
-    label: '360� Tour',
+    label: '360° Tour',
     detail: 'Interactive virtual walkthrough of Aureum',
   },
   {
@@ -60,4 +60,3 @@ export const PRIMARY_NAV = [
   { href: '/explore', label: 'Explore' },
   { href: '/contact', label: 'Contact' },
 ] as const;
-
