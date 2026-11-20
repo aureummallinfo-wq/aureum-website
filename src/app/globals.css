@@ -5039,6 +5039,16 @@ textarea:focus-visible {
 .trustMapFigure { margin: 0; }
 .trustMapFigure img { display: block; width: 100%; height: auto; border-radius: var(--radius-sm); box-shadow: var(--shadow-card); }
 .trustMapFigure figcaption { padding-top: 8px; color: var(--muted); font-size: 12px; }
+.wpLocationMapCard {
+  margin: 0;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  box-shadow: var(--shadow-card);
+}
+.wpLocationMapCard a { display: block; overflow: hidden; border-radius: inherit; }
+.wpLocationMapCard img { display: block; width: 100%; height: auto; }
+.wpLocationMapCard figcaption { padding: 10px 14px 14px; color: var(--muted); font-size: 12px; }
 .wpLocationMap img { object-fit: contain !important; }
 .wpFloorVisual img { object-fit: contain; padding: 12px; }
 

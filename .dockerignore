@@ -1,0 +1,19 @@
+node_modules
+.next
+.git
+.vercel
+.env*
+!.env.example
+*.log
+docs
+work
+.claude
+/final location map.mp4
+/wetransfer_*.zip
+/Belgrade-*.pdf
+/Belgrade-*.html
+/belgrade-arbor-*.html
+/render_aureum_master.ps1
+/ROUTE-ANIMATION-HOMEPAGE-PROMPT.md
+/aureum-route-animation-demo.html
+/start-site*.bat

@@ -47,7 +47,7 @@ export default function Page() {
             <h2 id="amenities-video-heading">A closer look at life at Aureum.</h2>
             <p>Explore a short visual preview of the planned amenities and shared spaces.</p>
           </div>
-          <video className={styles.videoPlayer} controls playsInline preload="metadata" poster={AMENITIES_VIDEO.poster} aria-label={AMENITIES_VIDEO.label}>
+          <video className={styles.videoPlayer} controls playsInline preload="none" poster={AMENITIES_VIDEO.poster} aria-label={AMENITIES_VIDEO.label}>
             <source src={AMENITIES_VIDEO.src} type="video/mp4" />
             Your browser does not support embedded video.
           </video>

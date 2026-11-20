@@ -5,11 +5,10 @@ import { Eyebrow } from '@/components/ui/Eyebrow';
 import { SectionHeading } from '@/components/ui/SectionHeading';
 import { BuildingExplorer } from '@/features/building-explorer/components/BuildingExplorer';
 import { VirtualTourEmbed } from '@/features/immersive-media/components/VirtualTourEmbed';
-import { LiveMap } from '@/features/trust-location/components/LiveMap';
 import { SiteUpdates } from '@/features/trust-location/components/SiteUpdates';
 import { AMENITIES, DEVELOPER, PROJECT_STATS } from '@/lib/project-facts';
 import { ShowcaseFigure } from '@/features/project-showcase/components/ProjectShowcase';
-import { EXTERIOR_NIGHT_WIDE, FOOD_COURT_IMAGE, GLASS_ATRIUM_AERIAL, GLASS_ATRIUM_CLOSE, MALL_IMAGES, MAIN_ROAD_VIEW, OFFICE_IMAGES, RESIDENCE_IMAGES, RING_ROAD_SUNSET } from '@/features/project-showcase/images';
+import { EXTERIOR_NIGHT_WIDE, FOOD_COURT_IMAGE, GLASS_ATRIUM_AERIAL, GLASS_ATRIUM_CLOSE, LOCATION_MAP, MALL_IMAGES, MAIN_ROAD_VIEW, OFFICE_IMAGES, RESIDENCE_IMAGES, RING_ROAD_SUNSET } from '@/features/project-showcase/images';
 import { AnimatedCounter } from '@/components/ui/AnimatedCounter';
 import { PaymentPlanRouter } from '@/features/payment-plans/components/PaymentPlanRouter';
 
@@ -171,7 +170,12 @@ export function WordPressHomeExperience() {
 
       <section className="wpLocationSection section" aria-labelledby="wp-location-heading">
         <div className="container wpLocationGrid">
-          <LiveMap className="wpLiveMap" />
+          <figure className="wpLocationVisual wpLocationMapCard">
+            <a href={LOCATION_MAP.src} target="_blank" rel="noopener" aria-label="Open the full-size Aureum location map">
+              <Image src={LOCATION_MAP.src} alt={LOCATION_MAP.alt} width={1448} height={1086} sizes="(max-width: 900px) 94vw, 56vw" />
+            </a>
+            <figcaption>{LOCATION_MAP.note}</figcaption>
+          </figure>
           <div className="textReveal">
             <Eyebrow>Location / Ring Road Interchange</Eyebrow>
             <h2 id="wp-location-heading">At the gateway to Bahria Town.</h2>

@@ -98,7 +98,7 @@ export function ApartmentDetail({ type }: { type: keyof typeof layouts }) {
             <Eyebrow>Residential walkthrough</Eyebrow>
             <h2 id="residential-tour">{type === 'studio' ? 'Walk through the studio home.' : 'Step inside the 1-bedroom home.'}</h2>
             <p>Take a short virtual tour of the living space, presented as an artist’s impression.</p>
-            <video className={styles.videoPlayer} controls playsInline preload="metadata" poster={virtualTour.poster} aria-label={virtualTour.label}>
+            <video className={styles.videoPlayer} controls playsInline preload="none" poster={virtualTour.poster} aria-label={virtualTour.label}>
               <source src={virtualTour.src} type="video/mp4" />
               Your browser does not support embedded video.
             </video>

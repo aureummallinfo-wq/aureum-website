@@ -7,7 +7,6 @@ import { SITE } from '@/lib/site';
 import { MediaOpening } from '@/features/immersive-media/components/MediaOpening';
 import { VIRTUAL_TOUR } from '@/features/immersive-media/data';
 import { LOCATION_MAP } from '@/features/project-showcase/images';
-import { LiveMap } from './LiveMap';
 import { AureumRouteAnimation } from './AureumRouteAnimation';
 import { SiteUpdates } from './SiteUpdates';
 import { GROUNDBREAKING, SITE_UPDATES } from '../site-updates';
@@ -27,16 +26,12 @@ function LocationSection() {
               <Link href="/contact?intent=site_visit#enquiry">Book a site visit →</Link>
             </div>
           </div>
-          <figure className="trustMapFigure">
+          <figure className="trustMapFigure" id="location-map">
             <a href={LOCATION_MAP.src} target="_blank" rel="noopener" aria-label="Open the full-size location map">
               <Image src={LOCATION_MAP.src} alt={LOCATION_MAP.alt} width={1448} height={1086} sizes="(max-width: 780px) 94vw, 60vw" />
             </a>
             <figcaption>{LOCATION_MAP.note}</figcaption>
           </figure>
-        </div>
-        <div className={styles.map} id="location-live-map">
-          <h2>Find Aureum on the map.</h2>
-          <LiveMap className="trustLiveMap" />
         </div>
       </div>
     </section>
@@ -75,7 +70,7 @@ export function TrustLocationExperience() {
         links={[
           { href: '#location-route-animation', label: 'Ring Road route animation' },
           { href: '#trust-location-workspace', label: 'Location and directions' },
-          { href: '#location-live-map', label: 'Live map' },
+          { href: '#location-map', label: 'Location map' },
           { href: '#construction-register', label: 'Site progress' },
         ]}
       />

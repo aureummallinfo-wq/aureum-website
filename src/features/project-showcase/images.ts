@@ -89,7 +89,7 @@ export const FLOOR_PLAN_IMAGES: readonly ShowcaseImage[] = [
   { src: `${base}/floor-plans/aureum-basement-2-plan-2026-v2.webp`, alt: 'Aureum basement level 2 parking plan', label: 'Basement level 2 · parking', note: PLAN_NOTE },
 ];
 
-export const LOCATION_MAP: ShowcaseImage = { src: `${base}/location/aureum-location-map-2026.webp`, alt: 'Map of Aureum Mall & Residences at the Bahria Town Ring Road Interchange, Lahore, with nearby landmarks', label: 'Bahria Town Ring Road Interchange', note: 'Illustrative map, not to scale' };
+export const LOCATION_MAP: ShowcaseImage = { src: `${base}/location/aureum-location-map-premium-2026.webp`, alt: 'Premium aerial location map showing Aureum Mall & Residences at the Bahria Town Ring Road Interchange in Lahore', label: 'Bahria Town Ring Road Interchange', note: 'Illustrative satellite map, not to scale' };
 
 export const PARKING_IMAGE: ShowcaseImage = { src: `${base}/parking/aureum-basement-parking.webp`, alt: 'Aureum basement parking level with marked bays', label: 'Basement parking' };
 

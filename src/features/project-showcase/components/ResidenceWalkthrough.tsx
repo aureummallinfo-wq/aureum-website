@@ -10,7 +10,7 @@ export function ResidenceWalkthrough() {
           {RESIDENCE_FEATURED_VIDEOS.map((clip) => (
             <li key={clip.src} className="walkthroughItem">
               <div className="walkthroughMedia">
-                <video src={clip.src} poster={clip.poster} controls playsInline preload="metadata" aria-label={clip.label} />
+                <video src={clip.src} poster={clip.poster} controls playsInline preload="none" aria-label={clip.label} />
               </div>
               <h3>{clip.label}</h3>
               <p>{clip.detail}</p>
