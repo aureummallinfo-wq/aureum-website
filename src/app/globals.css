@@ -5570,11 +5570,11 @@ h2:not(.srOnly) {
 }
 
 /* Ground line between the ground floor and the basements. */
-.bxLevel-podium + .bxLevel-basement {
+.bxLevel-basement + .bxLevel-podium {
   margin-top: 22px;
 }
 
-.bxLevel-podium + .bxLevel-basement::before {
+.bxLevel-basement + .bxLevel-podium::before {
   position: absolute;
   top: -13px;
   right: -28px;
@@ -5742,7 +5742,7 @@ h2:not(.srOnly) {
     min-height: 96px;
   }
 
-  .bxLevel-podium + .bxLevel-basement::before {
+  .bxLevel-basement + .bxLevel-podium::before {
     right: -16px;
     left: -16px;
   }

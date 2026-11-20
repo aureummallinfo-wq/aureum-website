@@ -15,7 +15,7 @@ export type ExplorerLevel = {
   href: string;
   hrefLabel: string;
   /** Relative size of the level in the elevation drawing. */
-  shape: 'tower' | 'hotel' | 'podium' | 'basement';
+  shape: 'tower' | 'podium' | 'basement';
 };
 
 function fact(level: (typeof BUILDING_LEVELS)[number]['level']) {
@@ -35,63 +35,18 @@ function height(level: (typeof BUILDING_LEVELS)[number]['level']) {
   return 'height' in entry ? `${entry.height} ceilings` : undefined;
 }
 
-// Top of the building first, as it is drawn.
+// Read the building from the basement upward to the highest occupied level.
 export const EXPLORER_LEVELS: readonly ExplorerLevel[] = [
   {
-    id: 'residences',
-    name: 'Residences & offices',
-    meta: '6th to 12th floors',
-    summary: 'Studios, one- and two-bedroom apartments and Signature Glass Apartments, with full-glass corporate offices facing Ring Road. Residents and office users each have their own entrance and lifts.',
-    plans: [plan('aureum-residential-floor-plan-2026-v2.webp')],
-    tableIds: ['apartments', 'offices'],
-    pricesNote: 'Signature Glass Apartments are available in 1,491 and 1,727 sq ft layouts from PKR 34,293,000.',
-    href: '/apartments',
-    hrefLabel: 'Explore the residences',
-    shape: 'tower',
-  },
-  {
-    id: 'hotel',
-    name: 'Hotel',
-    summary: `${fact('Hotel').detail}.`,
-    plans: [],
+    id: 'basements',
+    name: 'Basements',
+    meta: 'Two levels',
+    summary: `${fact('Basements').detail}.`,
+    plans: [plan('aureum-basement-1-plan-2026-v2.webp'), plan('aureum-basement-2-plan-2026-v2.webp')],
     tableIds: [],
-    pricesNote: 'Ask the sales team for details of the hotel.',
-    href: '/about',
-    hrefLabel: 'About the project',
-    shape: 'hotel',
-  },
-  {
-    id: 'third-floor',
-    name: 'Third floor',
-    meta: height('Third floor'),
-    summary: `${fact('Third floor').detail}.`,
-    plans: [plan('aureum-food-court-floor-plan-2026-v2.webp')],
-    tableIds: ['food-court'],
-    href: '/food-court',
-    hrefLabel: 'Explore the food court',
-    shape: 'podium',
-  },
-  {
-    id: 'second-floor',
-    name: 'Second floor',
-    meta: height('Second floor'),
-    summary: `${fact('Second floor').detail}.`,
-    plans: [plan('aureum-second-floor-plan-2026-v2.webp')],
-    tableIds: ['second-floor-shops'],
-    href: '/commercial-shops',
-    hrefLabel: 'Explore the shops',
-    shape: 'podium',
-  },
-  {
-    id: 'first-floor',
-    name: 'First floor',
-    meta: height('First floor'),
-    summary: `${fact('First floor').detail}.`,
-    plans: [plan('aureum-first-floor-plan-v2.webp')],
-    tableIds: ['first-floor-shops'],
-    href: '/commercial-shops/first-floor',
-    hrefLabel: 'Explore first-floor shops',
-    shape: 'podium',
+    href: '/floor-plans',
+    hrefLabel: 'All floor plans',
+    shape: 'basement',
   },
   {
     id: 'ground-floor',
@@ -106,14 +61,48 @@ export const EXPLORER_LEVELS: readonly ExplorerLevel[] = [
     shape: 'podium',
   },
   {
-    id: 'basements',
-    name: 'Basements',
-    meta: 'Two levels',
-    summary: `${fact('Basements').detail}.`,
-    plans: [plan('aureum-basement-1-plan-2026-v2.webp'), plan('aureum-basement-2-plan-2026-v2.webp')],
-    tableIds: [],
-    href: '/floor-plans',
-    hrefLabel: 'All floor plans',
-    shape: 'basement',
+    id: 'first-floor',
+    name: 'First floor',
+    meta: height('First floor'),
+    summary: `${fact('First floor').detail}.`,
+    plans: [plan('aureum-first-floor-plan-v2.webp')],
+    tableIds: ['first-floor-shops'],
+    href: '/commercial-shops/first-floor',
+    hrefLabel: 'Explore first-floor shops',
+    shape: 'podium',
+  },
+  {
+    id: 'second-floor',
+    name: 'Second floor',
+    meta: height('Second floor'),
+    summary: `${fact('Second floor').detail}.`,
+    plans: [plan('aureum-second-floor-plan-2026-v2.webp')],
+    tableIds: ['second-floor-shops'],
+    href: '/commercial-shops',
+    hrefLabel: 'Explore the shops',
+    shape: 'podium',
+  },
+  {
+    id: 'third-floor',
+    name: 'Third floor',
+    meta: height('Third floor'),
+    summary: `${fact('Third floor').detail}.`,
+    plans: [plan('aureum-food-court-floor-plan-2026-v2.webp')],
+    tableIds: ['food-court'],
+    href: '/food-court',
+    hrefLabel: 'Explore the food court',
+    shape: 'podium',
+  },
+  {
+    id: 'residences',
+    name: 'Residences & offices',
+    meta: '6th to 12th floors',
+    summary: 'Studios, one- and two-bedroom apartments and Signature Glass Apartments, with full-glass corporate offices facing Ring Road. Residents and office users each have their own entrance and lifts.',
+    plans: [plan('aureum-residential-floor-plan-2026-v2.webp')],
+    tableIds: ['apartments', 'offices'],
+    pricesNote: 'Signature Glass Apartments are available in 1,491 and 1,727 sq ft layouts from PKR 34,293,000.',
+    href: '/apartments',
+    hrefLabel: 'Explore the residences',
+    shape: 'tower',
   },
 ];

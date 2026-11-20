@@ -13,7 +13,7 @@ export function BuildingExplorerExperience() {
           <div>
             <Eyebrow>Building explorer</Eyebrow>
             <h1>See Aureum, level by level.</h1>
-            <p>From two basements of parking, through three retail floors and the food court, to the hotel, offices and residences above.</p>
+            <p>Explore Aureum from the two basement parking levels through the retail floors, offices and residences above.</p>
             <ButtonLink href="#explorer-workspace">Explore the levels <span aria-hidden="true">↓</span></ButtonLink>
           </div>
           <div className="explorerHeroStamp" aria-hidden="true"><span>Basements to 12th floor</span><strong>B2–12</strong></div>
