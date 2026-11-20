@@ -102,7 +102,6 @@ export function AureumRouteAnimation() {
   }, []);
 
   const wp = WAYPOINTS[activeIdx];
-  const isArrived = activeIdx === WAYPOINTS.length - 1;
   const titleLines = wp.title.split('\n');
 
   return (
@@ -149,19 +148,6 @@ export function AureumRouteAnimation() {
           </h3>
           <p className={styles.waypointSub}>{wp.subtitle}</p>
         </div>
-
-        {/* Destination card — appears at end */}
-        {isArrived && (
-          <div className={styles.arrival}>
-            <Image
-              src="/assets/aureum/approved/renders/aureum-exterior-day-wide.jpg"
-              alt="Aureum Mall & Residences"
-              width={300}
-              height={175}
-              className={styles.arrivalImg}
-            />
-          </div>
-        )}
 
         {/* Bottom nav — Harsukh style: simple labels with progress dots */}
         <nav className={styles.bottomNav} aria-label="Route waypoints">
