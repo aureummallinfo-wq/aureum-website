@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 import Image from 'next/image';
+import { LOCATION_MAP } from '@/features/project-showcase/images';
 import styles from './AureumRouteAnimation.module.css';
 
 interface Waypoint {
@@ -46,7 +47,7 @@ const WAYPOINTS: Waypoint[] = [
     title: 'AUREUM MALL\n& RESIDENCES',
     subtitle: 'Bahria Town Ring Road Interchange, Lahore.',
     progress: 1.0,
-    image: `${SAT}/09_Aureum_Approach.webp`,
+    image: LOCATION_MAP.src,
   },
 ];
 
@@ -118,7 +119,7 @@ export function AureumRouteAnimation() {
             <Image
               key={w.id}
               src={w.image}
-              alt={`Satellite view: ${w.label}`}
+              alt={w.id === 'aureum' ? 'Premium aerial location map of Aureum Mall & Residences' : `Satellite view: ${w.label}`}
               fill
               sizes="100vw"
               priority={i === 0}
@@ -188,7 +189,7 @@ export function AureumRouteAnimation() {
 
         {/* Attribution */}
         <p className={styles.attribution}>
-          Imagery: Google Maps satellite. The route line is indicative. Renders are artist&apos;s impressions.
+          Route imagery is illustrative and the route line is indicative. Renders are artist&apos;s impressions.
         </p>
       </div>
     </section>
