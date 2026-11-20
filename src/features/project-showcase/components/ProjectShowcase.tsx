@@ -9,7 +9,7 @@ import { ButtonLink } from '@/components/ui/ButtonLink';
 import { CUTAWAY_IMAGES } from '../images';
 import { personWhatsappHref } from '@/lib/whatsapp';
 
-/** `note` replaces the default "Artist’s impression" caption (e.g. for drawings and maps). */
+/** `note` replaces the default "Artist's impression" caption (e.g. for drawings and maps). */
 export type ShowcaseImage = { src: string; alt: string; label?: string; note?: string };
 
 export function DeveloperSection() {
@@ -19,7 +19,7 @@ export function DeveloperSection() {
         <div className="developerLogo"><Image src={DEVELOPER.logo} alt={`${DEVELOPER.shortName}, ${DEVELOPER.name}`} width={300} height={281} /></div>
         <div>
           <Eyebrow>The developer</Eyebrow>
-          <h2 id="developer-heading">We don’t just lay bricks, we lay the foundation for your future.</h2>
+          <h2 id="developer-heading">We don't just lay bricks, we lay the foundation for your future.</h2>
           <p>{DEVELOPER.summary}</p>
           <dl className="developerStats">{DEVELOPER.stats.map(([value, label]) => <div key={label}><dd>{value}</dd><dt>{label}</dt></div>)}</dl>
         </div>
@@ -37,7 +37,7 @@ export function DeveloperSection() {
                 <span className="portfolioBadge">Delivered</span>
               </div>
               <div className="portfolioBody">
-                <p className="portfolioIndex">{String(index + 1).padStart(2, '0')} · Bahria Town Karachi</p>
+                <p className="portfolioIndex">{String(index + 1).padStart(2, '0')} � Bahria Town Karachi</p>
                 <h4>{project.name}</h4>
                 <p className="portfolioDetail">{project.detail}</p>
                 <ul>{project.highlights.map((item) => <li key={item}>{item}</li>)}</ul>
@@ -116,7 +116,7 @@ function TeamPortrait({ member }: { member: TeamMember }) {
 
 const PREVIEW_COUNT = 4;
 
-/** The people a buyer actually deals with: everyone outside the marketing and creative teams. */
+/** Sales advisors shown on the Team page and the About page preview. */
 export function salesTeam() {
   return visibleTeam().filter((member) => !member.department);
 }
@@ -141,21 +141,21 @@ export function TeamPreview() {
             </li>
           ))}
         </ul>
-        <ButtonLink href="/team" variant="dark" className="teamMoreLink">Meet the whole team <span aria-hidden="true">→</span></ButtonLink>
+        <ButtonLink href="/team" variant="dark" className="teamMoreLink">Meet the whole team <span aria-hidden="true"></span></ButtonLink>
       </div>
     </section>
   );
 }
 
-/** Team page: every member with what they handle, their languages and a direct WhatsApp button. */
+/** Team page: sales advisors with what they handle, their languages and a direct WhatsApp button. */
 export function TeamDirectory() {
-  const members = visibleTeam();
+  const members = salesTeam();
   if (members.length === 0) return null;
 
   return (
     <section className="section teamSection teamDirectory" id="team" aria-labelledby="team-directory-heading">
       <div className="container">
-        <SectionHeading id="team-directory-heading" eyebrow="Sales, marketing & creative team" title="Personal guidance for a considered investment." description="Our sales executives will take you through residences, retail, offices and the payment plan, arrange a private site visit and guide you through the details at your own pace. Message any of them on WhatsApp and the sales desk will connect you." />
+        <SectionHeading id="team-directory-heading" eyebrow="Aureum sales team" title="Personal guidance for a considered investment." description="Our sales advisors can take you through residences, retail, offices and payment plans, arrange a private site visit and answer your questions. Message an advisor directly on WhatsApp." />
         <ul className="teamGrid">
           {members.map((member) => (
             <li className="teamCard teamCardFull" key={member.id}>
@@ -163,15 +163,15 @@ export function TeamDirectory() {
               <div className="teamCaption">
                 <p className="teamName">{member.name ?? 'Name to be confirmed'}</p>
                 <p className="teamRole">{member.role ?? 'Aureum Mall & Residences'}</p>
-                {member.quote ? <blockquote className="teamQuote">“{member.quote}”</blockquote> : null}
-                {member.focus?.length ? <p className="teamMeta"><span>Handles</span>{member.focus.join(' · ')}</p> : null}
-                {member.languages?.length ? <p className="teamMeta"><span>Speaks</span>{member.languages.join(' · ')}</p> : null}
+                {member.quote ? <blockquote className="teamQuote">"{member.quote}"</blockquote> : null}
+                {member.focus?.length ? <p className="teamMeta"><span>Handles</span>{member.focus.join(' � ')}</p> : null}
+                {member.languages?.length ? <p className="teamMeta"><span>Speaks</span>{member.languages.join(' � ')}</p> : null}
                 <div className="teamActions">
                   {member.department ? (
                     <p className="teamDept">{member.department} team</p>
                   ) : (
                     <a className="teamWhatsapp" href={personWhatsappHref(member.name, member.whatsapp, member.callName)} target="_blank" rel="noopener" aria-label={`Message ${member.name ?? 'the Aureum team'} on WhatsApp (opens in a new tab)`}>
-                      Message on WhatsApp <span aria-hidden="true">↗</span>
+                      Message on WhatsApp <span aria-hidden="true">?</span>
                     </a>
                   )}
                 </div>
@@ -228,7 +228,7 @@ export function AmenitiesSection({ images = [] }: { images?: readonly ShowcaseIm
 /** Every apartment type from the catalogue, with its sizes, category, rate, prices, layout and a link to the calculator. */
 const residencePreviews = {
   studio: { href: '/apartments/studio', label: 'Studio', image: CUTAWAY_IMAGES[0] },
-  'one-bedroom': { href: '/apartments/1-bed', label: '1 Bed', image: { src: '/assets/aureum/approved/floor-plans/aureum-1-bed-apartment-render.webp', alt: 'Representative render of an Aureum one-bedroom apartment', label: 'One bedroom · representative render' } },
+  'one-bedroom': { href: '/apartments/1-bed', label: '1 Bed', image: { src: '/assets/aureum/approved/floor-plans/aureum-1-bed-apartment-render.webp', alt: 'Representative render of an Aureum one-bedroom apartment', label: 'One bedroom � representative render' } },
   'two-bedroom': { href: '/apartments/2-bed', label: '2 Bed', image: CUTAWAY_IMAGES[1] },
 } as const;
 
@@ -244,13 +244,13 @@ export function ApartmentTypesSection({ editorial = false }: { editorial?: boole
   return (
     <section className={`section apartmentTypesSection${editorial ? ' residenceTypes' : ''}`} aria-labelledby="apartment-types-heading">
       <div className="container">
-        <SectionHeading id="apartment-types-heading" eyebrow="The apartments" title={editorial ? 'Find your apartment.' : 'Space for your lifestyle.'} description={editorial ? 'Compare layouts and see the payment plan for each size. The apartments are offered on a 4.5-year plan with 10% booking.' : 'Five apartment types on the 6th to 12th floors, from a 426 sq ft studio to the premium Signature Glass Apartments, with a private residential entrance, three dedicated lifts and a 28 × 50 ft lobby.'} />
+        <SectionHeading id="apartment-types-heading" eyebrow="The apartments" title={editorial ? 'Find your apartment.' : 'Space for your lifestyle.'} description={editorial ? 'Compare layouts and see the payment plan for each size. The apartments are offered on a 4.5-year plan with 10% booking.' : 'Five apartment types on the 6th to 12th floors, from a 426 sq ft studio to the premium Signature Glass Apartments, with a private residential entrance, three dedicated lifts and a 28 x 50 ft lobby.'} />
         {editorial && (
           <ul className="residencePreviews">
             {Object.values(residencePreviews).map((preview) => (
               <li key={preview.href}>
                 <ShowcaseFigure image={preview.image} sizes="(max-width: 760px) 94vw, 32vw" />
-                <Link href={preview.href}>{preview.label} <span aria-hidden="true">→</span></Link>
+                <Link href={preview.href}>{preview.label} <span aria-hidden="true"></span></Link>
               </li>
             ))}
           </ul>
@@ -260,12 +260,12 @@ export function ApartmentTypesSection({ editorial = false }: { editorial?: boole
             const specifications = (
               <>
                 <dl className="aptSpecs">
-                  <div><dt>Size</dt><dd>{type.units.map((unit) => formatSqFt(unit.row.sizeSqFt)).join(' · ')}</dd></div>
-                  <div><dt>Category</dt><dd>{type.premium ? `Premium · ${type.categories.join(' / ')}` : type.categories.join(' / ')}</dd></div>
+                  <div><dt>Size</dt><dd>{type.units.map((unit) => formatSqFt(unit.row.sizeSqFt)).join(' � ')}</dd></div>
+                  <div><dt>Category</dt><dd>{type.premium ? `Premium � ${type.categories.join(' / ')}` : type.categories.join(' / ')}</dd></div>
                   <div><dt>Rate</dt><dd>{type.rates.map((rate) => formatPKR(rate)).join(' / ')} per sq ft</dd></div>
-                  <div><dt>Starting price</dt><dd>{formatPKR(type.cheapest.row.totalPrice)}<small>≈ {formatLakhCrore(type.cheapest.row.totalPrice)}</small></dd></div>
+                  <div><dt>Starting price</dt><dd>{formatPKR(type.cheapest.row.totalPrice)}<small>� {formatLakhCrore(type.cheapest.row.totalPrice)}</small></dd></div>
                   <div><dt>Booking 10%</dt><dd>{formatPKR(type.cheapest.row.booking)}</dd></div>
-                  <div><dt>Monthly from</dt><dd>{formatPKR(type.cheapest.row.monthlyInstallment)}<small>× {type.cheapest.table.monthlyCount} months</small></dd></div>
+                  <div><dt>Monthly from</dt><dd>{formatPKR(type.cheapest.row.monthlyInstallment)}<small>x {type.cheapest.table.monthlyCount} months</small></dd></div>
                   </dl>
 
                   <div className="aptTypeDetail">
@@ -303,7 +303,7 @@ export function ApartmentTypesSection({ editorial = false }: { editorial?: boole
                   <div className="aptUnitLinks">
                     {type.units.map((unit) => (
                       <Link key={unit.id} href={`/payment-plans/apartments${calcHref(unit.id)}`}>
-                        {formatSqFt(unit.row.sizeSqFt)} · {formatPKR(unit.row.totalPrice)}<span aria-hidden="true">→</span>
+                        {formatSqFt(unit.row.sizeSqFt)} � {formatPKR(unit.row.totalPrice)}<span aria-hidden="true"></span>
                       </Link>
                     ))}
                   </div>
@@ -323,11 +323,11 @@ export function ShowcaseFigure({ image, className = '', sizes, zoomable = false 
   return (
     <figure className={`showcaseFigure ${className}`.trim()}>
       {zoomable ? (
-        <a className="showcaseFigureImage" href={image.src} target="_blank" rel="noopener" aria-label={`Open full-size ${image.label ?? image.alt}`}>{picture}<span className="zoomHint" aria-hidden="true">Tap to zoom ↗</span></a>
+        <a className="showcaseFigureImage" href={image.src} target="_blank" rel="noopener" aria-label={`Open full-size ${image.label ?? image.alt}`}>{picture}<span className="zoomHint" aria-hidden="true">Tap to zoom ?</span></a>
       ) : (
         <div className="showcaseFigureImage">{picture}</div>
       )}
-      <figcaption>{image.label ? <strong>{image.label}</strong> : null}<span>{image.note ?? 'Artist’s impression'}</span></figcaption>
+      <figcaption>{image.label ? <strong>{image.label}</strong> : null}<span>{image.note ?? 'Artist's impression'}</span></figcaption>
     </figure>
   );
 }
@@ -352,3 +352,4 @@ export function ProjectDisclaimers() {
     </section>
   );
 }
+
