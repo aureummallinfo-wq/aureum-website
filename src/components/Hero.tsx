@@ -1,6 +1,5 @@
 import Image from 'next/image';
 import { ButtonLink } from '@/components/ui/ButtonLink';
-import { HeroVideo } from '@/components/HeroVideo';
 import styles from './HomeHero.module.css';
 
 const HERO_IMAGE = '/assets/aureum/approved/renders/aureum-exterior-evening.jpg';
@@ -9,7 +8,18 @@ export function Hero() {
   return (
     <section className={`heroCinema ${styles.editorial}`} data-blended-navigation aria-labelledby="hero-title">
       <Image className="heroCinemaImage" src={HERO_IMAGE} alt="Aureum Mall and Residences in the evening, showing the glass atrium entrance and residences tower" fill preload sizes="(max-width: 760px) 135vh, 100vw" />
-      <HeroVideo poster={HERO_IMAGE} />
+      <video
+        className="heroCinemaVideo"
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="metadata"
+        poster={HERO_IMAGE}
+        aria-label="Hand-drawn architectural reveal of Aureum Mall and Residences"
+      >
+        <source src="/assets/aureum/approved/video/hand-made-sketch-final-2.mp4" type="video/mp4" />
+      </video>
       <div className="heroCinemaShade" aria-hidden="true" />
       <div className="container heroCinemaInner">
         <p className="heroCinemaKicker">Bahria Town � Ring Road Interchange � Lahore</p>
