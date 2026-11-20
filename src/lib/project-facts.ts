@@ -110,7 +110,7 @@ export const PROJECT_STATS = [
   ['16', 'Kanal landmark'],
   ['3', 'Retail levels'],
   ['20+', 'Planned amenities'],
-  ['25 min', 'From Lahore airport'],
+  ['15 min', 'From Lahore airport'],
 ] as const;
 
 export const BUILDING_LEVELS = [

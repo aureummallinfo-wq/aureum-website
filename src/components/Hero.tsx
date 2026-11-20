@@ -35,14 +35,14 @@ export function Hero() {
         <dl className="heroCinemaFacts" aria-label="Project information">
           <div><dt>Site</dt><dd>16 kanal</dd></div>
           <div><dt>Bahria Town</dt><dd>0 min</dd></div>
-          <div><dt>Lahore airport</dt><dd>25 min</dd></div>
+          <div><dt>Lahore airport</dt><dd>15 min</dd></div>
         </dl>
         <span className="heroCinemaNote">Artist’s impression</span>
       </div>
       <a className={styles.nextTeaser} href="#location-route-animation">
         <span>NEXT</span>
         <span className={styles.nextDivider} aria-hidden="true" />
-        <span>10 MINUTES FROM LAHORE AIRPORT</span>
+        <span>15 MINUTES FROM LAHORE AIRPORT</span>
         <span aria-hidden="true">↓</span>
       </a>
     </section>

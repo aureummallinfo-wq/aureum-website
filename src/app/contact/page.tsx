@@ -51,7 +51,7 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ i
           <div>
             <Eyebrow>Find us</Eyebrow>
             <h2 id="contact-visit-heading">At the Bahria Town Ring Road Interchange.</h2>
-            <p>Zero minutes from Ring Road and Bahria Town, and about 25 minutes from Lahore airport. Book a visit and the team will meet you on site.</p>
+            <p>Zero minutes from Ring Road and Bahria Town, and about 15 minutes from Lahore airport. Book a visit and the team will meet you on site.</p>
           </div>
           <LiveMap className="contactMap" />
         </div>

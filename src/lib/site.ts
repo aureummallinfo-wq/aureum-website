@@ -36,6 +36,16 @@ export const EXPLORE_NAV = [
     detail: 'Interactive virtual walkthrough of Aureum',
   },
   {
+    href: '/apartments/1-bed',
+    label: '1 Bed Apartments',
+    detail: 'Explore the one-bedroom residence layouts',
+  },
+  {
+    href: '/corporate-offices',
+    label: 'Corporate Offices',
+    detail: 'Explore flexible full-glass office spaces',
+  },
+  {
     href: '/news',
     label: 'Blogs',
     detail: 'Project updates, construction news and articles',

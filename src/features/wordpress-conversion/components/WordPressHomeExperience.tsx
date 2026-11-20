@@ -181,16 +181,15 @@ export function WordPressHomeExperience() {
           <div className="textReveal">
             <Eyebrow>Location / Ring Road Interchange</Eyebrow>
             <h2 id="wp-location-heading">At the gateway to Bahria Town.</h2>
-            <p>On the Ring Road Interchange, 0 minutes from Bahria Town and about 25 minutes from Lahore airport.</p>
+            <p>On the Ring Road Interchange, 0 minutes from Bahria Town and about 15 minutes from Lahore airport.</p>
             <ButtonLink href="/location">Explore the location</ButtonLink>
             <ul className="nearbyLandmarks">
               {[
                 ['Bahria Town Main Gate', '0 min'],
                 ['Ring Road Interchange', '0 min'],
                 ['Packages Mall', '15 min'],
-                ['Allama Iqbal Airport', '25 min'],
-                ['Lahore Motorway (M-2)', '20 min'],
-                ['DHA Phase 6', '18 min'],
+                ['Allama Iqbal Airport', '15 min'],
+                ['DHA Phase 6', '10 min'],
               ].map(([name, time]) => (
                 <li key={name}><strong>{name}</strong><span>{time} drive</span></li>
               ))}

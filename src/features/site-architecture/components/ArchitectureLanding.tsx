@@ -65,7 +65,7 @@ export function ArchitectureLanding({
 export function FaqPage() {
   // Every answer is taken from the Aureum Catalogue (November 2026) and the published price list.
   const faqs = [
-    ['Where is Aureum Mall & Residences?', 'At the Bahria Town Ring Road Interchange, Lahore: zero minutes from Ring Road and Bahria Town and about 25 minutes from Lahore airport. The site is bordered by three government roads and open on all four sides.'],
+    ['Where is Aureum Mall & Residences?', 'At the Bahria Town Ring Road Interchange, Lahore: zero minutes from Ring Road and Bahria Town and about 15 minutes from Lahore airport. The site is bordered by three government roads and open on all four sides.'],
     ['Who is the developer?', 'Alfalah Real Estate & Builders, which has delivered three landmark projects in Bahria Town Karachi: Alfalah Tower, Liberty Clock Tower and Maison Theme Heights.'],
     ['What can I buy at Aureum?', 'Studios, one and two-bedroom apartments (including a two-bedroom with a servant quarter), premium Signature Glass Apartments, shops on the ground, first and second floors, food court units on the third floor and full-glass corporate offices.'],
     ['What sizes and starting prices are available?', 'Apartments from 426 to 1,727 sq ft, from PKR 8,733,000. First-floor shops from 172 to 707 sq ft, from PKR 8,600,000. Second-floor shops from 478 to 643 sq ft, from PKR 20,315,000. Food court units of 301 sq ft, from PKR 22,575,000. Offices from 1,007 to 2,595 sq ft, from PKR 25,175,000. Ground-floor prices are on request.'],

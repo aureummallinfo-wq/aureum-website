@@ -28,32 +28,16 @@ const WAYPOINTS: Waypoint[] = [
     id: 'dha',
     label: 'DHA',
     title: 'DHA\nLAHORE',
-    subtitle: 'Bypassing central city traffic via the eastern ring expressway.',
-    progress: 0.2,
+    subtitle: 'Ten minutes from the airport, the route joins Lahore Ring Road toward Bahria Town.',
+    progress: 0.33,
     image: `${SAT}/03_DHA_Phase5_Interchange.webp`,
-  },
-  {
-    id: 'kalma',
-    label: 'Kalma Chowk',
-    title: 'KALMA\nCHOWK',
-    subtitle: 'Connectivity to Gulberg, Ferozepur Road and Liberty via Ring Road flyovers.',
-    progress: 0.4,
-    image: `${SAT}/04_Kalma_Chowk_FullZoom.webp`,
-  },
-  {
-    id: 'adda',
-    label: 'Adda Plot',
-    title: 'ADDA\nPLOT',
-    subtitle: 'Entrance to the Southern Loop SL-3, toward Bahria Town.',
-    progress: 0.6,
-    image: `${SAT}/06_Adda_Plot_Southern_Loop.webp`,
   },
   {
     id: 'interchange',
     label: 'Bahria Town',
     title: 'BAHRIA TOWN\nINTERCHANGE',
     subtitle: 'Dedicated interchange exit descending into Bahria Town Main Boulevard.',
-    progress: 0.8,
+    progress: 0.66,
     image: `${SAT}/07_Bahria_Interchange_Wide.webp`,
   },
   {
@@ -149,7 +133,7 @@ export function AureumRouteAnimation() {
 
         {/* Intro text — only at the very start */}
         <div className={`${styles.intro} ${progress > 0.06 ? styles.introHidden : ''}`}>
-          <h2 className={styles.introTitle}>10 MINUTES FROM<br />LAHORE AIRPORT</h2>
+          <h2 className={styles.introTitle}>15 MINUTES FROM<br />LAHORE AIRPORT</h2>
           <p className={styles.introSub}>Along Ring Road, to the gates of Bahria Town.</p>
           <span className={styles.scrollHint}>SCROLL</span>
         </div>

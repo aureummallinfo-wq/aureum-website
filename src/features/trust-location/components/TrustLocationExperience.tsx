@@ -21,7 +21,7 @@ function LocationSection() {
           <div>
             <Eyebrow>Bahria Town · Lahore</Eyebrow>
             <h2 id="location-heading">At the Ring Road interchange.</h2>
-            <p>{SITE.location}. Lahore Airport is about 25 minutes away, depending on traffic.</p>
+            <p>{SITE.location}. Lahore Airport is about 15 minutes away, depending on traffic.</p>
             <div className={styles.actions}>
               <ButtonLink href={SITE.directionsUrl} target="_blank" rel="noopener" variant="dark">Get directions ↗</ButtonLink>
               <Link href="/contact?intent=site_visit#enquiry">Book a site visit →</Link>
