@@ -5,6 +5,7 @@ import { Eyebrow } from '@/components/ui/Eyebrow';
 import { SITE } from '@/lib/site';
 import { callHref, whatsappHref } from '@/lib/whatsapp';
 import { createRouteMetadata } from '@/features/content-seo/metadata';
+import { BreadcrumbSchema } from '@/features/content-seo/components/BreadcrumbSchema';
 import { LiveMap } from '@/features/trust-location/components/LiveMap';
 
 export const metadata = createRouteMetadata('/contact');
@@ -21,6 +22,7 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ i
   const defaultInterest = PROPERTY_INTERESTS.find((value) => value === interest);
   return (
     <>
+      <BreadcrumbSchema route="/contact" />
       <section className="wpInternalHero section contactHero">
         <div className="container contactGrid">
           <div className="contactIntro">

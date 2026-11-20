@@ -1,6 +1,7 @@
 import { ButtonLink } from '@/components/ui/ButtonLink';
 import Link from 'next/link';
 import { createRouteMetadata } from '@/features/content-seo/metadata';
+import { BreadcrumbSchema } from '@/features/content-seo/components/BreadcrumbSchema';
 import { SectionHeading } from '@/components/ui/SectionHeading';
 import { PlanPickerSection } from '@/features/payment-plans/components/PlanPickerSection';
 import { EXTERIOR_NIGHT } from '@/features/project-showcase/images';
@@ -19,6 +20,7 @@ const STEPS = [
 
 export default function Page() {
   return (
+    <><BreadcrumbSchema route="/overseas-buyers" />
     <ArchitectureLanding
       eyebrow="Overseas buyers / Aureum"
       title="Buying from abroad, made clear."
@@ -52,5 +54,6 @@ export default function Page() {
       <PlanPickerSection eyebrow="Prices & plans" title="Starting prices for every category." description="Starting base prices in PKR from the current price list; applicable 10% category charges are additional." id="overseas-plans-heading" />
       <div className="container"><ButtonLink href="/about#brochures" variant="dark">Find the Aureum Catalogue and factsheet</ButtonLink></div>
     </ArchitectureLanding>
+    </>
   );
 }

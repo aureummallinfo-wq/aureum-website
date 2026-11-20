@@ -3,6 +3,7 @@ import { ButtonLink } from '@/components/ui/ButtonLink';
 import { Eyebrow } from '@/components/ui/Eyebrow';
 import { SectionHeading } from '@/components/ui/SectionHeading';
 import { ApartmentTypesSection } from '@/features/project-showcase/components/ProjectShowcase';
+import { PageSchemas } from '@/features/content-seo/components/PageSchemas';
 import { PAYMENT_SOURCE_LABEL, PAYMENT_TERMS } from '../data';
 import { formatPKR, type PaymentPlanPage } from '../plan-pages';
 import { PaymentPlanTabs } from './PaymentPlanTabs';
@@ -16,6 +17,7 @@ export function PaymentPlanDetail({ page }: { page: PaymentPlanPage }) {
 
   return (
     <>
+      <PageSchemas route={`/payment-plans/${table.id}`} tableIds={[table.id]} />
       <section className="section paymentHero planDetailHero">
         <div className="container paymentHeroGrid">
           <div>

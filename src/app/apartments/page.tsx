@@ -2,6 +2,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Eyebrow } from '@/components/ui/Eyebrow';
 import { createRouteMetadata } from '@/features/content-seo/metadata';
+import { PageSchemas } from '@/features/content-seo/components/PageSchemas';
+import { APARTMENTS_FAQS } from '@/features/content-seo/faqs';
 import { BrochureDownloads } from '@/features/project-showcase/components/BrochureDownloads';
 import { ApartmentTypesSection, ShowcaseFigure } from '@/features/project-showcase/components/ProjectShowcase';
 import { ResidenceWalkthrough } from '@/features/project-showcase/components/ResidenceWalkthrough';
@@ -39,6 +41,7 @@ export default function Page() {
   const journal = [RESIDENCE_IMAGES[0], RESIDENCE_IMAGES[4], RESIDENCE_IMAGES[5], EXTERIOR_NIGHT_WIDE];
   return (
     <div className={styles.residences}>
+      <PageSchemas route="/apartments" tableIds={['apartments']} faqs={APARTMENTS_FAQS} />
       <section className={styles.hero} data-blended-navigation aria-labelledby="residence-title">
         <figure className={styles.heroFigure}>
           <div className={styles.heroImage}>
@@ -47,7 +50,7 @@ export default function Page() {
           <figcaption>Artist’s impression</figcaption>
         </figure>
         <div className={`container ${styles.heroCopy}`}>
-          <Eyebrow>Aureum Residences · Bahria Town, Lahore</Eyebrow>
+          <Eyebrow>Apartments for sale in Bahria Town Lahore</Eyebrow>
           <h1 id="residence-title"><span>A home above</span><span>the city.</span></h1>
           <div className={styles.heroLinks}>
             <a href="#residence-story">Experience the residences <span aria-hidden="true">↓</span></a>
@@ -67,7 +70,7 @@ export default function Page() {
           <header className={styles.editorialIntro}>
             <Eyebrow>Aureum Residences</Eyebrow>
             <h2 id="residence-intro">Life above the bustle.</h2>
-            <p>Studios, one- and two-bedroom homes and Signature Glass Apartments share a private arrival on the residential levels of Aureum.</p>
+            <p>Apartments for sale in Bahria Town Lahore at Aureum: studios, one- and two-bedroom homes and Signature Glass Apartments share a private arrival on the residential levels, from 426 to 1,727 sq ft with prices and instalment plans.</p>
           </header>
           <div className={styles.journalLayout}>
             <ShowcaseFigure image={RESIDENCE_IMAGES[2]} sizes="(max-width: 899px) 45vw, 22vw" />

@@ -1,6 +1,7 @@
 import { ButtonLink } from '@/components/ui/ButtonLink';
 import { WordPressPropertyPage } from '@/features/wordpress-conversion/components/WordPressPageLayouts';
 import { createRouteMetadata } from '@/features/content-seo/metadata';
+import { PageSchemas } from '@/features/content-seo/components/PageSchemas';
 import { ShowcaseGallery } from '@/features/project-showcase/components/ProjectShowcase';
 import { FLOOR_PLAN_IMAGES, MALL_IMAGES } from '@/features/project-showcase/images';
 
@@ -8,6 +9,8 @@ export const metadata = createRouteMetadata('/commercial-shops/first-floor');
 
 export default function Page() {
   return (
+    <>
+    <PageSchemas route="/commercial-shops/first-floor" tableIds={['first-floor-shops']} />
     <WordPressPropertyPage
       eyebrow="Commercial / first floor · 18 ft"
       title="First floor shops at Aureum Mall."
@@ -22,5 +25,6 @@ export default function Page() {
       <section className="section showcaseSection"><div className="container"><ShowcaseGallery images={[MALL_IMAGES[1], MALL_IMAGES[2]]} branded /></div></section>
       <div className="container"><ButtonLink href="/commercial-shops#brochures" variant="dark">Find the Commercial & Food Court brochure</ButtonLink></div>
     </WordPressPropertyPage>
+    </>
   );
 }

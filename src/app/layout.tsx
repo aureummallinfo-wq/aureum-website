@@ -10,8 +10,8 @@ import { AnimationToggle } from '@/components/ui/AnimationToggle';
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
-  title: { default: 'Aureum Mall & Residences | Bahria Town Lahore', template: '%s | Aureum Mall' },
-  description: 'Explore Aureum Mall & Residences in Bahria Town Lahore: apartments, commercial shops, corporate offices, payment plans, location and project updates.',
+  title: { default: 'Aureum Mall & Residences, Bahria Town Lahore', template: '%s | Aureum Mall' },
+  description: 'Aureum Mall & Residences is a 16 kanal mixed-use destination at the Bahria Town Ring Road Interchange, Lahore. Explore apartments from PKR 8.7M, shops, offices, payment plans and project updates.',
   alternates: { canonical: '/' },
   openGraph: {
     title: SITE.name,

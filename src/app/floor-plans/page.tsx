@@ -1,5 +1,6 @@
 import { ButtonLink } from '@/components/ui/ButtonLink';
 import { createRouteMetadata } from '@/features/content-seo/metadata';
+import { BreadcrumbSchema } from '@/features/content-seo/components/BreadcrumbSchema';
 import { ArchitectureLanding } from '@/features/site-architecture/components/ArchitectureLanding';
 import { FloorPlanGallery, ShowcaseGallery } from '@/features/project-showcase/components/ProjectShowcase';
 import { CUTAWAY_IMAGES, FLOOR_PLAN_IMAGES } from '@/features/project-showcase/images';
@@ -9,6 +10,7 @@ export const metadata = createRouteMetadata('/floor-plans');
 
 export default function Page() {
   return (
+    <><BreadcrumbSchema route="/floor-plans" />
     <ArchitectureLanding
       eyebrow="Floor plans / Aureum"
       title="Understand the spaces before you visit."
@@ -36,5 +38,6 @@ export default function Page() {
       </section>
       <div className="container"><ButtonLink href="/about#brochures" variant="dark">Find the Aureum Catalogue and factsheet</ButtonLink></div>
     </ArchitectureLanding>
+    </>
   );
 }

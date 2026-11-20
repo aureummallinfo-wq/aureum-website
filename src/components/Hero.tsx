@@ -24,7 +24,7 @@ export function Hero() {
       <div className="container heroCinemaInner">
         <p className="heroCinemaKicker">Bahria Town · Ring Road Interchange · Lahore</p>
         <h1 id="hero-title">Aureum Mall <span>&amp; Residences</span></h1>
-        <p className="heroCinemaLead">A 16 kanal landmark of shopping, dining, workplaces, a luxury hotel and residences.</p>
+        <p className="heroCinemaLead">A 16 kanal landmark of shopping, dining, workplaces, a luxury hotel and residences at the Bahria Town Ring Road Interchange, Lahore.</p>
         <div className="actions">
           <ButtonLink href="/about">Discover Aureum <span aria-hidden="true">→</span></ButtonLink>
           <ButtonLink href="/apartments">Explore residences <span aria-hidden="true">→</span></ButtonLink>

@@ -2,6 +2,7 @@ import Image from 'next/image';
 import { ButtonLink } from '@/components/ui/ButtonLink';
 import { Eyebrow } from '@/components/ui/Eyebrow';
 import { createRouteMetadata } from '@/features/content-seo/metadata';
+import { BreadcrumbSchema } from '@/features/content-seo/components/BreadcrumbSchema';
 import { LeadershipSection, salesTeam, TeamDirectory } from '@/features/project-showcase/components/ProjectShowcase';
 import { SITE } from '@/lib/site';
 import { callHref } from '@/lib/whatsapp';
@@ -14,6 +15,7 @@ const HERO_FACES = salesTeam().filter((member): member is typeof member & { imag
 export default function TeamPage() {
   return (
     <>
+      <BreadcrumbSchema route="/team" />
       <section className="wpInternalHero section">
         <div className="container wpInternalHeroGrid">
           <div>

@@ -1,5 +1,7 @@
 import { ButtonLink } from '@/components/ui/ButtonLink';
 import { createRouteMetadata } from '@/features/content-seo/metadata';
+import { PageSchemas } from '@/features/content-seo/components/PageSchemas';
+import { FOOD_COURT_FAQS } from '@/features/content-seo/faqs';
 import { WordPressPropertyPage } from '@/features/wordpress-conversion/components/WordPressPageLayouts';
 import { ShowcaseGallery } from '@/features/project-showcase/components/ProjectShowcase';
 import { FLOOR_PLAN_IMAGES, FOOD_COURT_IMAGE, LEISURE_IMAGES } from '@/features/project-showcase/images';
@@ -8,10 +10,12 @@ export const metadata = createRouteMetadata('/food-court');
 
 export default function Page() {
   return (
+    <>
+    <PageSchemas route="/food-court" tableIds={['food-court']} faqs={FOOD_COURT_FAQS} />
     <WordPressPropertyPage
-      eyebrow="Food court / third floor · 25 ft"
+      eyebrow="Food court units for sale in Lahore"
       title="Dine. Gather. Return."
-      intro="Food court units of around 301 sq ft on the third floor, beside an 11,948 sq ft playland and a 6,329 sq ft trampoline park, so parents can eat while children play."
+      intro="Food court units for sale at Aureum Mall, Bahria Town Lahore: 301 sq ft on the third floor from PKR 22,575,000, beside an 11,948 sq ft playland and a 6,329 sq ft trampoline park, so parents can eat while children play."
       image={FOOD_COURT_IMAGE}
       interest="food_court"
       registerLabel="Food Court enquiry"
@@ -22,5 +26,6 @@ export default function Page() {
       <section className="section showcaseSection"><div className="container"><ShowcaseGallery images={LEISURE_IMAGES} branded /></div></section>
       <div className="container"><ButtonLink href="/commercial-shops#brochures" variant="dark">Find the Commercial & Food Court brochure</ButtonLink></div>
     </WordPressPropertyPage>
+    </>
   );
 }

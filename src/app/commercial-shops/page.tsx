@@ -1,5 +1,7 @@
 import { WordPressPropertyPage } from '@/features/wordpress-conversion/components/WordPressPageLayouts';
 import { createRouteMetadata } from '@/features/content-seo/metadata';
+import { PageSchemas } from '@/features/content-seo/components/PageSchemas';
+import { COMMERCIAL_SHOPS_FAQS } from '@/features/content-seo/faqs';
 import { ShowcaseGallery } from '@/features/project-showcase/components/ProjectShowcase';
 import { BrochureDownloads } from '@/features/project-showcase/components/BrochureDownloads';
 import { FOOD_COURT_IMAGE, LEISURE_IMAGES, MALL_IMAGES } from '@/features/project-showcase/images';
@@ -9,10 +11,12 @@ export const metadata = createRouteMetadata('/commercial-shops');
 
 export default function Page() {
   return (
+    <>
+    <PageSchemas route="/commercial-shops" tableIds={['first-floor-shops', 'second-floor-shops']} faqs={COMMERCIAL_SHOPS_FAQS} />
     <WordPressPropertyPage
-      eyebrow="Commercial / retail and food court"
+      eyebrow="Shops for sale in Bahria Town Lahore"
       title="Room to make an impression."
-      intro="Three retail levels around a central atrium, with tall ceilings, wide passages and a glass facade visible from Ring Road. Shops from 172 sq ft and PKR 8,600,000."
+      intro="Shops for sale in Bahria Town Lahore at Aureum Mall: three retail levels around a central atrium, with tall ceilings, wide passages and a glass facade visible from Ring Road. Shops from 172 sq ft and PKR 8,600,000."
       image={MALL_IMAGES[0]}
       payment={{ href: "/payment-plans", label: "Compare payment plans" }}
       features={['Ceiling heights of 26 ft (ground) and 18 ft (first and second)', 'A 15,224 sq ft grocery store, travelators and kiosks', 'Separate commercial entrance and 2 dedicated elevators', 'Food court beside an 11,948 sq ft playland and trampoline park']}
@@ -33,5 +37,6 @@ export default function Page() {
       </section>
       <BrochureDownloads only={['commercial']} />
     </WordPressPropertyPage>
+    </>
   );
 }

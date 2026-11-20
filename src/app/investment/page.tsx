@@ -1,5 +1,6 @@
 import { ButtonLink } from '@/components/ui/ButtonLink';
 import { createRouteMetadata } from '@/features/content-seo/metadata';
+import { BreadcrumbSchema } from '@/features/content-seo/components/BreadcrumbSchema';
 import { SectionHeading } from '@/components/ui/SectionHeading';
 import { PlanPickerSection } from '@/features/payment-plans/components/PlanPickerSection';
 import { EXTERIOR_NIGHT_WIDE } from '@/features/project-showcase/images';
@@ -17,6 +18,7 @@ const FACTS = [
 
 export default function Page() {
   return (
+    <><BreadcrumbSchema route="/investment" />
     <ArchitectureLanding
       eyebrow="Investment / Aureum"
       title="Find the investment that fits your plans."
@@ -49,5 +51,6 @@ export default function Page() {
       </section>
       <div className="container"><ButtonLink href="/about#brochures" variant="dark">Find the Aureum Catalogue and factsheet</ButtonLink></div>
     </ArchitectureLanding>
+    </>
   );
 }

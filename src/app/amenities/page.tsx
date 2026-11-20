@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { Eyebrow } from '@/components/ui/Eyebrow';
 import { createRouteMetadata } from '@/features/content-seo/metadata';
+import { BreadcrumbSchema } from '@/features/content-seo/components/BreadcrumbSchema';
 import { MediaOpening } from '@/features/immersive-media/components/MediaOpening';
 import { AccessSection, ShowcaseFigure } from '@/features/project-showcase/components/ProjectShowcase';
 import { AMENITIES_VIDEO, FOOD_COURT_IMAGE, LEISURE_IMAGES } from '@/features/project-showcase/images';
@@ -19,6 +20,7 @@ const themes = [
 export default function Page() {
   return (
     <>
+      <BreadcrumbSchema route="/amenities" />
       <MediaOpening
         eyebrow="Aureum amenities"
         title="More to your day."

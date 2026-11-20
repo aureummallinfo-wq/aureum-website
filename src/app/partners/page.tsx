@@ -1,5 +1,6 @@
 import { ButtonLink } from '@/components/ui/ButtonLink';
 import { createRouteMetadata } from '@/features/content-seo/metadata';
+import { BreadcrumbSchema } from '@/features/content-seo/components/BreadcrumbSchema';
 import { Eyebrow } from '@/components/ui/Eyebrow';
 import { MALL_IMAGES } from '@/features/project-showcase/images';
 import { ArchitectureLanding } from '@/features/site-architecture/components/ArchitectureLanding';
@@ -8,6 +9,7 @@ export const metadata = createRouteMetadata('/partners');
 
 export default function Page() {
   return (
+    <><BreadcrumbSchema route="/partners" />
     <ArchitectureLanding
       eyebrow="Sales partners / Aureum"
       title="Bring the right project information to your clients."
@@ -29,5 +31,6 @@ export default function Page() {
         </div>
       </section>
     </ArchitectureLanding>
+    </>
   );
 }

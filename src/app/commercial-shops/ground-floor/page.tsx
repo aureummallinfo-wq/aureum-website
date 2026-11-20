@@ -1,6 +1,7 @@
 import { ButtonLink } from '@/components/ui/ButtonLink';
 import { WordPressPropertyPage } from '@/features/wordpress-conversion/components/WordPressPageLayouts';
 import { createRouteMetadata } from '@/features/content-seo/metadata';
+import { BreadcrumbSchema } from '@/features/content-seo/components/BreadcrumbSchema';
 import { ShowcaseGallery } from '@/features/project-showcase/components/ProjectShowcase';
 import { FLOOR_PLAN_IMAGES, MALL_IMAGES } from '@/features/project-showcase/images';
 
@@ -8,6 +9,8 @@ export const metadata = createRouteMetadata('/commercial-shops/ground-floor');
 
 export default function Page() {
   return (
+    <>
+    <BreadcrumbSchema route="/commercial-shops/ground-floor" />
     <WordPressPropertyPage
       eyebrow="Commercial / ground floor · 26 ft"
       title="Ground floor retail at Aureum Mall."
@@ -22,5 +25,6 @@ export default function Page() {
       <section className="section showcaseSection"><div className="container"><ShowcaseGallery images={[MALL_IMAGES[0]]} branded /></div></section>
       <div className="container"><ButtonLink href="/commercial-shops#brochures" variant="dark">Find the Commercial & Food Court brochure</ButtonLink></div>
     </WordPressPropertyPage>
+    </>
   );
 }

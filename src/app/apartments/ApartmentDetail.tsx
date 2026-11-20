@@ -3,6 +3,9 @@ import Link from 'next/link';
 import { ButtonLink } from '@/components/ui/ButtonLink';
 import { Eyebrow } from '@/components/ui/Eyebrow';
 import { calcHref, formatPKR, formatSqFt, unitsForTables } from '@/features/payment-plans/units';
+import { PageSchemas } from '@/features/content-seo/components/PageSchemas';
+import { STUDIO_FAQS, ONE_BED_FAQS, TWO_BED_FAQS } from '@/features/content-seo/faqs';
+import type { FaqItem } from '@/features/content-seo/components/FaqSchema';
 import { ShowcaseFigure, ShowcaseGallery, type ShowcaseImage } from '@/features/project-showcase/components/ProjectShowcase';
 import { CUTAWAY_IMAGES, ONE_BEDROOM_VIRTUAL_TOUR, RESIDENCE_IMAGES, STUDIO_VIRTUAL_TOUR } from '@/features/project-showcase/images';
 import styles from './apartment-detail.module.css';
@@ -10,17 +13,18 @@ import styles from './apartment-detail.module.css';
 const layouts = {
   studio: {
     name: 'Studio',
-    title: 'An open-plan studio.',
-    intro: 'Sleeping and living share an open room, with a kitchenette, a separate bathroom and a balcony in the representative layout.',
+    title: 'Studio apartment in Bahria Town Lahore.',
+    intro: 'A 426 sq ft studio apartment at Aureum, Bahria Town Lahore, from PKR 8,733,000. Sleeping and living share an open room, with a kitchenette, a separate bathroom and a balcony in the representative layout.',
     hero: RESIDENCE_IMAGES[0],
     plan: CUTAWAY_IMAGES[0],
     images: [RESIDENCE_IMAGES[3], RESIDENCE_IMAGES[2]],
     types: ['Studio'],
+    faqs: STUDIO_FAQS,
   },
   '1-bed': {
     name: '1 Bed',
-    title: 'A room of your own.',
-    intro: 'A separate bedroom and living area give these Inner and Outer apartments distinct spaces for resting and entertaining.',
+    title: '1 bed apartment, Bahria Town Lahore.',
+    intro: 'Inner and outer one-bedroom apartments of 622 and 658 sq ft at Aureum, Bahria Town Lahore, from PKR 13,373,000. A separate bedroom and living area give each layout distinct spaces for resting and entertaining.',
     hero: RESIDENCE_IMAGES[1],
     plan: {
       src: '/assets/aureum/approved/floor-plans/aureum-1-bed-apartment-floor-plan.webp',
@@ -30,15 +34,17 @@ const layouts = {
     },
     images: [RESIDENCE_IMAGES[4], RESIDENCE_IMAGES[0]],
     types: ['1 Bedroom'],
+    faqs: ONE_BED_FAQS,
   },
   '2-bed': {
     name: '2 Bed',
-    title: 'Room for family life.',
-    intro: 'Two bedrooms sit off an open living and dining area. One of the priced layouts includes a separate servant quarter.',
+    title: '2 bed apartment, Bahria Town Lahore.',
+    intro: 'Two-bedroom apartments from 1,103 to 1,381 sq ft at Aureum, Bahria Town Lahore. Two bedrooms sit off an open living and dining area, and one of the priced layouts includes a separate servant quarter.',
     hero: RESIDENCE_IMAGES[3],
     plan: CUTAWAY_IMAGES[1],
     images: [RESIDENCE_IMAGES[1], RESIDENCE_IMAGES[5]],
     types: ['2 Bedrooms', '2 Bedrooms + Servant Quarter'],
+    faqs: TWO_BED_FAQS,
   },
 } satisfies Record<string, {
   name: string;
@@ -48,6 +54,7 @@ const layouts = {
   plan: ShowcaseImage;
   images: readonly ShowcaseImage[];
   types: readonly string[];
+  faqs: readonly FaqItem[];
 }>;
 
 export function ApartmentDetail({ type }: { type: keyof typeof layouts }) {
@@ -57,6 +64,7 @@ export function ApartmentDetail({ type }: { type: keyof typeof layouts }) {
 
   return (
     <div className={styles.detail}>
+      <PageSchemas route={`/apartments/${type}`} tableIds={['apartments']} faqs={layout.faqs} />
       <section className={styles.hero} aria-labelledby="unit-title">
         <div className={`container ${styles.split}`}>
           <div>
