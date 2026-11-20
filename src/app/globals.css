@@ -8922,3 +8922,479 @@ body:has(> #main-content > section:first-of-type:is(.heroCinema, .wpInternalHero
     grid-template-columns: 1fr;
   }
 }
+
+/* ---------- UI refinement pass ----------
+   A final, shared layer keeps the experience consistent across the home page,
+   explorer, payment plans, residences, media and editorial routes. */
+:root {
+  --ui-border: rgba(22, 52, 115, 0.14);
+  --ui-border-strong: rgba(22, 52, 115, 0.24);
+  --ui-shadow: 0 18px 44px rgba(22, 52, 115, 0.1);
+  --ui-shadow-hover: 0 24px 56px rgba(22, 52, 115, 0.16);
+}
+
+::selection {
+  background: var(--accent-soft);
+  color: var(--navy-deep);
+}
+
+body {
+  overflow-x: hidden;
+  background:
+    radial-gradient(circle at 10% 8%, rgba(54, 148, 207, 0.05), transparent 28rem),
+    var(--page);
+}
+
+img,
+video {
+  max-width: 100%;
+}
+
+.container {
+  width: min(var(--container), calc(100% - clamp(32px, 6vw, 96px)));
+}
+
+.section {
+  padding-block: clamp(72px, 9vw, 132px);
+}
+
+.sectionHeading {
+  margin-bottom: clamp(30px, 5vw, 58px);
+}
+
+.sectionHeading h2 {
+  max-width: 760px;
+  text-wrap: balance;
+}
+
+.sectionNote,
+.sectionHeading p {
+  max-width: 620px;
+  line-height: 1.75;
+}
+
+:is(a, button, summary, input, select, textarea):focus-visible {
+  outline: 3px solid rgba(54, 148, 207, 0.72);
+  outline-offset: 4px;
+}
+
+/* Header and navigation */
+.siteHeader {
+  background: rgba(244, 245, 248, 0.88);
+  border-bottom-color: rgba(22, 52, 115, 0.12);
+  box-shadow: 0 8px 30px rgba(22, 52, 115, 0.05);
+}
+
+.navRow {
+  min-height: clamp(68px, 6vw, 82px);
+}
+
+.brand {
+  letter-spacing: 0.14em;
+}
+
+.brandMark {
+  width: 38px;
+  height: 38px;
+  border-width: 1.5px;
+  box-shadow: inset 0 0 0 4px rgba(54, 148, 207, 0.08);
+}
+
+.navLinks {
+  gap: clamp(16px, 2.4vw, 30px);
+}
+
+.navLinks a:not(.navCta),
+.navMenuTrigger {
+  position: relative;
+  min-height: 42px;
+  align-items: center;
+  display: inline-flex;
+}
+
+.navLinks a:not(.navCta)::after,
+.navMenuTrigger::after {
+  position: absolute;
+  right: 0;
+  bottom: 5px;
+  left: 0;
+  height: 2px;
+  background: var(--accent-soft);
+  content: '';
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--motion-fast);
+}
+
+.navLinks a:not(.navCta):hover::after,
+.navLinks a:not(.navCta):focus-visible::after,
+.navMenuTrigger:hover::after,
+.navMenu.isOpen .navMenuTrigger::after {
+  transform: scaleX(1);
+}
+
+.navCta,
+.button {
+  transition: transform var(--motion-fast), box-shadow var(--motion-fast), background var(--motion-fast), border-color var(--motion-fast), color var(--motion-fast);
+}
+
+.navCta:hover,
+.button:hover {
+  box-shadow: 0 12px 24px rgba(22, 52, 115, 0.16);
+  transform: translateY(-2px);
+}
+
+.navCta:active,
+.button:active {
+  transform: translateY(0);
+}
+
+.navMegaInner {
+  border-color: var(--ui-border);
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
+  box-shadow: var(--ui-shadow-hover);
+}
+
+/* Shared surfaces and card hierarchy */
+:is(.propertyCard, .paymentPanel, .paymentPlanCard, .spaceCard, .wpGalleryCard, .wpNewsCard, .wpFeatureCard, .teamCard, .contactCard, .brochureCard, .factGrid li, .stepsGrid li, .nearbyLandmarks li) {
+  border-color: var(--ui-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-soft);
+  transition: border-color var(--motion-fast), box-shadow var(--motion-fast), transform var(--motion-fast);
+}
+
+:is(.propertyCard, .paymentPlanCard, .spaceCard, .wpGalleryCard, .wpNewsCard, .wpFeatureCard, .teamCard, .contactCard, .brochureCard, .factGrid li, .stepsGrid li, .nearbyLandmarks li):hover {
+  border-color: var(--ui-border-strong);
+  box-shadow: var(--ui-shadow);
+  transform: translateY(-3px);
+}
+
+.propertyCardVisual,
+.spaceImage,
+.wpGalleryImage,
+.articleCover {
+  background: linear-gradient(135deg, var(--soft), #dce5f0);
+}
+
+.propertyCardBody,
+.spaceBody,
+.wpGalleryCard > div:last-child,
+.wpNewsCard {
+  padding: clamp(20px, 2.4vw, 30px);
+}
+
+.propertyCard h3,
+.spaceBody h3,
+.wpGalleryCard h3,
+.wpNewsCard h2 {
+  text-wrap: balance;
+}
+
+/* Home and inner-page heroes */
+:is(.heroCinema, .hero, .wpInternalHero, .paymentHero, .mediaHero, .trustHero, .finderPageHero, .explorerHero) {
+  isolation: isolate;
+}
+
+:is(.heroCinema, .hero, .wpInternalHero, .paymentHero, .mediaHero, .trustHero, .finderPageHero, .explorerHero) h1 {
+  max-width: 900px;
+  text-wrap: balance;
+}
+
+.heroCinemaInner,
+.wpInternalHeroGrid,
+.paymentHeroGrid {
+  gap: clamp(28px, 5vw, 76px);
+}
+
+.heroCinemaFoot {
+  border-top-color: rgba(255, 255, 255, 0.2);
+}
+
+.heroCinema .button.primary,
+.paymentHero .button.primary,
+.wpInternalHero .button.primary {
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.16);
+}
+
+/* Compact payment-plan router on the home page */
+.paymentRouterSection {
+  position: relative;
+  overflow: visible;
+  background: linear-gradient(180deg, #eef2f7 0%, var(--page) 100%);
+  border-top: 0;
+}
+
+.paymentRouter {
+  padding: clamp(24px, 4vw, 46px);
+  border: 1px solid var(--ui-border);
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.78);
+  box-shadow: var(--ui-shadow);
+}
+
+.paymentRouterDropdown summary {
+  min-height: 58px;
+  border-color: var(--ui-border-strong);
+  border-radius: var(--radius-sm);
+  box-shadow: 0 6px 16px rgba(22, 52, 115, 0.06);
+}
+
+.paymentRouterDropdown summary:hover {
+  border-color: var(--accent);
+  background: #fbfcfe;
+}
+
+.paymentRouterMenu {
+  border-color: var(--ui-border-strong);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--ui-shadow-hover);
+}
+
+.paymentRouterMenu a {
+  border-radius: var(--radius-sm);
+  transition: background var(--motion-fast), padding var(--motion-fast), color var(--motion-fast);
+}
+
+.paymentRouterMenu a:hover {
+  padding-left: 16px;
+}
+
+/* Payment workspace and tables */
+.paymentWorkspace,
+.paymentPlanList {
+  scroll-margin-top: calc(var(--header-h) + 24px);
+}
+
+.paymentCategoryBar {
+  position: sticky;
+  top: calc(var(--header-h) + 12px);
+  z-index: 5;
+  padding: 8px;
+  border: 1px solid var(--ui-border);
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: var(--shadow-soft);
+  backdrop-filter: blur(12px);
+}
+
+.paymentCategoryBar button {
+  min-height: 44px;
+  border-radius: var(--radius-sm);
+}
+
+.paymentCategoryBar button[aria-selected='true'] {
+  box-shadow: 0 8px 16px rgba(22, 52, 115, 0.14);
+}
+
+.paymentPlanCardHeader {
+  padding: 24px;
+  background: linear-gradient(135deg, #f9fbfd, #eef2f7);
+}
+
+.paymentTableWrap,
+.paymentTableSwipe {
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
+}
+
+.paymentPlanCard table tr {
+  transition: background var(--motion-fast);
+}
+
+.paymentPlanCard tbody tr:hover {
+  background: rgba(54, 148, 207, 0.06);
+}
+
+/* Building explorer */
+.bxLayout {
+  gap: clamp(24px, 4vw, 54px);
+}
+
+.bxElevation {
+  position: sticky;
+  top: calc(var(--header-h) + 24px);
+  box-shadow: var(--ui-shadow);
+}
+
+.bxLevel {
+  min-height: 58px;
+  border-color: rgba(255, 255, 255, 0.22);
+}
+
+.bxLevel:hover,
+.bxLevel:focus-visible {
+  border-color: rgba(255, 255, 255, 0.55);
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.bxLevel.isActive {
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.16);
+}
+
+.bxPanel {
+  padding: clamp(22px, 3vw, 36px);
+  border: 1px solid var(--ui-border);
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.76);
+  box-shadow: var(--shadow-soft);
+}
+
+.bxPlan {
+  border-color: var(--ui-border-strong);
+  box-shadow: var(--shadow-soft);
+}
+
+.bxUnits a {
+  padding: 16px 8px;
+  border-radius: var(--radius-sm);
+}
+
+.bxUnits a:hover {
+  padding-inline: 14px;
+  background: #eef4fa;
+}
+
+/* Forms, tabs and frequently used controls */
+:is(input, select, textarea) {
+  border-color: var(--ui-border-strong);
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.92);
+  transition: border-color var(--motion-fast), box-shadow var(--motion-fast), background var(--motion-fast);
+}
+
+:is(input, select, textarea):hover {
+  border-color: var(--accent);
+}
+
+:is(input, select, textarea):focus {
+  border-color: var(--accent-soft);
+  box-shadow: 0 0 0 4px rgba(54, 148, 207, 0.12);
+}
+
+.wpFloorTabs button::after {
+  content: '+';
+  color: var(--accent);
+  font-size: 18px;
+  font-weight: 400;
+}
+
+.wpFloorTabs button:hover,
+.wpFloorTabs button.isActive {
+  padding-left: 16px;
+  color: var(--accent);
+}
+
+.wpAmenitiesList li {
+  min-height: 76px;
+}
+
+/* Footer and floating actions */
+.footer,
+.siteFooter {
+  position: relative;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footerLinks a,
+.siteFooter a {
+  transition: color var(--motion-fast), opacity var(--motion-fast);
+}
+
+.footerLinks a:hover,
+.siteFooter a:hover {
+  opacity: 1;
+  color: var(--accent-soft);
+}
+
+/* Mobile layout: reduce density without removing the visual system. */
+@media (max-width: 900px) {
+  .section {
+    padding-block: 72px;
+  }
+
+  .bxElevation {
+    position: static;
+  }
+
+  .paymentCategoryBar {
+    position: static;
+    overflow-x: auto;
+    display: flex;
+    scrollbar-width: thin;
+  }
+
+  .paymentCategoryBar button {
+    flex: 0 0 auto;
+  }
+}
+
+@media (max-width: 760px) {
+  .container {
+    width: min(var(--container), calc(100% - 32px));
+  }
+
+  .section {
+    padding-block: 56px;
+  }
+
+  .paymentRouter {
+    padding: 22px 18px;
+  }
+
+  .navCta,
+  .button {
+    min-height: 46px;
+    padding-inline: 18px;
+  }
+}
+
+@media (max-width: 560px) {
+  .brand {
+    gap: 8px;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+  }
+
+  .brandMark {
+    width: 34px;
+    height: 34px;
+  }
+
+  .paymentRouterMenu a {
+    align-items: flex-start;
+  }
+
+  .paymentRouterMenu a > span:last-child {
+    display: none;
+  }
+
+  .bxPanel {
+    padding: 20px 16px;
+  }
+
+  .bxUnits a {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .bxUnitPrice {
+    text-align: left;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .navCta:hover,
+  .button:hover,
+  :is(.propertyCard, .paymentPlanCard, .spaceCard, .wpGalleryCard, .wpNewsCard, .wpFeatureCard, .teamCard, .contactCard, .brochureCard, .factGrid li, .stepsGrid li, .nearbyLandmarks li):hover {
+    transform: none;
+  }
+}
